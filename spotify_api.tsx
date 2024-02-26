@@ -1,5 +1,5 @@
 export const auth_endpoint = "https://accounts.spotify.com/authorize";
-export const redirect_url = "https://https://changeyourmood.vercel.app/authorized";
+export const redirect_url = "https://changeyourmood.vercel.app/authorized";
 const CLIENT_ID = "46bf5602e0f949babda734101dc3a3f0";
 const scopes = [
     "user-read-currently-playing",
