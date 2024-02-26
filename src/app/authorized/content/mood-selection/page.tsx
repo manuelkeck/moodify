@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export default function Page() {
+export default function Mood-Page() {
     const [name, setName] = useState("User")
 
     return (
