@@ -3,9 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { useState, useEffect } from "react";
 import { login_url } from "../../spotify_api";
-import {debuglog} from "node:util";
 
 
 function Home() {
@@ -41,7 +39,7 @@ function Home() {
 
             <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-2 lg:text-left">
                 <Link
-                    href="/content/mood-selection/"
+                    href="/authorized/content/mood-selection/"
                     className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
                     target="_parent"
                     rel="noopener noreferrer"
