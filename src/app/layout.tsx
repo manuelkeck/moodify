@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
       <html lang="en">
-        <body>
-          <div className="grid min-h-140 w-full place-items-center rounded-lg lg:overflow-visible">
+        <body className="overflow-hidden flex flex-col min-h-screen bg-black">
+          <div className="">
             <nav
                 className="sticky top-0 z-10 block w-full max-w-full px-4 py-2 text-white bg-black rounded-none shadow-md h-max backdrop-blur-2xl backdrop-saturate-200 lg:px-8 lg:py-4">
               <div className="flex items-center justify-between text-blue-gray-900">
@@ -53,12 +53,10 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
                 </div>
               </div>
             </nav>
-            <main>
-              <div className="bg-amber-500">
+            <main className="flex-grow overflow-y-auto">
                 {children}
-              </div>
             </main>
-            <div className="w-full bg-black text-gray-500 px-4 py-2 lg:px-8 lg:py-4 flex items-center justify-center">
+            <div className="w-full text-gray-500 px-4 py-2 lg:px-8 lg:py-4 flex items-center justify-center bg-black">
             <p>&copy; Copyright 2024 Manuel Keck</p>
           </div>
         </div>
