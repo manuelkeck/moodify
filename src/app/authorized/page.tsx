@@ -6,12 +6,12 @@ import {useEffect, useState} from "react";
 
 const spotify = new SpotifyWebApi();
 
-export default function Page() {
+export default function AuthorizedPage() {
     const [spotifyToken, setSpotifyToken] = useState("")
     const [name, setName] = useState<string | undefined>("User");
 
     useEffect(() => {
-        console.log("From the URL: ", get_token_from_url());
+        // console.log("From the URL: ", get_token_from_url());
         // spotify token
         const _spotify_token = get_token_from_url().access_token;
         // delete token from URI
@@ -22,7 +22,7 @@ export default function Page() {
             spotify.setAccessToken(_spotify_token)
 
             spotify.getMe().then((user) => {
-                console.log("This is you: ", user)
+                // console.log("This is you: ", user.display_name)
                 setName(user.display_name)
             });
         }
