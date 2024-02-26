@@ -52,7 +52,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
           </div>
           </nav>
           <div className="bg-amber-500">
-            {children}
+            {/*{children}*/}
           </div>
         <div className="w-full bg-black text-gray-500 px-4 py-2 lg:px-8 lg:py-4 flex items-center justify-center">
           <p>&copy; Copyright 2024 Manuel Keck</p>
