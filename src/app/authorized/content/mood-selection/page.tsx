@@ -31,7 +31,7 @@ export default function MoodSelectionPage() {
                     <div className="flex flex-col justify-center items-center text-4xl font-extralight">
                         <div>
                             <p className="text-left">Hi {name}!</p>
-                            <p className="text-left">How are you today?</p>
+                            <p className="text-left">How are you doing today?</p>
                         </div>
                     </div>
                 </div>
