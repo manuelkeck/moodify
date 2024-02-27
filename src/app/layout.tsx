@@ -55,7 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       </div>
                   </main>
 
-                  <footer className="bg-black text-white text-center text-gray-500 py-4 px-6">
+                  <footer className="bg-black text-center text-gray-500 py-4 px-6">
                       &copy; Copyright 2024 Manuel Keck
                   </footer>
 
