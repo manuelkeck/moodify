@@ -33,11 +33,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                               Home
                                           </a>
                                       </li>
-                                      <li className="block p-1 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                                          <Link href="/authorized/content/mood-selection/" className="flex items-center">
-                                              Mood
-                                          </Link>
-                                      </li>
+                                      {/*<li className="block p-1 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">*/}
+                                      {/*    <Link href="/authorized/content/mood-selection/" className="flex items-center">*/}
+                                      {/*        Mood*/}
+                                      {/*    </Link>*/}
+                                      {/*</li>*/}
                                       <li className="block p-1 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
                                           <a href="#" className="flex items-center">
                                               About
