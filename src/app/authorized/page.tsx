@@ -37,7 +37,7 @@ export default function AuthorizedPage() {
 
     return (
         <div
-            className="text-white bg-black text-2xl font-extralight flex flex-col items-center justify-center pt-80 pb-80">
+            className="text-white bg-black text-2xl font-extralight flex flex-col items-center justify-center">
             <div className="text-4xl mb-4">
                 <p>Logged in as {name}.</p>
             </div>
