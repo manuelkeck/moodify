@@ -20,15 +20,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className="flex flex-col h-screen justify-between">
 
                   <header className="bg-black text-white sticky top-0 z-10">
-                      <nav className="lg:px-8 lg:py-4">
+                      <nav className="px-4 py-2">
                           <div className="flex items-center justify-between text-blue-gray-900">
                               <a href="/"
-                                 className="mr-4 block cursor-pointer py-1.5 font-sans text-base font-medium leading-relaxed text-inherit antialiased text-white">
+                                 className="mr-4 block cursor-pointer font-sans text-white">
                                   Moodify
                               </a>
-                              <div className="hidden mr-4 lg:block">
-                                  <ul className="flex flex-col gap-2 mt-2 mb-4 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-                                      <li className="block p-1 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                              <div className="">
+                                  <ul className="flex gap-2 mt-2 mb-2 lg:flex-row lg:items-center">
+                                      <li className="block p-1 font-sans font-normal text-blue-gray-900">
                                           <a href="/" className="flex items-center">
                                               Home
                                           </a>
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                       {/*        Mood*/}
                                       {/*    </Link>*/}
                                       {/*</li>*/}
-                                      <li className="block p-1 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                                      <li className="block p-1 font-sans antialiased font-normal leading-normal text-blue-gray-900">
                                           <a href="#" className="flex items-center">
                                               About
                                           </a>
