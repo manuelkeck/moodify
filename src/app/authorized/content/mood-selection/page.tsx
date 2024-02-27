@@ -38,49 +38,49 @@ export default function MoodSelectionPage() {
                 <div className="w-2/3 p-4">
                     <div className="flex flex-col justify-center items-center">
                         <p className="text-left">[Mood selection]</p>
-                        {/*<div className="bg-green-700">*/}
-                        {/*    <label>*/}
-                        {/*        <input*/}
-                        {/*            type="checkbox"*/}
-                        {/*            checked={selectedMood === 'Option 1'}*/}
-                        {/*            onChange={() => handleCheckboxChange('Option 1')}*/}
+                        <div className="bg-green-700">
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    checked={selectedMood === 'Option 1'}
+                                    onChange={() => handleCheckboxChange('Option 1')}
 
-                        {/*        />*/}
-                        {/*        <span className="checkbox"></span> Option 1*/}
-                        {/*    </label>*/}
-                        {/*    < br/>*/}
-                        {/*    <label>*/}
-                        {/*        <input*/}
-                        {/*            type="checkbox"*/}
-                        {/*            checked={selectedMood === 'Option 2'}*/}
-                        {/*            onChange={() => handleCheckboxChange('Option 2')}*/}
+                                />
+                                <span className="checkbox"></span> Option 1
+                            </label>
+                            < br/>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    checked={selectedMood === 'Option 2'}
+                                    onChange={() => handleCheckboxChange('Option 2')}
 
-                        {/*        />*/}
-                        {/*        <span className="checkbox"></span> Option 2*/}
-                        {/*    </label>*/}
-                        {/*    < br/>*/}
-                        {/*    <label>*/}
-                        {/*        <input*/}
-                        {/*            type="checkbox"*/}
-                        {/*            checked={selectedMood === 'Option 3'}*/}
-                        {/*            onChange={() => handleCheckboxChange('Option 3')}*/}
+                                />
+                                <span className="checkbox"></span> Option 2
+                            </label>
+                            < br/>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    checked={selectedMood === 'Option 3'}
+                                    onChange={() => handleCheckboxChange('Option 3')}
 
-                        {/*        />*/}
-                        {/*        <span className="checkbox"></span> Option 3*/}
-                        {/*    </label>*/}
-                        {/*    < br/>*/}
-                        {/*    <label>*/}
-                        {/*        <input*/}
-                        {/*            type="checkbox"*/}
-                        {/*            checked={selectedMood === 'Option 4'}*/}
-                        {/*            onChange={() => handleCheckboxChange('Option 4')}*/}
+                                />
+                                <span className="checkbox"></span> Option 3
+                            </label>
+                            < br/>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    checked={selectedMood === 'Option 4'}
+                                    onChange={() => handleCheckboxChange('Option 4')}
 
-                        {/*        />*/}
-                        {/*        <span className="checkbox"></span> Option 4*/}
-                        {/*    </label>*/}
+                                />
+                                <span className="checkbox"></span> Option 4
+                            </label>
 
 
-                        {/*</div>*/}
+                        </div>
 
                     </div>
                 </div>
