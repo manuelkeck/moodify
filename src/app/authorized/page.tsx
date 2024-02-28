@@ -4,19 +4,24 @@ import {get_token_from_url, login_url} from "../../../spotify_api";
 import SpotifyWebApi from "spotify-web-api-js";
 import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
+import { useRouter } from "next/router";
+
 
 const spotify = new SpotifyWebApi();
 
 export default function AuthorizedPage() {
     const [spotifyToken, setSpotifyToken] = useState("");
     const [name, setName] = useState<string | undefined>("User");
-    const [cookies, setCookies] = useCookies(['spotifyToken', 'user']);
+    const [cookies, setCookies] = useCookies(['spotifyToken', 'user', 'sessionExpiry']);
     const [topMessage, setTopMessage] = useState("Permission denied.");
     const [infoMessage, setInfoMessage] = useState("Request permissions: manuel.keck@student.reutlingen-university.de");
     const [continueButton, setContinueButton] = useState(false);
+    const [sessionExpired, setSessionExpired] = useState(false);
+    const _spotify_token = get_token_from_url().access_token;
 
     useEffect(() => {
-        const _spotify_token = get_token_from_url().access_token;
+        const sessionExpiryTime = cookies.sessionExpiry;
+        const currentTime = Date.now();
         window.location.hash = "";
 
         if (_spotify_token) {
@@ -34,6 +39,7 @@ export default function AuthorizedPage() {
             // Cookies
             setCookies('user', name, {path: '/'});
             setCookies('spotifyToken', spotifyToken, {path: '/'});
+
             let tmp_msg = "Logged in as ";
             let tmp_msg_concat = ""
             if (name != null) {
@@ -42,12 +48,16 @@ export default function AuthorizedPage() {
             setTopMessage(tmp_msg_concat);
             setInfoMessage("Spotify authorized successfully.");
             setContinueButton(true);
-            console.log("Known user detected.")
+            console.log("Known user detected.");
         } else {
-            console.log("No valid user detected. Permissions needed to use this spotify account.")
+            console.log("No valid user detected. Permissions needed to use this spotify account.");
         }
 
-    }, [setCookies, spotifyToken, name]);
+        if (sessionExpiryTime && currentTime > sessionExpiryTime) {
+            setSessionExpired(true);
+        }
+
+    }, [setCookies, spotifyToken, name, cookies.sessionExpiry, _spotify_token, sessionExpired]);
 
     return (
         <div

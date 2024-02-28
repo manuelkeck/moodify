@@ -29,7 +29,7 @@ export default function MoodSelectionPage() {
     return (
         <div className="text-center items-center justify-center w-full">
             <div className="flex-col justify-center text-center items-center text-white">
-                <div className="p-4">
+                <div className="">
                     <div className="flex justify-center items-center text-4xl font-extralight">
                         <div>
                             <p className="">Hi {name}!</p>
