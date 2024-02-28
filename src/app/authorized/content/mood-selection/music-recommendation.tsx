@@ -1,35 +1,55 @@
 import {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
+import Image from "next/image";
+
+interface Item {
+    external_urls: {
+        spotify: string;
+    };
+    name: string;
+    images: {
+        url: string;
+        width: number;
+        height: number;
+    }[];
+}
 
 function MusicRecommendation () {
     const [spotifyToken, setSpotifyToken] = useState("");
     const [name, setName] = useState("unknown user");
     const [selectedMood, setSelectedMood] = useState<string | null>(null);
-
+    const [data, setData] = useState<{ items: Item[] } | null>(null);
     const [cookies] = useCookies(['spotifyToken', 'user']);
 
     useEffect(() => {
         setSpotifyToken(cookies.spotifyToken || "");
         setName(cookies.user || "unknown user")
+    }, [cookies.user, cookies.spotifyToken]);
 
+    useEffect(() => {
         if (spotifyToken) {
-            fetchProfile(spotifyToken)
-                .then((recommendationData) => {
-                    console.log('Recommendations:', recommendationData);
+            fetchData(spotifyToken)
+                .then((data) => {
+                    setData(data);
+                    console.log('Data:', data);
+                    console.log("Name 1: ", data.items[0].name);
+                    console.log("Name 2: ", data.items[1].name);
+                    console.log("Name 3: ", data.items[2].name);
                 })
                 .catch((error) => {
-                    console.error('Fehler beim Abrufen des Benutzerprofils:', error);
+                    console.error('Error while fetching data:', error);
                 });
         }
-    }, [spotifyToken, cookies.user, cookies.spotifyToken]);
+    }, [spotifyToken]);
 
-    async function fetchProfile(accessToken: string): Promise<any> {
+    async function fetchData(accessToken: string): Promise<any> {
         try {
-            const response = await fetch("https://api.spotify.com/v1/me/player/recently-played", {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                }
-            });
+            const response = await fetch(
+                "https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10", {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                });
 
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -43,11 +63,22 @@ function MusicRecommendation () {
     }
 
     return(
-        <div>
-            <p>Music recommendations</p>
-            <p>For {name}</p>
+        <div className="flex-col">
+            {data !== null && data.items.map((item, index) => (
+                    <div key={index} className="inline-block text-center m-10 bg-gray-800 shadow-lg p-6 rounded-lg">
+                        <a href={item.external_urls.spotify} target="_blank" rel="noopener noreferrer">
+                            <p className="mb-5">{index+1}. {item.name}</p>
+                            <div className="flex justify-center items-center">
+                                <img src={item.images[1].url} alt="Artist cover"
+                                     width={item.images[1].width}
+                                     height={item.images[1].height}/>
+                            </div>
+                        </a>
+                    </div>
+            ))}
+
         </div>
-    )
+    );
 }
 
 export default MusicRecommendation

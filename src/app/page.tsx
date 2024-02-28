@@ -11,7 +11,7 @@ function Home() {
     const [cookies] = useCookies(['spotifyToken']);
     const hasSession = cookies.spotifyToken !== undefined;
     const [loginButton, setLoginButton] = useState(true);
-    const [message, setMessage] = useState("You need to login with your Spotify Premium account.")
+    const [message, setMessage] = useState("You need to login with your Spotify Premium account.");
 
     console.log("Session: ", hasSession)
 
