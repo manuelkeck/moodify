@@ -1,37 +1,56 @@
-import SpotifyWebApi from "spotify-web-api-js";
-import React from "react";
+import React, { useState } from "react";
+import Image from "next/image";
 
-const spotify = new SpotifyWebApi();
+function MoodComponent() {
+    const [selectedMood, setSelectedMood] = useState<number | null>(null);
 
-function APIRequests() {
+    const handleMoodClick = (index: number) => {
+        setSelectedMood(index);
+    };
 
-}
-
-interface MoodComponentProps {
-    mood: number;
-}
-
-const MoodComponent: React.FC<MoodComponentProps> = ({mood}) => {
     return (
-        <div>
-            {mood === 1 && (
-                <div>
-                    <p>Mood 1</p>
+        <div className="flex justify-center">
+            <div className="flex-1 mx-5">
+                <div
+                    className={`inline-block text-center text-base bg-gray-900 shadow-lg p-4 rounded-lg cursor-pointer ${
+                        selectedMood === 0 ? "border-green-500 border-4" : ""
+                    }`}
+                    onClick={() => handleMoodClick(0)}
+                >
+                    <div className="flex justify-center px-4 items-center">
+                        <Image src="/face-with-symbols-on-mouth_1f92c.png" alt="Image of an emotion" width={50} height={50} />
+                    </div>
+                    <p className="pt-2">Angry</p>
                 </div>
-            )}
-            {mood === 2 && (
-                <div>
-                    <p>Mood 2</p>
+            </div>
+            <div className="flex-1 mx-5">
+                <div
+                    className={`inline-block text-center text-base bg-gray-900 shadow-lg p-4 rounded-lg cursor-pointer ${
+                        selectedMood === 1 ? "border-green-500 border-4" : ""
+                    }`}
+                    onClick={() => handleMoodClick(1)}
+                >
+                    <div className="flex justify-center px-4 items-center">
+                        <Image src="/disappointed-face_1f61e.png" alt="Image of an emotion" width={50} height={50} />
+                    </div>
+                    <p className="pt-2">Sad</p>
                 </div>
-            )}
-            {mood === 3 && (
-                <div>
-                    <p>Mood 3</p>
+            </div>
+            <div className="flex-1 mx-5">
+                <div
+                    className={`inline-block text-center text-base bg-gray-900 shadow-lg p-4 rounded-lg cursor-pointer ${
+                        selectedMood === 2 ? "border-green-500 border-4" : ""
+                    }`}
+                    onClick={() => handleMoodClick(2)}
+                >
+                    <div className="flex justify-center px-4 items-center">
+                        <Image src="/sleeping-face_1f634.png" alt="Image of an emotion" width={50} height={50} />
+                    </div>
+                    <p className="pt-2">Sleepy</p>
                 </div>
-            )}
+            </div>
         </div>
     );
-
 }
 
 export default MoodComponent;

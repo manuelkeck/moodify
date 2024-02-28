@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
-import Image from "next/image";
 
 interface Item {
     external_urls: {
@@ -62,16 +61,17 @@ function MusicRecommendation () {
     return(
         <div className="flex-col">
             {data !== null && data.items.map((item, index) => (
-                    <div key={index} className="inline-block text-center m-10 bg-gray-900 shadow-lg p-6 rounded-lg">
-                        <a href={item.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-                            <p className="mb-5">{index+1}. {item.name}</p>
-                            <div className="flex justify-center items-center">
-                                <img src={item.images[1].url} alt="Artist cover"
-                                     width={item.images[1].width}
-                                     height={item.images[1].height}/>
-                            </div>
-                        </a>
-                    </div>
+                <div key={index} className="inline-block text-center m-10 bg-gray-900 shadow-lg p-6 rounded-lg">
+                    <a href={item.external_urls.spotify} target="_blank" rel="noopener noreferrer">
+                        <p className="mb-5">{index+1}. {item.name}</p>
+                        <div className="flex justify-center items-center">
+                            <img src={item.images[2].url} alt="Artist cover"
+                                 width={item.images[2].width}
+                                 height={item.images[2].height}
+                            />
+                        </div>
+                    </a>
+                </div>
             ))}
         </div>
     );

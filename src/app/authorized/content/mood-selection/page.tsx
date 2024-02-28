@@ -3,6 +3,7 @@
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
 import MusicRecommendation from "@/app/authorized/content/mood-selection/music-recommendation";
+import MoodComponent from "@/app/authorized/content/mood-selection/mood-component";
 
 export default function MoodSelectionPage() {
     const [spotifyToken, setSpotifyToken] = useState("");
@@ -32,13 +33,15 @@ export default function MoodSelectionPage() {
                     <div className="flex justify-center items-center text-4xl font-extralight">
                         <div>
                             <p className="">Hi {name}!</p>
+
+                            <div className="mt-10 mb-20">
+                                <p className="mb-10">How are you doing today?</p>
+                                <MoodComponent />
+                            </div>
+
                             <p className="">Here are your top artists!</p>
                         </div>
                     </div>
-                </div>
-                <div className="p-4">
-
-
                 </div>
             </div>
             <div className="w-full">
