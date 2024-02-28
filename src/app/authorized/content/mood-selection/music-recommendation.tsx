@@ -31,10 +31,7 @@ function MusicRecommendation () {
             fetchData(spotifyToken)
                 .then((data) => {
                     setData(data);
-                    console.log('Data:', data);
-                    console.log("Name 1: ", data.items[0].name);
-                    console.log("Name 2: ", data.items[1].name);
-                    console.log("Name 3: ", data.items[2].name);
+                    // console.log('Data:', data);
                 })
                 .catch((error) => {
                     console.error('Error while fetching data:', error);
@@ -65,7 +62,7 @@ function MusicRecommendation () {
     return(
         <div className="flex-col">
             {data !== null && data.items.map((item, index) => (
-                    <div key={index} className="inline-block text-center m-10 bg-gray-800 shadow-lg p-6 rounded-lg">
+                    <div key={index} className="inline-block text-center m-10 bg-gray-900 shadow-lg p-6 rounded-lg">
                         <a href={item.external_urls.spotify} target="_blank" rel="noopener noreferrer">
                             <p className="mb-5">{index+1}. {item.name}</p>
                             <div className="flex justify-center items-center">
@@ -76,7 +73,6 @@ function MusicRecommendation () {
                         </a>
                     </div>
             ))}
-
         </div>
     );
 }
