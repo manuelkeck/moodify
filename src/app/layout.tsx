@@ -17,9 +17,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
       <html lang="en" className="">
           <body className="">
-              <div className="flex flex-col h-screen justify-between">
+              <div className="flex flex-col h-screen justify-between bg-black">
 
-                  <header className="bg-black text-white sticky top-0 z-10">
+                  <header className="bg-black opacity-85 text-white sticky top-0 z-10">
                       <nav className="px-4 py-2">
                           <div className="flex items-center justify-between text-blue-gray-900">
                               <a href="/"
