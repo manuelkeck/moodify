@@ -18,7 +18,13 @@ export default function MoodSelectionPage() {
             setName("Babe" || "unknown user");
         }
         if (cookies.user === "sigfyy") {
-            setName("Mr. Artur" || "unknown user");
+            setName("Artur" || "unknown user");
+        }
+        if (cookies.user === "päd-0307") {
+            setName("Pat" || "unknown user");
+        }
+        if (cookies.user === "ibot_hcs") {
+            setName("Tobi" || "unknown user");
         }
         else {
             setName(cookies.user || "unknown user");
