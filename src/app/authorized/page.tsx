@@ -4,7 +4,6 @@ import {get_token_from_url, login_url} from "../../../spotify_api";
 import SpotifyWebApi from "spotify-web-api-js";
 import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
-import { useRouter } from "next/router";
 
 
 const spotify = new SpotifyWebApi();
@@ -12,11 +11,10 @@ const spotify = new SpotifyWebApi();
 export default function AuthorizedPage() {
     const [spotifyToken, setSpotifyToken] = useState("");
     const [name, setName] = useState<string | undefined>("User");
-    const [cookies, setCookies] = useCookies(['spotifyToken', 'user', 'sessionExpiry']);
+    const [cookies, setCookie] = useCookies(['spotifyToken', 'user', 'sessionExpiry']);
     const [topMessage, setTopMessage] = useState("Permission denied.");
     const [infoMessage, setInfoMessage] = useState("Request permissions: manuel.keck@student.reutlingen-university.de");
     const [continueButton, setContinueButton] = useState(false);
-    const [sessionExpired, setSessionExpired] = useState(false);
     const _spotify_token = get_token_from_url().access_token;
 
     useEffect(() => {
@@ -37,8 +35,8 @@ export default function AuthorizedPage() {
         if (name !== 'User') {
             console.log("User: ", name);
             // Cookies
-            setCookies('user', name, {path: '/'});
-            setCookies('spotifyToken', spotifyToken, {path: '/'});
+            setCookie('user', name, {path: '/'});
+            setCookie('spotifyToken', spotifyToken, {path: '/'});
 
             let tmp_msg = "Logged in as ";
             let tmp_msg_concat = ""
@@ -53,11 +51,7 @@ export default function AuthorizedPage() {
             console.log("No valid user detected. Permissions needed to use this spotify account.");
         }
 
-        if (sessionExpiryTime && currentTime > sessionExpiryTime) {
-            setSessionExpired(true);
-        }
-
-    }, [setCookies, spotifyToken, name, cookies.sessionExpiry, _spotify_token, sessionExpired]);
+    }, [setCookie, spotifyToken, name, _spotify_token]);
 
     return (
         <div
@@ -80,7 +74,6 @@ export default function AuthorizedPage() {
                 </div>
             )
             }
-
         </div>
     );
 }

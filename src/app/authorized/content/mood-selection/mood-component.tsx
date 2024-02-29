@@ -44,7 +44,7 @@ function MoodComponent() {
                     onClick={() => handleMoodClick(2)}
                 >
                     <div className="flex justify-center px-4 items-center">
-                        <Image src="/sleeping-face_1f634.png" alt="Image of an emotion" width={50} height={50} layout="fixed"/>
+                        <Image src="/sleeping-face_1f634.png" alt="Image of an emotion" width={50} height={50} />
                     </div>
                     <p className="pt-2">Sleepy</p>
                 </div>

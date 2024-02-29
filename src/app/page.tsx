@@ -1,11 +1,9 @@
 'use client'
 
 import Image from "next/image";
-import Link from "next/link";
 import React, {useEffect, useState} from "react";
 import { login_url } from "../../spotify_api";
 import {useCookies} from "react-cookie";
-import {useRouter} from "next/router";
 
 
 function Home() {
@@ -13,7 +11,6 @@ function Home() {
     const hasSession = cookies.spotifyToken !== undefined;
     const [loginButton, setLoginButton] = useState(true);
     const [message, setMessage] = useState("You need to login with your Spotify Premium account.");
-    const router = useRouter()
 
     console.log("Session: ", hasSession)
 
