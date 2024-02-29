@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import {useRouter} from "next/navigation";
 import SessionExpiredPopupComponent from "@/app/authorized/session-expired-popup-component";
@@ -72,12 +72,17 @@ function RecommendationComponent () {
     };
 
     return(
-        <div className="flex-col">
-            {showPopup && (
-                <SessionExpiredPopupComponent />
-            )}
-            <div>
-                <p>Music recommendation</p>
+        <div className="text-2xl font-extralight">
+            <p className="mb-10">Listen to this song!</p>
+            <div className="flex flex-wrap justify-center">
+                <div className="flex-col">
+                    {showPopup && (
+                        <SessionExpiredPopupComponent />
+                    )}
+                    <div>
+                        <p>[ Music recommendation ]</p>
+                    </div>
+                </div>
             </div>
         </div>
     );

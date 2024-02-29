@@ -34,7 +34,6 @@ export default function MoodSelectionPage() {
                         <div>
                             <p className="lg:text-4xl">Hi {name}!</p>
                             <div className="mt-10 mb-20">
-                                <p className="mb-10">How are you doing today?</p>
                                 <MoodComponent />
                             </div>
                         </div>
