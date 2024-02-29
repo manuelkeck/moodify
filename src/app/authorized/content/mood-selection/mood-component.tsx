@@ -4,7 +4,7 @@ import Image from "next/image";
 function MoodComponent() {
     const [selectedMood, setSelectedMood] = useState<number | null>(null);
     const [message, setMessage] = useState("How are you doing today?");
-    const [defaultAppearance] = useState("inline-block text-center border-2 border-gray-900 text-base bg-gray-900 shadow-lg p-4 rounded-lg cursor-pointer");
+    const [defaultAppearance] = useState("inline-block text-center border-2 border-gray-900 text-base bg-gray-900 shadow-lg m-1 p-4 rounded-lg cursor-pointer");
     const [selectedAppearance] = useState("inline-block text-center border-2 border-gray-700 text-base bg-gray-800 shadow-lg p-4 rounded-lg cursor-pointer")
     const [appearanceMood1, setAppearanceMood1] = useState(defaultAppearance);
     const [appearanceMood2, setAppearanceMood2] = useState(defaultAppearance);
@@ -57,7 +57,7 @@ function MoodComponent() {
         <div>
             <p className="mb-10">{message}</p>
             <div className="flex flex-wrap justify-center">
-                <div className="flex-1 mb-5">
+                <div className="flex-1">
                     <div
                         className={`${appearanceMood1}`}
                         onClick={() => handleMoodClick(0, "angry")}
@@ -69,7 +69,7 @@ function MoodComponent() {
                         <p className="pt-2">Angry</p>
                     </div>
                 </div>
-                <div className="flex-1 mx-5 mb-5">
+                <div className="flex-1 mx-auto mb-5">
                     <div
                         className={`${appearanceMood2}`}
                         onClick={() => handleMoodClick(1, "sad")}
