@@ -30,16 +30,13 @@ export default function MoodSelectionPage() {
         <div className="text-center items-center justify-center w-full">
             <div className="flex-col justify-center text-center items-center text-white">
                 <div className="">
-                    <div className="flex justify-center items-center text-4xl font-extralight">
+                    <div className="flex justify-center items-center text-2xl font-extralight">
                         <div>
                             <p className="">Hi {name}!</p>
-
                             <div className="mt-10 mb-20">
                                 <p className="mb-10">How are you doing today?</p>
                                 <MoodComponent />
                             </div>
-
-                            <p className="">Here are your top artists!</p>
                         </div>
                     </div>
                 </div>
