@@ -16,7 +16,11 @@ export default function MoodSelectionPage() {
         setSpotifyToken(cookies.spotifyToken || "");
         if (cookies.user === "Anastasia Kirchkesner") {
             setName("Babe" || "unknown user");
-        } else {
+        }
+        if (cookies.user === "sigfyy") {
+            setName("Mr. Artur" || "unknown user");
+        }
+        else {
             setName(cookies.user || "unknown user");
         }
 
