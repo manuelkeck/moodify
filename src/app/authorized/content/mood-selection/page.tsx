@@ -26,6 +26,9 @@ export default function MoodSelectionPage() {
         if (cookies.user === "ibot_hcs") {
             setName("Tobi" || "unknown user");
         }
+        if (cookies.user === "mr.shindler") {
+            setName("Lio" || "unknown user");
+        }
         else {
             setName(cookies.user || "unknown user");
         }
