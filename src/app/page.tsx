@@ -28,7 +28,7 @@ function Home() {
                 <p className="text-2xl font-extralight">
                     {message}
                 </p>
-                <div className="mt-24 flex-col justify-center items-center">
+                <div className="mt-8 lg:mt-24 flex-col justify-center items-center">
                     <div className="flex flex-col items-center">
                         <Image src="/Spotify_Logo_RGB_Green.png" alt="Spotify logo" width={100} height={50}/>
                     </div>

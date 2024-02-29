@@ -39,7 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                       {/*    </Link>*/}
                                       {/*</li>*/}
                                       <li className="block p-1 font-sans font-normal text-blue-gray-900">
-                                          <Link href="#" className="flex items-center">
+                                          <Link href="/about/" className="">
                                               About
                                           </Link>
                                       </li>

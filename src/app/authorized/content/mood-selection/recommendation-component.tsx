@@ -15,7 +15,7 @@ interface Item {
     }[];
 }
 
-function MusicRecommendation () {
+function RecommendationComponent () {
     const [spotifyToken, setSpotifyToken] = useState("");
     const [name, setName] = useState("unknown user");
     const [selectedMood, setSelectedMood] = useState<string | null>(null);
@@ -76,8 +76,11 @@ function MusicRecommendation () {
             {showPopup && (
                 <SessionExpiredPopupComponent />
             )}
+            <div>
+                <p>Music recommendation</p>
+            </div>
         </div>
     );
 }
 
-export default MusicRecommendation
+export default RecommendationComponent

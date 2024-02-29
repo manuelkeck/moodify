@@ -2,8 +2,8 @@
 
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
-import MusicRecommendation from "@/app/authorized/content/mood-selection/music-recommendation";
 import MoodComponent from "@/app/authorized/content/mood-selection/mood-component";
+import RecommendationComponent from "@/app/authorized/content/mood-selection/recommendation-component";
 
 export default function MoodSelectionPage() {
     const [spotifyToken, setSpotifyToken] = useState("");
@@ -42,7 +42,7 @@ export default function MoodSelectionPage() {
                 </div>
             </div>
             <div className="w-full">
-                <MusicRecommendation />
+                <RecommendationComponent />
             </div>
         </div>
 

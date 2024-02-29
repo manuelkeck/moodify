@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import {useRouter} from "next/navigation";
+import SessionExpiredPopupComponent from "@/app/authorized/session-expired-popup-component";
 
 interface Item {
     external_urls: {
@@ -73,10 +74,13 @@ function TopArtistComponent() {
 
     return (
         <div className="text-center">
+            {showPopup && (
+                <SessionExpiredPopupComponent />
+            )}
             <p className="mt-20 mb-5 text-2xl font-extralight">Check out your top artists!</p>
             <div className="flex flex-wrap justify-center">
                 {data !== null && data.items.map((item, index) => (
-                    <div key={index} className="inline-block text-center m-5 bg-gray-900 shadow-lg p-6 rounded-lg">
+                    <div key={index} className="inline-block text-center mx-auto mb-5 lg:m-5 bg-gray-900 shadow-lg lg:p-6 p-2 rounded-lg">
                         <a href={item.external_urls.spotify} target="_blank" rel="noopener noreferrer">
                             <p className="mb-5 text-base">{index + 1}. {item.name}</p>
                             <div className="flex justify-center items-center">

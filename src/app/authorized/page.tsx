@@ -5,6 +5,7 @@ import SpotifyWebApi from "spotify-web-api-js";
 import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import TopArtistComponent from "@/app/authorized/top-artists-component";
+import Link from "next/link";
 
 
 const spotify = new SpotifyWebApi();
@@ -65,7 +66,7 @@ export default function AuthorizedPage() {
                 <div className="text-center">
                     <div
                         className="mx-auto transition duration-150 w-28 ease-in-out mt-10 bg-gray-700 text-base hover:bg-gray-800 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
-                        <a href={`/authorized/content/mood-selection`}>Continue</a>
+                        <Link href="/content/mood-selection/">Continue</Link>
                     </div>
                     <div>
                         <TopArtistComponent />
@@ -75,11 +76,10 @@ export default function AuthorizedPage() {
             ) : (
                 <div
                     className="transition duration-150 w-28 text-center text-base ease-in-out mt-10 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
-                    <a href={`/`}>Back</a>
+                    <Link href="/">Back</Link>
                 </div>
             )
             }
-
         </div>
     );
 }
