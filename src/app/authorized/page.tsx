@@ -56,7 +56,7 @@ export default function AuthorizedPage() {
     return (
         <div
             className="text-white bg-black text-center text-2xl font-extralight flex flex-col items-center justify-center">
-            <div className="text-4xl mb-4">
+            <div className="lg:text-4xl mb-4">
                 <p>{topMessage}</p>
             </div>
             <div>
