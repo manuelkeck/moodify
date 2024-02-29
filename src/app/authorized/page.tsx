@@ -15,11 +15,9 @@ export default function AuthorizedPage() {
     const [topMessage, setTopMessage] = useState("Permission denied.");
     const [infoMessage, setInfoMessage] = useState("Request permissions: manuel.keck@student.reutlingen-university.de");
     const [continueButton, setContinueButton] = useState(false);
-    const _spotify_token = get_token_from_url().access_token;
 
     useEffect(() => {
-        const sessionExpiryTime = cookies.sessionExpiry;
-        const currentTime = Date.now();
+        const _spotify_token = get_token_from_url().access_token;
         window.location.hash = "";
 
         if (_spotify_token) {
@@ -51,7 +49,7 @@ export default function AuthorizedPage() {
             console.log("No valid user detected. Permissions needed to use this spotify account.");
         }
 
-    }, [setCookie, spotifyToken, name, _spotify_token]);
+    }, [setCookie, spotifyToken, name]);
 
     return (
         <div
