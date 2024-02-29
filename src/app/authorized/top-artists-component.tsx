@@ -67,15 +67,14 @@ function TopArtistComponent() {
         }
     };
 
-    const handleClick = () => {
+    const onPopupClose = () => {
         setShowPopup(false);
-        router.push("/");
     }
 
     return (
         <div className="text-center">
             {showPopup && (
-                <SessionExpiredPopupComponent />
+                <SessionExpiredPopupComponent onClose={onPopupClose}/>
             )}
             <p className="mt-20 mb-5 text-2xl font-extralight">Check out your top artists!</p>
             <div className="flex flex-wrap justify-center">

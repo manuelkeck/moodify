@@ -1,12 +1,18 @@
-import {useState} from "react";
 import {useRouter} from "next/navigation";
+import {useState} from "react";
 
-function SessionExpiredPopupComponent() {
+interface SessionExpiredPopupProps {
+    onClose: () => void;
+}
+
+function SessionExpiredPopupComponent({ onClose }: SessionExpiredPopupProps) {
     const router = useRouter();
-
+    const [showPopup, setShowPopup] = useState(true);
 
     const handleClick = () => {
         router.push("/");
+        setShowPopup(false);
+        onClose();
     }
 
     return (

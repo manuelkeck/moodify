@@ -71,13 +71,17 @@ function RecommendationComponent () {
         }
     };
 
+    const onPopupClose = () => {
+        setShowPopup(false);
+    }
+
     return(
         <div className="text-2xl font-extralight">
             <p className="mb-10">Listen to this song!</p>
             <div className="flex flex-wrap justify-center">
                 <div className="flex-col">
                     {showPopup && (
-                        <SessionExpiredPopupComponent />
+                        <SessionExpiredPopupComponent onClose={onPopupClose}/>
                     )}
                     <div>
                         <p>[ Music recommendation ]</p>
