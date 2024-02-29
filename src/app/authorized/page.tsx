@@ -4,6 +4,7 @@ import {get_token_from_url, login_url} from "../../../spotify_api";
 import SpotifyWebApi from "spotify-web-api-js";
 import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
+import TopArtistComponent from "@/app/authorized/top-artists-component";
 
 
 const spotify = new SpotifyWebApi();
@@ -53,25 +54,32 @@ export default function AuthorizedPage() {
 
     return (
         <div
-            className="text-white bg-black text-2xl font-extralight flex flex-col items-center justify-center">
-            <div className="text-4xl mb-4 text-center">
+            className="text-white bg-black text-center text-2xl font-extralight flex flex-col items-center justify-center">
+            <div className="text-4xl mb-4">
                 <p>{topMessage}</p>
             </div>
             <div>
                 <p>{infoMessage}</p>
             </div>
             {continueButton ? (
-                <div
-                    className="transition duration-150 ease-in-out mt-10 bg-gray-700 text-base hover:bg-gray-800 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
-                    <a href={`/authorized/content/mood-selection`}>Continue</a>
+                <div className="text-center">
+                    <div
+                        className="mx-auto transition duration-150 w-28 ease-in-out mt-10 bg-gray-700 text-base hover:bg-gray-800 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
+                        <a href={`/authorized/content/mood-selection`}>Continue</a>
+                    </div>
+                    <div>
+                        <TopArtistComponent />
+                    </div>
                 </div>
+
             ) : (
                 <div
-                    className="transition duration-150 w-1/6 text-center text-base ease-in-out mt-10 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
+                    className="transition duration-150 w-28 text-center text-base ease-in-out mt-10 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
                     <a href={`/`}>Back</a>
                 </div>
             )
             }
+
         </div>
     );
 }

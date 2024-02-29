@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import { login_url } from "../../spotify_api";
 import {useCookies} from "react-cookie";
+import TopArtistComponent from "@/app/authorized/top-artists-component";
 
 
 function Home() {
@@ -45,9 +46,15 @@ function Home() {
                     <a href={login_url}>Login with Spotify</a>
                 </div>
             ) : (
-                <div
-                    className="transition duration-150 ease-in-out mt-10 bg-gray-700 hover:bg-gray-800 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
-                    <a href={`/authorized/content/mood-selection`}>Continue</a>
+                <div className="flex-col">
+                    <div className="flex justify-center items-center">
+                        <div
+                            className="transition duration-150 w-28 text-center ease-in-out mt-10 bg-gray-700 hover:bg-gray-800 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
+                            <a href={`/authorized/content/mood-selection`}>Continue</a>
+                        </div>
+                    </div>
+
+                    <TopArtistComponent/>
                 </div>
             )
             }

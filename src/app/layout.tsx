@@ -29,19 +29,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                               <div className="">
                                   <ul className="flex gap-2 mt-2 mb-2 lg:flex-row lg:items-center">
                                       <li className="block p-1 font-sans font-normal text-blue-gray-900">
-                                          <a href="/" className="flex items-center">
+                                          <Link href="/" className="flex items-center">
                                               Home
-                                          </a>
+                                          </Link>
                                       </li>
                                       {/*<li className="block p-1 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">*/}
-                                      {/*    <Link href="/authorized/content/mood-selection/" className="flex items-center">*/}
-                                      {/*        Mood*/}
+                                      {/*    <Link href="/authorized/" className="flex items-center">*/}
+                                      {/*        About*/}
                                       {/*    </Link>*/}
                                       {/*</li>*/}
-                                      <li className="block p-1 font-sans antialiased font-normal leading-normal text-blue-gray-900">
-                                          <a href="#" className="flex items-center">
+                                      <li className="block p-1 font-sans font-normal text-blue-gray-900">
+                                          <Link href="#" className="flex items-center">
                                               About
-                                          </a>
+                                          </Link>
                                       </li>
                                   </ul>
                               </div>
@@ -49,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       </nav>
                   </header>
 
-                  <main className="flex-grow bg-black text-white px-6 py-8 flex items-center justify-center">
+                  <main className="flex-grow bg-black text-white py-8 flex items-center justify-center">
                       {children}
                   </main>
 
