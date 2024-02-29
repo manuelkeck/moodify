@@ -66,7 +66,7 @@ export default function AuthorizedPage() {
                 <div className="text-center">
                     <div
                         className="mx-auto transition duration-150 w-28 ease-in-out mt-10 bg-gray-700 text-base hover:bg-gray-800 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
-                        <Link href="/content/mood-selection/">Continue</Link>
+                        <Link href="authorized/content/mood-selection/">Continue</Link>
                     </div>
                     <div>
                         <TopArtistComponent />
