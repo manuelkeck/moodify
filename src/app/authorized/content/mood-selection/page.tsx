@@ -14,7 +14,12 @@ export default function MoodSelectionPage() {
 
     useEffect(() => {
         setSpotifyToken(cookies.spotifyToken || "");
-        setName(cookies.user || "unknown user")
+        if (cookies.user === "Anastasia Kirchkesner") {
+            setName("Babe" || "unknown user");
+        } else {
+            setName(cookies.user || "unknown user");
+        }
+
     }, [cookies.spotifyToken, cookies.user]);
 
     const handleCheckboxChange = (option: string) => {
