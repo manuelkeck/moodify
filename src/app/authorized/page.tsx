@@ -46,7 +46,6 @@ export default function AuthorizedPage() {
             setTopMessage(tmp_msg_concat);
             setInfoMessage("Spotify authorized successfully.");
             setContinueButton(true);
-            console.log("Known user detected.");
         } else {
             console.log("No valid user detected. Permissions needed to use this spotify account.");
         }

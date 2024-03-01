@@ -28,6 +28,7 @@ function RecommendationComponent () {
     const [hasSession, setHasSession] = useState(false);
     const [recommendation, setRecommendation] = useState<recommendationObject | null>(null);
     const [artists, setArtists] = useState("");
+    const [reload, setReload] = useState(false);
 
     const [cookies, setCookie, removeCookie, removeAllCookies] = useCookies(['spotifyToken', 'user']);
 
@@ -96,7 +97,7 @@ function RecommendationComponent () {
                     console.error('Error while fetching data:', error);
                 });}
 
-    }, [spotifyToken]);
+    }, [spotifyToken, reload]);
 
     async function fetchTracks(accessToken: string): Promise<any> {
         try {
@@ -176,6 +177,16 @@ function RecommendationComponent () {
         setShowPopup(false);
     }
 
+    const handleReload = () => {
+        if (reload) {
+            setReload(false);
+            console.log("set to false");
+        } else {
+            setReload(true);
+            console.log("set to true");
+        }
+    }
+
     return(
         <div className="text-2xl font-extralight">
             <p className="mb-10">Listen to this song!*</p>
@@ -187,11 +198,13 @@ function RecommendationComponent () {
                     <div>
                         {recommendation !== null ? (
                             <>
-                                <div className="bg-gray-900 p-10 rounded-lg">
+                                <div className="bg-gray-900 p-10 rounded-lg max-w-md mx-auto flex flex-col items-center">
                                     <a href={recommendation.tracks[0].external_urls.spotify} target="_blank"
-                                       rel="noopener noreferrer">
-                                        <img src={recommendation.tracks[0].album.images[1].url} alt="Album cover"
-                                             width={recommendation.tracks[0].album.images[1].width}
+                                       rel="noopener noreferrer" className="items-center">
+                                        <img src={recommendation.tracks[0].album.images[1].url}
+                                             alt="Album cover"
+                                             className="mx-auto"
+                                             width={(recommendation.tracks[0].album.images[1].width)*0.5}
                                              height={recommendation.tracks[0].album.images[1].height}/>
                                         <div className="flex-col">
                                             <p className="pt-5">{recommendation.tracks[0].name}</p>
@@ -201,10 +214,17 @@ function RecommendationComponent () {
                                 </div>
                             </>
                         ) : (
-                            <p>No recommendation found.</p>
+                            <p className="text-base">No recommendation found.</p>
                         )}
                     </div>
-
+                    <div>
+                        <button
+                            onClick={handleReload}
+                            className="text-base font-medium underline pt-5"
+                        >
+                            Reload
+                        </button>
+                    </div>
                 </div>
             </div>
             <div className="mt-32 mx-5">

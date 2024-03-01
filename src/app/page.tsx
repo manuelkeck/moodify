@@ -13,8 +13,6 @@ function Home() {
     const [loginButton, setLoginButton] = useState(true);
     const [message, setMessage] = useState("You need to login with your Spotify Premium account.");
 
-    console.log("Session: ", hasSession)
-
     useEffect(() => {
         if (hasSession) {
             setMessage("You are already logged in with your Spotify Premium account.");
@@ -53,7 +51,7 @@ function Home() {
                     <div className="flex justify-center items-center">
                         <div
                             className="transition duration-150 w-28 text-center ease-in-out mt-10 bg-gray-700 hover:bg-gray-800 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
-                            <a href={`/authorized/content/mood-selection`}>Continue</a>
+                            <a href="/authorized/content/mood-selection">Continue</a>
                         </div>
                     </div>
 
