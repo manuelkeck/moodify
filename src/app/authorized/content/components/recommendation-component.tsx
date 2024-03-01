@@ -209,7 +209,7 @@ function RecommendationComponent () {
             </div>
             <div className="mt-32 mx-5">
                 <p className="text-base">
-                    *Recommendations are based on user's top 2 artists and top 3 tracks.
+                    *Recommendations are based on users top 2 artists and top 3 tracks.
                 </p>
             </div>
         </div>
