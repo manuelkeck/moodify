@@ -2,8 +2,8 @@
 
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
-import MoodComponent from "@/app/authorized/content/mood-selection/mood-component";
-import RecommendationComponent from "@/app/authorized/content/mood-selection/recommendation-component";
+import MoodComponent from "@/app/authorized/content/components/mood-component";
+import RecommendationComponent from "@/app/authorized/content/components/recommendation-component";
 
 export default function MoodSelectionPage() {
     const [spotifyToken, setSpotifyToken] = useState("");

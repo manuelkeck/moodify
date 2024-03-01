@@ -4,7 +4,7 @@ import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import { login_url } from "../../spotify_api";
 import {useCookies} from "react-cookie";
-import TopArtistComponent from "@/app/authorized/top-artists-component";
+import TopArtistComponent from "@/app/authorized/content/components/top-artists-component";
 
 
 function Home() {
@@ -17,8 +17,11 @@ function Home() {
 
     useEffect(() => {
         if (hasSession) {
-            setMessage("You are already logged in with your Spotify Premium account.")
-            setLoginButton(false)
+            setMessage("You are already logged in with your Spotify Premium account.");
+            setLoginButton(false);
+        } else {
+            setMessage("You need to login with your Spotify Premium account.");
+            setLoginButton(true);
         }
     }, [hasSession]);
 

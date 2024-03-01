@@ -4,7 +4,7 @@ import {get_token_from_url, login_url} from "../../../spotify_api";
 import SpotifyWebApi from "spotify-web-api-js";
 import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
-import TopArtistComponent from "@/app/authorized/top-artists-component";
+import TopArtistComponent from "@/app/authorized/content/components/top-artists-component";
 import Link from "next/link";
 
 
