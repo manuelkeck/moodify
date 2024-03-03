@@ -265,7 +265,7 @@ function RecommendationComponent () {
                     <div>
                         {recommendation !== null ? (
                             <>
-                                <div className="bg-gray-900 p-10 rounded-lg max-w-md mx-auto flex flex-col items-center">
+                                <div className="bg-gray-900 py-10 px-3 rounded-lg max-w-md mx-auto flex flex-col items-center w-60">
                                     <a href={recommendation.tracks[iterator].external_urls.spotify} target="_blank"
                                        rel="noopener noreferrer" className="items-center">
                                         <img src={recommendation.tracks[iterator].album.images[1].url}
