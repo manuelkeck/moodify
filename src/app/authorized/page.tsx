@@ -19,6 +19,7 @@ export default function AuthorizedPage() {
     const [continueButton, setContinueButton] = useState(false);
 
     useEffect(() => {
+        console.log("use effect authorized/page");
         const _spotify_token = get_token_from_url().access_token;
         window.location.hash = "";
 

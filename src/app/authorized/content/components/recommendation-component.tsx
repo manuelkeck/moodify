@@ -22,21 +22,20 @@ interface recommendationObject {
 
 function RecommendationComponent () {
     const [spotifyToken, setSpotifyToken] = useState("");
-    const [name, setName] = useState("unknown user");
-    const [selectedMood, setSelectedMood] = useState<string | null>(null);
+    // const [name, setName] = useState("unknown user");
+    // const [selectedMood, setSelectedMood] = useState<string | null>(null);
     const [showPopup, setShowPopup] = useState(false);
-    const [hasSession, setHasSession] = useState(false);
     const [recommendation, setRecommendation] = useState<recommendationObject | null>(null);
     const [artists, setArtists] = useState("");
-    const [reload, setReload] = useState(false);
+    const [iterator, setIterator] = useState(0);
+    const [recommendationURL, setRecommendationURL] = useState("");
 
-    const [cookies, setCookie, removeCookie, removeAllCookies] = useCookies(['spotifyToken', 'user']);
+    const [cookies, removeCookie] = useCookies(['spotifyToken', 'user']);
 
     useEffect(() => {
         if (cookies.spotifyToken) {
             setSpotifyToken(cookies.spotifyToken || "");
-            setName(cookies.user || "unknown user")
-            setHasSession(true);
+            // setName(cookies.user || "unknown user")
         } else {
             setShowPopup(true);
         }
@@ -44,34 +43,21 @@ function RecommendationComponent () {
 
     useEffect(() => {
         if (spotifyToken) {
-            Promise.all([fetchTracks(spotifyToken), fetchArtists(spotifyToken)])
+            Promise.all([fetchTracks(), fetchArtists()])
                 .then(([_tracksData, _artistsData]) => {
 
-                    let trackIDs: string[] = ["", "", ""];
-                    let artistIDs: string[] = ["", ""];
-
-                    // Get IDs of tracks and artists
-                    if (_tracksData !== null && _artistsData !== null) {
-                        _tracksData.items.forEach((item: { id: string; }, index: number) => {
-                            trackIDs[index] = item.id;
-                        });
-                        _artistsData.items.forEach((item: { id: string; }, index: number) => {
-                            artistIDs[index] = item.id;
-                        });
-                    }
-
                     // Create URL to request suitable recommendations
-                    let _base_url = "https://api.spotify.com/v1/recommendations?limit=1&";
+                    let _base_url = "https://api.spotify.com/v1/recommendations?limit=10&";
                     let _seed_tracks = "seed_tracks=";
                     let _seed_artists = "seed_artists=";
 
-                    trackIDs.forEach((id) => {
+                    _tracksData.forEach((id) => {
                         if (_seed_tracks !== "seed_tracks=") {
                             _seed_tracks = _seed_tracks.concat("%2C");
                         }
                         _seed_tracks = _seed_tracks.concat(id);
                     });
-                    artistIDs.forEach((id) => {
+                    _artistsData.forEach((id) => {
                         if (_seed_artists !== "seed_artists=") {
                             _seed_artists = _seed_artists.concat("%2C");
                         }
@@ -82,29 +68,39 @@ function RecommendationComponent () {
                     url = url.concat("&");
                     url = url.concat(_seed_tracks);
 
-                    fetchRecommendation(spotifyToken, url)
-                        .then((response) => {
-                            setRecommendation(response);
-                            // console.log("recommendation: ", response);
-                            let _artists_list = response.tracks[0].artists.map((artist: { name: string }) => artist.name).join(', ');
-                            setArtists(_artists_list);
-                        })
-                        .catch((error) => {
-                            console.error('Error while fetching data:', error);
-                        });
+                    setRecommendationURL(url);
+
+                    getRecommendations();
+
                 })
                 .catch((error) => {
                     console.error('Error while fetching data:', error);
                 });}
 
-    }, [spotifyToken, reload]);
+    }, [spotifyToken]);
 
-    async function fetchTracks(accessToken: string): Promise<any> {
+    async function fetchTracks(): Promise<[any, any, any]> {
+
+        // Check if cached data is available
+        const cachedDataObject = sessionStorage.getItem('cachedTopTracks');
+        if (cachedDataObject) {
+            console.log("Fetching users top tracks for recommendation: Using cached data from session storage");
+
+            const parsedData = JSON.parse(cachedDataObject);
+            const track_one = parsedData.items[0].id;
+            const track_two = parsedData.items[1].id;
+            const track_three = parsedData.items[2].id;
+
+            return [track_one, track_two, track_three];
+        }
+
         try {
+            console.log("Fetching users top tracks: No cached data found in session storage. API will be requested.");
+
             const topTracks = await fetch(
                 "https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=3", {
                     headers: {
-                        Authorization: `Bearer ${accessToken}`
+                        Authorization: `Bearer ${spotifyToken}`
                     }
                 });
 
@@ -113,7 +109,16 @@ function RecommendationComponent () {
                 new Error('Network response was not ok');
             }
 
-            return await topTracks.json();
+            let _data = await topTracks.json();
+            sessionStorage.setItem('cachedTopTracks', JSON.stringify(_data));
+
+            // const parsedData = JSON.parse(_data);
+            const track_one = _data.items[0].id;
+            const track_two = _data.items[1].id;
+            const track_three = _data.items[2].id;
+
+            return [track_one, track_two, track_three];
+
         } catch (error) {
             handleSessionExpired();
             // console.error('Error fetching profile:', error);
@@ -121,12 +126,27 @@ function RecommendationComponent () {
         }
     }
 
-    async function fetchArtists(accessToken: string): Promise<any> {
+    async function fetchArtists(): Promise<[any, any]> {
+
+        // Check if cached data is available
+        const cachedDataObject = sessionStorage.getItem('cachedTopArtists');
+        if (cachedDataObject) {
+            console.log("Fetching users top artists for recommendation: Using cached data from session storage");
+
+            const parsedData = JSON.parse(cachedDataObject);
+            const artist_one = parsedData.items[0].id;
+            const artist_two = parsedData.items[1].id;
+
+            return [artist_one, artist_two];
+        }
+
         try {
+            console.log("Fetching users top artists for recommendation: No cached data found in session storage. API will be requested.");
+
             const topArtists = await fetch(
-                "https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=2", {
+                "https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=10", {
                     headers: {
-                        Authorization: `Bearer ${accessToken}`
+                        Authorization: `Bearer ${spotifyToken}`
                     }
                 });
 
@@ -135,7 +155,15 @@ function RecommendationComponent () {
                 new Error('Network response was not ok');
             }
 
-            return await topArtists.json();
+            let _data = await topArtists.json();
+            sessionStorage.setItem('cachedTopArtists', JSON.stringify(_data));
+
+            // const parsedData = JSON.parse(_data);
+            const artist_one = _data.items[0].id;
+            const artist_two = _data.items[1].id;
+
+            return [artist_one, artist_two];
+
         } catch (error) {
             handleSessionExpired();
             // console.error('Error fetching profile:', error);
@@ -143,21 +171,32 @@ function RecommendationComponent () {
         }
     }
 
-    async function fetchRecommendation(accessToken: string, url: string): Promise<any> {
+    async function fetchRecommendation(url: string): Promise<any> {
+
+        // Check if cached data is available
+        const cachedDataObject = sessionStorage.getItem('cachedRecommendations');
+        if (cachedDataObject) {
+            console.log("Fetching recommendations: Using cached data from session storage");
+            return JSON.parse(cachedDataObject);
+        }
+
         try {
-            const recommendation = await fetch(
+            const response_recommendation = await fetch(
                 url, {
                     headers: {
-                        Authorization: `Bearer ${accessToken}`
+                        Authorization: `Bearer ${spotifyToken}`
                     }
                 });
 
-            if (!recommendation.ok) {
+            if (!response_recommendation.ok) {
                 handleSessionExpired();
                 new Error('Network response was not ok');
             }
 
-            return await recommendation.json();
+            let _data = await response_recommendation.json();
+            sessionStorage.setItem('cachedRecommendations', JSON.stringify(_data));
+            return _data;
+
         } catch (error) {
             handleSessionExpired();
             // console.error('Error fetching profile:', error);
@@ -168,7 +207,6 @@ function RecommendationComponent () {
     const handleSessionExpired = () => {
         if (!showPopup) {
             setShowPopup(true);
-            setHasSession(false);
             removeCookie('spotifyToken', { path: '/' });
         }
     };
@@ -177,14 +215,40 @@ function RecommendationComponent () {
         setShowPopup(false);
     }
 
+    const getRecommendations = () => {
+        fetchRecommendation(recommendationURL)
+            .then((response) => {
+                setRecommendation(response);
+                // console.log("recommendation: ", response);
+                let _artists_list = response.tracks[0].artists.map((artist: { name: string }) => artist.name).join(', ');
+                setArtists(_artists_list);
+                console.log("recommendation response: ", response);
+            })
+            .catch((error) => {
+                console.error('Error while fetching data:', error);
+            });
+    }
+
     const handleReload = () => {
-        if (reload) {
-            setReload(false);
-            console.log("set to false");
+        if (iterator === 9) {
+            console.log("Requesting new recommendations...");
+            getRecommendations();
+            setIterator(0);
         } else {
-            setReload(true);
-            console.log("set to true");
+            if (iterator < 10) {
+                let calculated = iterator + 1;
+                setIterator(calculated);
+            }
         }
+         //else {
+          //  setIterator(0);
+            // console.log("Reload: Request to recommendation endpoint");
+            // if (reload) {
+            //     setReload(false);
+            // } else {
+            //     setReload(true);
+            // }
+        //}
     }
 
     return(
@@ -199,15 +263,15 @@ function RecommendationComponent () {
                         {recommendation !== null ? (
                             <>
                                 <div className="bg-gray-900 p-10 rounded-lg max-w-md mx-auto flex flex-col items-center">
-                                    <a href={recommendation.tracks[0].external_urls.spotify} target="_blank"
+                                    <a href={recommendation.tracks[iterator].external_urls.spotify} target="_blank"
                                        rel="noopener noreferrer" className="items-center">
-                                        <img src={recommendation.tracks[0].album.images[1].url}
+                                        <img src={recommendation.tracks[iterator].album.images[1].url}
                                              alt="Album cover"
                                              className="mx-auto"
-                                             width={(recommendation.tracks[0].album.images[1].width)*0.5}
-                                             height={recommendation.tracks[0].album.images[1].height}/>
+                                             width={(recommendation.tracks[iterator].album.images[1].width)*0.5}
+                                             height={recommendation.tracks[iterator].album.images[1].height}/>
                                         <div className="flex-col">
-                                            <p className="pt-5">{recommendation.tracks[0].name}</p>
+                                            <p className="pt-5">{recommendation.tracks[iterator].name}</p>
                                             <p className="text-base">{artists}</p>
                                         </div>
                                     </a>

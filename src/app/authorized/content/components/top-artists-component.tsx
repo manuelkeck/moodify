@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
-import {useRouter} from "next/navigation";
 import SessionExpiredPopupComponent from "@/app/authorized/content/components/session-expired-popup-component";
 
 interface Item {
@@ -18,19 +17,15 @@ interface Item {
 function TopArtistComponent() {
     const [data, setData] = useState<{ items: Item[] } | null>(null);
     const [spotifyToken, setSpotifyToken] = useState("");
-    const [name, setName] = useState("unknown user");
     const [cookies, setCookie, removeCookie, removeAllCookies] = useCookies(['spotifyToken', 'user']);
     const [showPopup, setShowPopup] = useState(false);
-
-    const router = useRouter();
 
     useEffect(() => {
         setSpotifyToken(cookies.spotifyToken || "");
         if (spotifyToken) {
-            fetchData(spotifyToken)
-                .then((data) => {
-                    setData(data);
-                    // console.log('Data:', data);
+            fetchTopArtists()
+                .then((object) => {
+                    setData(object);
                 })
                 .catch((error) => {
                     console.error('Error while fetching data:', error);
@@ -38,12 +33,25 @@ function TopArtistComponent() {
         }
     }, [cookies.spotifyToken, spotifyToken]);
 
-    async function fetchData(accessToken: string): Promise<any> {
+    async function fetchTopArtists(): Promise<any> {
+
+        // Check if cached data is available
+        const cachedDataObject = sessionStorage.getItem('cachedTopArtists');
+
+        if (cachedDataObject) {
+            console.log("Fetching users top artists: Using cached data from session storage");
+            let tmp = JSON.parse(cachedDataObject)
+
+            return JSON.parse(cachedDataObject);
+        }
+
         try {
+            console.log("Fetching users top artists: No cached data found in session storage. API will be requested.");
+
             const response = await fetch(
                 "https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10", {
                     headers: {
-                        Authorization: `Bearer ${accessToken}`
+                        Authorization: `Bearer ${spotifyToken}`
                     }
                 });
 
@@ -52,7 +60,12 @@ function TopArtistComponent() {
                 throw new Error('Network response was not ok');
             }
 
-            return await response.json();
+            let _data = await response.json();
+            let saveTracks = _data.items;
+            console.log("und data hier: ", _data);
+            sessionStorage.setItem('cachedTopArtists', JSON.stringify(_data));
+            return _data;
+
         } catch (error) {
             handleSessionExpired();
             console.error('Error fetching profile:', error);
