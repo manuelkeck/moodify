@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import SessionExpiredPopupComponent from "@/app/authorized/content/components/session-expired-popup-component";
+import {createRequestResponseMocks} from "next/dist/server/lib/mock-request";
 
 interface recommendationObject {
     id: string;
     tracks: {
         name: string;
-        artist: [];
+        artists: {
+            name: [];
+        }[];
         album: {
             images: {
                 url: string;
@@ -68,9 +71,10 @@ function RecommendationComponent () {
                     url = url.concat("&");
                     url = url.concat(_seed_tracks);
 
+                    console.log("url: ", url);
                     setRecommendationURL(url);
 
-                    getRecommendations();
+                    getRecommendations(url);
 
                 })
                 .catch((error) => {
@@ -195,9 +199,11 @@ function RecommendationComponent () {
 
             let _data = await response_recommendation.json();
             sessionStorage.setItem('cachedRecommendations', JSON.stringify(_data));
+            console.log("return data from recommendation fetching");
             return _data;
 
         } catch (error) {
+            console.log("Error");
             handleSessionExpired();
             // console.error('Error fetching profile:', error);
             throw error;
@@ -215,24 +221,21 @@ function RecommendationComponent () {
         setShowPopup(false);
     }
 
-    const getRecommendations = () => {
-        fetchRecommendation(recommendationURL)
+    const getRecommendations = (url: string) => {
+        fetchRecommendation(url)
             .then((response) => {
                 setRecommendation(response);
-                // console.log("recommendation: ", response);
-                let _artists_list = response.tracks[0].artists.map((artist: { name: string }) => artist.name).join(', ');
-                setArtists(_artists_list);
                 console.log("recommendation response: ", response);
             })
             .catch((error) => {
-                console.error('Error while fetching data:', error);
+                console.error('Error while fetching data in recommendation:', error);
             });
     }
 
     const handleReload = () => {
         if (iterator === 9) {
             console.log("Requesting new recommendations...");
-            getRecommendations();
+            getRecommendations(recommendationURL);
             setIterator(0);
         } else {
             if (iterator < 10) {
@@ -272,7 +275,9 @@ function RecommendationComponent () {
                                              height={recommendation.tracks[iterator].album.images[1].height}/>
                                         <div className="flex-col">
                                             <p className="pt-5">{recommendation.tracks[iterator].name}</p>
-                                            <p className="text-base">{artists}</p>
+                                            <div className="text-base">
+                                                {recommendation.tracks[iterator].artists.map(artist => artist.name).join(', ')}
+                                            </div>
                                         </div>
                                     </a>
                                 </div>
