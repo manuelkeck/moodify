@@ -23,7 +23,11 @@ interface recommendationObject {
     }[];
 }
 
-function RecommendationComponent () {
+interface selectedMoodProps {
+    selectedValue: string;
+}
+
+const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) => {
     const [spotifyToken, setSpotifyToken] = useState("");
     // const [name, setName] = useState("unknown user");
     // const [selectedMood, setSelectedMood] = useState<string | null>(null);
@@ -82,6 +86,14 @@ function RecommendationComponent () {
                 });}
 
     }, [spotifyToken]);
+
+    useEffect(() => {
+
+        if (selectedValue !== "") {
+            handleReload();
+        }
+
+    }, [selectedValue]);
 
     async function fetchTracks(): Promise<[any, any, any]> {
 

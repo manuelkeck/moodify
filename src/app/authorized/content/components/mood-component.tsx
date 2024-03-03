@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 
-function MoodComponent() {
+interface MoodComponentProps {
+    onMoodClick: (mood: string) => void;
+}
+
+const MoodComponent: React.FC<MoodComponentProps> = ({ onMoodClick }) => {
     const [selectedMood, setSelectedMood] = useState<number | null>(null);
     const [message, setMessage] = useState("How are you doing today?");
     const [defaultAppearance] = useState("inline-block text-center border-2 border-gray-900 text-base bg-gray-900 shadow-lg m-1 p-4 rounded-lg cursor-pointer");
@@ -11,6 +15,7 @@ function MoodComponent() {
     const [appearanceMood3, setAppearanceMood3] = useState(defaultAppearance);
 
     const handleMoodClick = (index: number, mood: string) => {
+        onMoodClick(mood);
 
         if (index === 0) {
             if (appearanceMood1 === defaultAppearance) {

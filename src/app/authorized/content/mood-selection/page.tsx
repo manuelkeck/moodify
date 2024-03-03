@@ -1,14 +1,14 @@
 'use client';
 
 import { useCookies } from "react-cookie";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import MoodComponent from "@/app/authorized/content/components/mood-component";
 import RecommendationComponent from "@/app/authorized/content/components/recommendation-component";
 
-export default function MoodSelectionPage() {
+const MoodSelectionPage: React.FC = () => {
     const [spotifyToken, setSpotifyToken] = useState("");
     const [name, setName] = useState("unknown user");
-    const [selectedMood, setSelectedMood] = useState<string | null>(null);
+    const [selectedMood, setSelectedMood] = useState("");
 
     const [cookies] = useCookies(['spotifyToken', 'user']);
 
@@ -35,9 +35,9 @@ export default function MoodSelectionPage() {
 
     }, [cookies.spotifyToken, cookies.user]);
 
-    const handleCheckboxChange = (option: string) => {
+    const handleMoodChange = (option: string) => {
         if (selectedMood === option) {
-            setSelectedMood(null);
+            setSelectedMood("");
         } else {
             setSelectedMood(option);
             console.log(option);
@@ -52,16 +52,18 @@ export default function MoodSelectionPage() {
                         <div>
                             <p className="lg:text-4xl">Hi {name}!</p>
                             <div className="mt-10 mb-20">
-                                <MoodComponent />
+                                <MoodComponent onMoodClick={handleMoodChange}/>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="w-full">
-                <RecommendationComponent />
+                <RecommendationComponent selectedValue={selectedMood}/>
             </div>
         </div>
 
     )
 }
+
+export default MoodSelectionPage;
