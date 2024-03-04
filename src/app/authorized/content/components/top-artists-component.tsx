@@ -62,7 +62,6 @@ function TopArtistComponent() {
 
             let _data = await response.json();
             let saveTracks = _data.items;
-            console.log("und data hier: ", _data);
             sessionStorage.setItem('cachedTopArtists', JSON.stringify(_data));
             return _data;
 

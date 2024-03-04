@@ -75,7 +75,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                     url = url.concat("&");
                     url = url.concat(_seed_tracks);
 
-                    console.log("url: ", url);
+                    // console.log("url: ", url);
                     setRecommendationURL(url);
 
                     getRecommendations(url);
@@ -211,7 +211,6 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
 
             let _data = await response_recommendation.json();
             sessionStorage.setItem('cachedRecommendations', JSON.stringify(_data));
-            console.log("return data from recommendation fetching");
             return _data;
 
         } catch (error) {
@@ -237,7 +236,6 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
         fetchRecommendation(url)
             .then((response) => {
                 setRecommendation(response);
-                console.log("recommendation response: ", response);
             })
             .catch((error) => {
                 console.error('Error while fetching data in recommendation:', error);
