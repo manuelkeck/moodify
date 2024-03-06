@@ -13,24 +13,11 @@ const MoodSelectionPage: React.FC = () => {
     const [cookies] = useCookies(['spotifyToken', 'user']);
 
     useEffect(() => {
-        setSpotifyToken(cookies.spotifyToken || "");
-        if (cookies.user === "Anastasia Kirchkesner") {
-            setName("Babe" || "unknown user");
-        }
-        if (cookies.user === "sigfyy") {
-            setName("Artur" || "unknown user");
-        }
-        if (cookies.user === "päd-0307") {
-            setName("Pat" || "unknown user");
-        }
-        if (cookies.user === "ibot_hcs") {
-            setName("Tobi" || "unknown user");
-        }
-        if (cookies.user === "mr.shindler") {
-            setName("Lio" || "unknown user");
-        }
-        else {
+        // setSpotifyToken(cookies.spotifyToken || "");
+        if (cookies.user === "user") {
             setName(cookies.user || "unknown user");
+        } else {
+            setName(cookies.user);
         }
 
     }, [cookies.spotifyToken, cookies.user]);
@@ -40,7 +27,6 @@ const MoodSelectionPage: React.FC = () => {
             setSelectedMood("");
         } else {
             setSelectedMood(option);
-            console.log(option);
         }
     }
 

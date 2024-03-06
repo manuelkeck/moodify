@@ -1,5 +1,6 @@
 import {useRouter} from "next/navigation";
 import {useState} from "react";
+import {useCookies} from "react-cookie";
 
 interface SessionExpiredPopupProps {
     onClose: () => void;
@@ -8,10 +9,12 @@ interface SessionExpiredPopupProps {
 function SessionExpiredPopupComponent({ onClose }: SessionExpiredPopupProps) {
     const router = useRouter();
     const [showPopup, setShowPopup] = useState(true);
+    const [cookies, removeCookie] = useCookies(['spotifyToken', 'user']);
 
     const handleClick = () => {
         setShowPopup(false);
         onClose();
+        removeCookie('spotifyToken', { path: '/' });
         // router.push("/");
     }
 

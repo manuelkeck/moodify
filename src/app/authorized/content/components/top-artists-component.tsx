@@ -49,7 +49,7 @@ function TopArtistComponent() {
             console.log("Fetching users top artists: No cached data found in session storage. API will be requested.");
 
             const response = await fetch(
-                "https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10", {
+                "https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=10", {
                     headers: {
                         Authorization: `Bearer ${spotifyToken}`
                     }

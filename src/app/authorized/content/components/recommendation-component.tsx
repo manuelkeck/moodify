@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import SessionExpiredPopupComponent from "@/app/authorized/content/components/session-expired-popup-component";
-import {createRequestResponseMocks} from "next/dist/server/lib/mock-request";
 
 interface recommendationObject {
     id: string;
@@ -29,11 +28,9 @@ interface selectedMoodProps {
 
 const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) => {
     const [spotifyToken, setSpotifyToken] = useState("");
-    // const [name, setName] = useState("unknown user");
-    // const [selectedMood, setSelectedMood] = useState<string | null>(null);
+    const [selectedMood, setSelectedMood] = useState("");
     const [showPopup, setShowPopup] = useState(false);
     const [recommendation, setRecommendation] = useState<recommendationObject | null>(null);
-    const [artists, setArtists] = useState("");
     const [iterator, setIterator] = useState(0);
     const [recommendationURL, setRecommendationURL] = useState("");
 
@@ -47,6 +44,10 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             setShowPopup(true);
         }
     }, [cookies.user, cookies.spotifyToken]);
+
+    useEffect(() => {
+        setSelectedMood(selectedValue);
+    }, [selectedValue]);
 
     useEffect(() => {
         if (spotifyToken) {
@@ -78,22 +79,14 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                     // console.log("url: ", url);
                     setRecommendationURL(url);
 
-                    getRecommendations(url);
+                    getRecommendations(url, selectedMood);
 
                 })
                 .catch((error) => {
                     console.error('Error while fetching data:', error);
                 });}
 
-    }, [spotifyToken]);
-
-    useEffect(() => {
-
-        if (selectedValue !== "") {
-            handleReload();
-        }
-
-    }, [selectedValue]);
+    }, [spotifyToken, selectedMood]);
 
     async function fetchTracks(): Promise<[any, any, any]> {
 
@@ -114,7 +107,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             console.log("Fetching users top tracks: No cached data found in session storage. API will be requested.");
 
             const topTracks = await fetch(
-                "https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=3", {
+                "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=3", {
                     headers: {
                         Authorization: `Bearer ${spotifyToken}`
                     }
@@ -160,7 +153,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             console.log("Fetching users top artists for recommendation: No cached data found in session storage. API will be requested.");
 
             const topArtists = await fetch(
-                "https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=10", {
+                "https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=10", {
                     headers: {
                         Authorization: `Bearer ${spotifyToken}`
                     }
@@ -187,13 +180,31 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
         }
     }
 
-    async function fetchRecommendation(url: string): Promise<any> {
+    async function fetchRecommendation(url: string, mood: string): Promise<any> {
+
+        let _cachedDataObject = null;
 
         // Check if cached data is available
-        const cachedDataObject = sessionStorage.getItem('cachedRecommendations');
-        if (cachedDataObject) {
-            console.log("Fetching recommendations: Using cached data from session storage");
-            return JSON.parse(cachedDataObject);
+        if (mood === "") {
+            _cachedDataObject = sessionStorage.getItem('cachedRecommendations');
+        } else if (mood === "angry") {
+            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+        } else if (mood === "sad") {
+            _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
+        } else if (mood === "sleepy") {
+            _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
+        }
+
+        if (_cachedDataObject) {
+            if (mood === "") {
+                console.log("Fetching recommendations without mood selected: Using cached data from session storage");
+            } else if (mood === "angry" || mood === "sad" || mood === "sleepy") {
+                console.log("Fetching recommendations for mood", mood, "selected: Using cached data from session storage");
+            } else {
+                console.log("Fetching recommendations for mood", mood, ". Calling API...");
+            }
+
+            return JSON.parse(_cachedDataObject);
         }
 
         try {
@@ -210,11 +221,79 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             }
 
             let _data = await response_recommendation.json();
-            sessionStorage.setItem('cachedRecommendations', JSON.stringify(_data));
+
+            if (mood === "") {
+                sessionStorage.setItem('cachedRecommendations', JSON.stringify(_data));
+                console.log("Set local storage for no mood selected");
+            } else if (mood === "angry") {
+                sessionStorage.setItem('cachedAngryRecommendations', JSON.stringify(_data));
+                console.log("Set local storage for mood", mood);
+            } else if (mood === "sad") {
+                sessionStorage.setItem('cachedSadRecommendations', JSON.stringify(_data));
+                console.log("Set local storage for mood", mood);
+            } else if (mood === "sleepy") {
+                sessionStorage.setItem('cachedSleepyRecommendations', JSON.stringify(_data));
+                console.log("Set local storage for mood", mood);
+            } else {
+                console.log("Mood not found. Check recommendation-component.tsx");
+            }
+
             return _data;
 
         } catch (error) {
             console.log("Error");
+            handleSessionExpired();
+            // console.error('Error fetching profile:', error);
+            throw error;
+        }
+    }
+
+    async function fetchTrackAudioAnalysis(id: string): Promise<any> {
+        const _url = "https://api.spotify.com/v1/audio-analysis/";
+        const _concatenatedURL = _url.concat(id);
+
+        try {
+            const audioAnalysis = await fetch(
+                _concatenatedURL, {
+                    headers: {
+                        Authorization: `Bearer ${spotifyToken}`
+                    }
+                });
+
+            if (!audioAnalysis.ok) {
+                handleSessionExpired();
+                new Error('Network response was not ok');
+            }
+
+            return await audioAnalysis.json();
+
+        } catch (error) {
+            handleSessionExpired();
+            // console.error('Error fetching profile:', error);
+            throw error;
+        }
+    }
+
+    async function fetchTrackAudioFeatures(id: string): Promise<any> {
+        const _url = "https://api.spotify.com/v1/audio-features/";
+        const _concatenatedURL = _url.concat(id);
+
+        try {
+            const audioFeatures = await fetch(
+                    _concatenatedURL, {
+                    headers: {
+                Authorization: `Bearer ${spotifyToken}`
+            }
+        });
+
+            if (!audioFeatures.ok) {
+                handleSessionExpired();
+                new Error('Network response was not ok');
+            }
+
+            return await audioFeatures.json();
+
+        } catch (error) {
             handleSessionExpired();
             // console.error('Error fetching profile:', error);
             throw error;
@@ -232,10 +311,108 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
         setShowPopup(false);
     }
 
-    const getRecommendations = (url: string) => {
-        fetchRecommendation(url)
+    const createRecommendationURL = (mood: string) => {
+        let _url_base = recommendationURL.concat("&");
+
+        // Selection of available attributes for Spotify recommendations endpoint
+
+        let min_acousticness = 0.0;
+        let max_acousticness = 0.0;
+        let target_acousticness = 0.0;
+
+        let min_danceability = 0.0;
+        let max_danceability = 0.0;
+        let target_danceability = 0.0;
+
+        let min_energy = 0.0;
+        let max_energy = 0.0;
+        let target_energy = 0.0;
+
+        let min_instrumentalness = 0.0;
+        let max_instrumentalness = 0.0;
+        let target_instrumentalness = 0.0;
+
+        let min_liveness = 0.0;
+        let max_liveness = 0.0;
+        let target_liveness = 0.0;
+
+        let min_loudness = 0.0;
+        let max_loudness = 0.0;
+        let target_loudness = 0.0;
+
+        let min_mode = 0;
+        let max_mode = 0;
+        let target_mode = 0;
+
+        let min_speechiness = 0.0;
+        let max_speechiness = 0.0;
+        let target_speechiness = 0.0;
+
+        let min_tempo = 0.0;
+        let max_tempo = 0.0;
+        let target_tempo = 0.0;
+
+        let min_valence = 0.0;
+        let max_valence = 0.0;
+        let target_valence = 0.0;
+
+        if (mood === "angry") {
+            target_energy = 1.0;
+            target_valence = 0.8;
+            target_tempo = 0.7;
+            return _url_base.concat(
+                "target_energy=", String(target_energy),
+                "&",
+                "target_valence=", String(target_valence),
+                "&",
+                "target_tempo=", String(target_tempo)
+            );
+        } else if (mood === "sad") {
+            target_valence = 0.9;
+            target_energy = 0.7;
+            target_tempo = 0.6;
+            return _url_base.concat(
+                "target_energy=", String(target_energy),
+                "&",
+                "target_valence=", String(target_valence),
+                "&",
+                "target_tempo=", String(target_tempo)
+            );
+        } else if (mood === "sleepy") {
+            target_energy = 1.0;
+            target_tempo = 0.8;
+            target_acousticness = 0.6;
+            return _url_base.concat(
+                "target_energy=", String(target_energy),
+                "&",
+                "target_acousticness=", String(target_acousticness),
+                "&",
+                "target_tempo=", String(target_tempo)
+            );
+        }
+
+        return _url_base;
+    }
+
+    const getRecommendations = (url: string, mood: string) => {
+        let _tmp_url = url;
+
+        if (mood === "angry") {
+            _tmp_url = createRecommendationURL(mood);
+            console.log("Fetch recommendations based on mood:", mood);
+        } else if (mood === "sad") {
+            _tmp_url = createRecommendationURL(mood);
+            console.log("Fetch recommendations based on mood:", mood);
+        } else if (mood === "sleepy") {
+            _tmp_url = createRecommendationURL(mood);
+            console.log("Fetch recommendations based on mood:", mood);
+        }
+
+        fetchRecommendation(_tmp_url, mood)
             .then((response) => {
                 setRecommendation(response);
+                // getAudioFeatures(response);
+                // console.log("Request successful:", response, "mood:", mood);
             })
             .catch((error) => {
                 console.error('Error while fetching data in recommendation:', error);
@@ -245,7 +422,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
     const handleReload = () => {
         if (iterator === 9) {
             console.log("Requesting new recommendations...");
-            getRecommendations(recommendationURL);
+            getRecommendations(recommendationURL, "");
             setIterator(0);
         } else {
             if (iterator < 10) {
@@ -253,15 +430,39 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                 setIterator(calculated);
             }
         }
-         //else {
-          //  setIterator(0);
-            // console.log("Reload: Request to recommendation endpoint");
-            // if (reload) {
-            //     setReload(false);
-            // } else {
-            //     setReload(true);
-            // }
-        //}
+    }
+
+    const getAudioFeatures = (recommendedTracks: any) => {
+        const trackId = recommendedTracks.tracks[0].id;
+        const amountArtists = recommendedTracks.tracks[0].artists.length
+
+        if (amountArtists === 1) {
+            console.log(recommendedTracks.tracks[0].name, " from ", recommendedTracks.tracks[0].artists[0].name);
+        }
+        if (amountArtists === 2) {
+            console.log(recommendedTracks.tracks[0].name, " from ", recommendedTracks.tracks[0].artists[0].name, ", ", recommendedTracks.tracks[0].artists[1].name);
+        }
+        if (amountArtists === 3) {
+            console.log(recommendedTracks.tracks[0].name, " from ", recommendedTracks.tracks[0].artists[0].name, ", ", recommendedTracks.tracks[0].artists[1].name, ", ", recommendedTracks.tracks[0].artists[2].name);
+        }
+
+        console.log("Track audio analysis");
+        fetchTrackAudioAnalysis(trackId)
+            .then((analysis) => {
+                console.log("Track audio analysis: ", analysis);
+            })
+            .catch((error) => {
+                console.error('Error while fetching data in recommendation:', error);
+            });
+
+        console.log("Track audio features");
+        fetchTrackAudioFeatures(trackId)
+            .then((analysis) => {
+                console.log("Track audio features: ", analysis);
+            })
+            .catch((error) => {
+                console.error('Error while fetching data in recommendation:', error);
+            });
     }
 
     return(
@@ -307,8 +508,9 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                 </div>
             </div>
             <div className="mt-32 mx-5">
-                <p className="text-base">
-                    *Recommendations are based on users top 2 artists and top 3 tracks.
+                <p className="text-xs">
+                    *The default recommendations and mood-based recommendations are based on the 2 best artists and
+                    3 best titles of the users of the last 6 weeks.
                 </p>
             </div>
         </div>

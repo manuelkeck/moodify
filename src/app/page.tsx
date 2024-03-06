@@ -9,9 +9,19 @@ import TopArtistComponent from "@/app/authorized/content/components/top-artists-
 
 function Home() {
     const [cookies] = useCookies(['spotifyToken']);
-    const hasSession = cookies.spotifyToken !== undefined;
+    const [hasSession, setHasSession] = useState(cookies.spotifyToken);
     const [loginButton, setLoginButton] = useState(true);
     const [message, setMessage] = useState("You need to login with your Spotify Premium account.");
+
+    useEffect(() => {
+        if (cookies.spotifyToken) {
+            setHasSession(true);
+            console.log("Session available");
+        } else {
+            setHasSession(false);
+            console.log("No session: reset hasSession");
+        }
+    }, [cookies.spotifyToken]);
 
     useEffect(() => {
         if (hasSession) {
