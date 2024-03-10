@@ -9,7 +9,7 @@ interface SessionExpiredPopupProps {
 function SessionExpiredPopupComponent({ onClose }: SessionExpiredPopupProps) {
     const router = useRouter();
     const [showPopup, setShowPopup] = useState(true);
-    const [cookies, removeCookie] = useCookies(['spotifyToken', 'user']);
+    const [cookies, removeCookie] = useCookies();
 
     const handleClick = () => {
         setShowPopup(false);

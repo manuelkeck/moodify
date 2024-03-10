@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import SessionExpiredPopupComponent from "@/app/authorized/content/components/session-expired-popup-component";
+import Image from "next/image";
 
 interface recommendationObject {
     id: string;
@@ -22,19 +23,24 @@ interface recommendationObject {
     }[];
 }
 
+interface MoodTuple {
+    current: string;
+    target: string;
+}
+
 interface selectedMoodProps {
-    selectedValue: string;
+    selectedValue: MoodTuple;
 }
 
 const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) => {
     const [spotifyToken, setSpotifyToken] = useState("");
-    const [selectedMood, setSelectedMood] = useState("");
     const [showPopup, setShowPopup] = useState(false);
     const [recommendation, setRecommendation] = useState<recommendationObject | null>(null);
     const [iterator, setIterator] = useState(0);
     const [recommendationURL, setRecommendationURL] = useState("");
+    const [moodTransformation, setMoodTransformation] = useState<MoodTuple | undefined>({current: "", target: ""});
 
-    const [cookies, removeCookie] = useCookies(['spotifyToken', 'user']);
+    const [cookies, removeCookie] = useCookies();
 
     useEffect(() => {
         if (cookies.spotifyToken) {
@@ -46,7 +52,13 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
     }, [cookies.user, cookies.spotifyToken]);
 
     useEffect(() => {
-        setSelectedMood(selectedValue);
+        // Check if both moods are selected
+        if (selectedValue.current !== "" && selectedValue.target !== "") {
+            setMoodTransformation(selectedValue);
+        } else {
+            setMoodTransformation(undefined);
+        }
+        //setSelectedMood(selectedValue);
     }, [selectedValue]);
 
     useEffect(() => {
@@ -79,14 +91,16 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                     // console.log("url: ", url);
                     setRecommendationURL(url);
 
-                    getRecommendations(url, selectedMood);
+                    if (moodTransformation) {
+                        getRecommendations(url, moodTransformation);
+                    }
 
                 })
                 .catch((error) => {
                     console.error('Error while fetching data:', error);
                 });}
 
-    }, [spotifyToken, selectedMood]);
+    }, [spotifyToken, moodTransformation]);
 
     async function fetchTracks(): Promise<[any, any, any]> {
 
@@ -180,31 +194,44 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
         }
     }
 
-    async function fetchRecommendation(url: string, mood: string): Promise<any> {
+    async function fetchRecommendation(url: string, mood: MoodTuple): Promise<any> {
 
         let _cachedDataObject = null;
 
         // Check if cached data is available
-        if (mood === "") {
+        if (mood.current === "") {
             _cachedDataObject = sessionStorage.getItem('cachedRecommendations');
-        } else if (mood === "angry") {
+        } else if (mood.current === "angry" && mood.target === "happy") {
             _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-        } else if (mood === "sad") {
+        } else if (mood.current === "angry" && mood.target === "relaxed") {
+            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+        } else if (mood.current === "angry" && mood.target === "sleepy") {
+            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+        } else if (mood.current === "sad" && mood.target === "happy") {
             _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
-        } else if (mood === "sleepy") {
+        } else if (mood.current === "sad" && mood.target === "relaxed") {
+            _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
+        } else if (mood.current === "sad" && mood.target === "pensive") {
+            _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
+        } else if (mood.current === "sad" && mood.target === "sleepy") {
+            _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
+        } else if (mood.current === "sleepy" && mood.target === "happy") {
+            _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
+        } else if (mood.current === "sleepy" && mood.target === "relaxed") {
+            _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
+        } else if (mood.current === "sleepy" && mood.target === "sleepy") {
             _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
         }
 
         if (_cachedDataObject) {
-            if (mood === "") {
+            if (mood.current === "") {
                 console.log("Fetching recommendations without mood selected: Using cached data from session storage");
-            } else if (mood === "angry" || mood === "sad" || mood === "sleepy") {
-                console.log("Fetching recommendations for mood", mood, "selected: Using cached data from session storage");
             } else {
-                console.log("Fetching recommendations for mood", mood, ". Calling API...");
+                console.log("Transform", mood.current, "to", mood.target, "- Using cached data from session storage");
             }
-
             return JSON.parse(_cachedDataObject);
+        } else {
+            console.log("Transform", mood.current, "to", mood.target, "- Calling API...");
         }
 
         try {
@@ -222,16 +249,16 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
 
             let _data = await response_recommendation.json();
 
-            if (mood === "") {
+            if (mood.current === "") {
                 sessionStorage.setItem('cachedRecommendations', JSON.stringify(_data));
                 console.log("Set local storage for no mood selected");
-            } else if (mood === "angry") {
+            } else if (mood.current === "angry") {
                 sessionStorage.setItem('cachedAngryRecommendations', JSON.stringify(_data));
                 console.log("Set local storage for mood", mood);
-            } else if (mood === "sad") {
+            } else if (mood.current === "sad") {
                 sessionStorage.setItem('cachedSadRecommendations', JSON.stringify(_data));
                 console.log("Set local storage for mood", mood);
-            } else if (mood === "sleepy") {
+            } else if (mood.current === "sleepy") {
                 sessionStorage.setItem('cachedSleepyRecommendations', JSON.stringify(_data));
                 console.log("Set local storage for mood", mood);
             } else {
@@ -394,19 +421,11 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
         return _url_base;
     }
 
-    const getRecommendations = (url: string, mood: string) => {
+    const getRecommendations = (url: string, mood: MoodTuple) => {
         let _tmp_url = url;
 
-        if (mood === "angry") {
-            _tmp_url = createRecommendationURL(mood);
-            console.log("Fetch recommendations based on mood:", mood);
-        } else if (mood === "sad") {
-            _tmp_url = createRecommendationURL(mood);
-            console.log("Fetch recommendations based on mood:", mood);
-        } else if (mood === "sleepy") {
-            _tmp_url = createRecommendationURL(mood);
-            console.log("Fetch recommendations based on mood:", mood);
-        }
+        _tmp_url = createRecommendationURL(mood.current);
+        console.log("Fetch recommendations: transform", mood.current, "to", mood.target);
 
         fetchRecommendation(_tmp_url, mood)
             .then((response) => {
@@ -422,7 +441,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
     const handleReload = () => {
         if (iterator === 9) {
             console.log("Requesting new recommendations...");
-            getRecommendations(recommendationURL, "");
+            // getRecommendations(recommendationURL, "");
             setIterator(0);
         } else {
             if (iterator < 10) {
@@ -465,7 +484,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             });
     }
 
-    return(
+    return (
         <div className="text-2xl font-extralight">
             <p className="mb-10">Listen to this song!*</p>
             <div className="flex flex-wrap justify-center">
@@ -508,10 +527,15 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                 </div>
             </div>
             <div className="mt-32 mx-5">
-                <p className="text-xs">
-                    *The default recommendations and mood-based recommendations are based on the 2 best artists and
-                    3 best titles of the users of the last 6 weeks.
+                <p className="text-xs font-normal">
+                    *The default recommendations and mood-based recommendations are based on users top 2 artists and
+                    top 3 titles of the last 6 weeks.
                 </p>
+                <div className="text-xs font-normal pt-10 flex items-center justify-center">
+                    <p>Data provided by </p>
+                    <Image src="/Spotify_Logo_RGB_White.png" width={70} height={10} alt="Spotify logo"
+                           className="ml-1"></Image>
+                </div>
             </div>
         </div>
     );

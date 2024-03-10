@@ -2,20 +2,18 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import React from "react";
-import Home from "@/app/page";
 import Link from "next/link";
-import {headers} from "next/headers";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Moodify",
-  description: "Let the music change your mood",
+    title: "Moodify",
+    description: "Let the music change your mood",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-      <html lang="en" className="">
+    return (
+        <html lang="en" className="">
           <body className="">
               <div className="flex flex-col h-screen justify-between bg-black">
 
@@ -31,6 +29,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                       <li className="block p-1 font-sans font-normal text-blue-gray-900">
                                           <Link href="/" className="flex items-center">
                                               Home
+                                          </Link>
+                                      </li>
+                                      <li className="block p-1 font-sans font-normal text-blue-gray-900">
+                                          <Link href="/ai/" className="flex items-center">
+                                              AI
                                           </Link>
                                       </li>
                                       {/*<li className="block p-1 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">*/}
@@ -60,5 +63,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
           </body>
       </html>
-  );
+    );
 }

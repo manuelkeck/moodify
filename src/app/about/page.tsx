@@ -1,4 +1,4 @@
-function About() {
+function Page() {
     return (
         <div className="p-4 flex-col justify-center lg:w-2/3">
             <p className="text-2xl font-extralight">About</p>
@@ -33,4 +33,4 @@ function About() {
     )
 }
 
-export default About
+export default Page

@@ -6,6 +6,7 @@ import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import TopArtistComponent from "@/app/authorized/content/components/top-artists-component";
 import Link from "next/link";
+import Script from "next/script";
 
 const spotify = new SpotifyWebApi();
 
@@ -35,7 +36,7 @@ export default function AuthorizedPage() {
             console.log("User: ", name);
             // Cookies
             setCookie('user', name, {path: '/'});
-            setCookie('spotifyToken', spotifyToken, {path: '/'});
+            setCookie('spotifyToken', spotifyToken, {path: '/', maxAge: 3600});
 
             let tmp_msg = "Logged in as ";
             let tmp_msg_concat = ""

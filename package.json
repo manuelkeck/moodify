@@ -11,13 +11,17 @@
   "dependencies": {
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
+    "ai": "^3.0.7",
     "js-cookie": "^3.0.5",
     "next": "14.1.0",
+    "openai": "^4.28.4",
     "react": "^18",
     "react-cookie": "^7.1.0",
     "react-dom": "^18",
     "react-router-dom": "^6.22.1",
-    "spotify-web-api-js": "^1.5.2"
+    "react-spotify-web-playback-sdk": "^3.0.2",
+    "spotify-web-api-js": "^1.5.2",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20",
