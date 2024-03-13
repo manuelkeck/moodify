@@ -35,7 +35,7 @@ export default function AuthorizedPage() {
         if (name !== 'User') {
             console.log("User: ", name);
             // Cookies
-            setCookie('user', name, {path: '/'});
+            setCookie('user', name, {path: '/', maxAge: 3600});
             setCookie('spotifyToken', spotifyToken, {path: '/', maxAge: 3600});
 
             let tmp_msg = "Logged in as ";

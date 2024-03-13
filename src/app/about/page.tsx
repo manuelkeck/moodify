@@ -4,6 +4,11 @@ function Page() {
             <p className="text-2xl font-extralight">About</p>
             <br/>
             <p>
+                <a target="_blank" href="https://icons8.com/icon/99266/arrow">Arrow</a> icon by <a
+                target="_blank" href="https://icons8.com">Icons8</a>
+            </p>
+            <br/>
+            <p>
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
                 ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
                 dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit

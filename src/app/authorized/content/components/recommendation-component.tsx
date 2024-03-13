@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useCookies} from "react-cookie";
 import SessionExpiredPopupComponent from "@/app/authorized/content/components/session-expired-popup-component";
 import Image from "next/image";
+import MoodTransformationAttributes from "@/app/authorized/content/components/mood-transformation-attributes";
 
 interface recommendationObject {
     id: string;
@@ -38,9 +39,10 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
     const [recommendation, setRecommendation] = useState<recommendationObject | null>(null);
     const [iterator, setIterator] = useState(0);
     const [recommendationURL, setRecommendationURL] = useState("");
-    const [moodTransformation, setMoodTransformation] = useState<MoodTuple | undefined>({current: "", target: ""});
+    const [moodTransformation, setMoodTransformation] = useState<MoodTuple>({current: "", target: ""});
 
     const [cookies, removeCookie] = useCookies();
+    const recommendationComponentRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (cookies.spotifyToken) {
@@ -55,8 +57,6 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
         // Check if both moods are selected
         if (selectedValue.current !== "" && selectedValue.target !== "") {
             setMoodTransformation(selectedValue);
-        } else {
-            setMoodTransformation(undefined);
         }
         //setSelectedMood(selectedValue);
     }, [selectedValue]);
@@ -90,10 +90,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
 
                     // console.log("url: ", url);
                     setRecommendationURL(url);
-
-                    if (moodTransformation) {
-                        getRecommendations(url, moodTransformation);
-                    }
+                    getRecommendations(url);
 
                 })
                 .catch((error) => {
@@ -201,27 +198,71 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
         // Check if cached data is available
         if (mood.current === "") {
             _cachedDataObject = sessionStorage.getItem('cachedRecommendations');
+
         } else if (mood.current === "angry" && mood.target === "happy") {
             _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
         } else if (mood.current === "angry" && mood.target === "relaxed") {
             _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-        } else if (mood.current === "angry" && mood.target === "sleepy") {
+        } else if (mood.current === "angry" && mood.target === "energized") {
             _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+        } else if (mood.current === "angry" && mood.target === "concentrated") {
+            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+
+        } else if (mood.current === "tired" && mood.target === "happy") {
+            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+        } else if (mood.current === "tired" && mood.target === "relaxed") {
+            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+        } else if (mood.current === "tired" && mood.target === "energized") {
+            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+        } else if (mood.current === "tired" && mood.target === "concentrated") {
+            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+
+        } else if (mood.current === "stressed" && mood.target === "happy") {
+            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+        } else if (mood.current === "stressed" && mood.target === "relaxed") {
+            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+        } else if (mood.current === "stressed" && mood.target === "energized") {
+            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+        } else if (mood.current === "stressed" && mood.target === "concentrated") {
+            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+
+        } else if (mood.current === "shocked" && mood.target === "happy") {
+            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+        } else if (mood.current === "shocked" && mood.target === "relaxed") {
+            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+        } else if (mood.current === "shocked" && mood.target === "energized") {
+            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+        } else if (mood.current === "shocked" && mood.target === "concentrated") {
+            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+
+        }
+
+        /*
         } else if (mood.current === "sad" && mood.target === "happy") {
             _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
         } else if (mood.current === "sad" && mood.target === "relaxed") {
             _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
+        } else if (mood.current === "sad" && mood.target === "energized") {
+            _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
+        } else if (mood.current === "sad" && mood.target === "concentrated") {
+            _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
         } else if (mood.current === "sad" && mood.target === "pensive") {
             _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
-        } else if (mood.current === "sad" && mood.target === "sleepy") {
-            _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
-        } else if (mood.current === "sleepy" && mood.target === "happy") {
+
+        } else if (mood.current === "heartbroken" && mood.target === "happy") {
             _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
-        } else if (mood.current === "sleepy" && mood.target === "relaxed") {
+        } else if (mood.current === "heartbroken" && mood.target === "relaxed") {
             _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
-        } else if (mood.current === "sleepy" && mood.target === "sleepy") {
+        } else if (mood.current === "heartbroken" && mood.target === "energized") {
+            _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
+        } else if (mood.current === "heartbroken" && mood.target === "concentrated") {
+            _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
+        } else if (mood.current === "heartbroken" && mood.target === "pensive") {
+            _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
+        } else if (mood.current === "heartbroken" && mood.target === "healed") {
             _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
         }
+        */
 
         if (_cachedDataObject) {
             if (mood.current === "") {
@@ -251,16 +292,48 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
 
             if (mood.current === "") {
                 sessionStorage.setItem('cachedRecommendations', JSON.stringify(_data));
-                console.log("Set local storage for no mood selected");
-            } else if (mood.current === "angry") {
-                sessionStorage.setItem('cachedAngryRecommendations', JSON.stringify(_data));
-                console.log("Set local storage for mood", mood);
-            } else if (mood.current === "sad") {
-                sessionStorage.setItem('cachedSadRecommendations', JSON.stringify(_data));
-                console.log("Set local storage for mood", mood);
-            } else if (mood.current === "sleepy") {
-                sessionStorage.setItem('cachedSleepyRecommendations', JSON.stringify(_data));
-                console.log("Set local storage for mood", mood);
+
+            } else if (mood.current === "angry" && mood.target === "happy") {
+                sessionStorage.setItem('cachedAngryHappyRecommendations', JSON.stringify(_data));
+            } else if (mood.current === "angry" && mood.target === "energized") {
+                sessionStorage.setItem('cachedAngryEnergizedRecommendations', JSON.stringify(_data));
+            } else if (mood.current === "angry" && mood.target === "relaxed") {
+                sessionStorage.setItem('cachedAngryRelaxedRecommendations', JSON.stringify(_data));
+            } else if (mood.current === "angry" && mood.target === "concentrated") {
+                sessionStorage.setItem('cachedAngryConcentratedRecommendations', JSON.stringify(_data));
+
+            } else if (mood.current === "tired" && mood.target === "happy") {
+                sessionStorage.setItem('cachedTiredHappyRecommendations', JSON.stringify(_data));
+            } else if (mood.current === "tired" && mood.target === "energized") {
+                sessionStorage.setItem('cachedTiredEnergizedRecommendations', JSON.stringify(_data));
+            } else if (mood.current === "tired" && mood.target === "relaxed") {
+                sessionStorage.setItem('cachedTiredRelaxedRecommendations', JSON.stringify(_data));
+            } else if (mood.current === "tired" && mood.target === "concentrated") {
+                sessionStorage.setItem('cachedTiredConcentratedRecommendations', JSON.stringify(_data));
+
+            } else if (mood.current === "stressed" && mood.target === "happy") {
+                sessionStorage.setItem('cachedStressedHappyRecommendations', JSON.stringify(_data));
+            } else if (mood.current === "stressed" && mood.target === "energized") {
+                sessionStorage.setItem('cachedStressedEnergizedRecommendations', JSON.stringify(_data));
+            } else if (mood.current === "stressed" && mood.target === "relaxed") {
+                sessionStorage.setItem('cachedStressedRelaxedRecommendations', JSON.stringify(_data));
+            } else if (mood.current === "stressed" && mood.target === "concentrated") {
+                sessionStorage.setItem('cachedStressedConcentratedRecommendations', JSON.stringify(_data));
+
+            } else if (mood.current === "shocked" && mood.target === "happy") {
+                sessionStorage.setItem('cachedShockedHappyRecommendations', JSON.stringify(_data));
+            } else if (mood.current === "shocked" && mood.target === "energized") {
+                sessionStorage.setItem('cachedShockedEnergizedRecommendations', JSON.stringify(_data));
+            } else if (mood.current === "shocked" && mood.target === "relaxed") {
+                sessionStorage.setItem('cachedShockedRelaxedRecommendations', JSON.stringify(_data));
+            } else if (mood.current === "shocked" && mood.target === "concentrated") {
+                sessionStorage.setItem('cachedShockedConcentratedRecommendations', JSON.stringify(_data));
+
+            } else if (mood.current === "sad" && mood.target === "happy") {
+                // sessionStorage.setItem('cachedSadRecommendations', JSON.stringify(_data));
+
+            } else if (mood.current === "heartbroken" && mood.target === "happy") {
+                // sessionStorage.setItem('cachedHeartRecommendations', JSON.stringify(_data));
             } else {
                 console.log("Mood not found. Check recommendation-component.tsx");
             }
@@ -338,96 +411,64 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
         setShowPopup(false);
     }
 
-    const createRecommendationURL = (mood: string) => {
+    const createRecommendationURL = (mood: MoodTuple) => {
         let _url_base = recommendationURL.concat("&");
+        const attributes = new MoodTransformationAttributes();
+        
+        if (mood.current === "angry" && mood.target === "happy") {
+            return attributes.angry_happy(_url_base);
+        } else if (mood.current === "angry" && mood.target === "energized") {
+            return attributes.angry__energized(_url_base);
+        } else if (mood.current === "angry" && mood.target === "relaxed") {
+            return attributes.angry_relaxed(_url_base);
+        } else if (mood.current === "angry" && mood.target === "concentrated") {
+            return attributes.angry_concentrated(_url_base);
 
-        // Selection of available attributes for Spotify recommendations endpoint
+        } else if (mood.current === "tired" && mood.target === "happy") {
+            return attributes.tired_happy(_url_base);
+        } else if (mood.current === "tired" && mood.target === "energized") {
+            return attributes.tired_energized(_url_base);
+        } else if (mood.current === "tired" && mood.target === "relaxed") {
+            return attributes.tired_relaxed(_url_base);
+        } else if (mood.current === "tired" && mood.target === "concentrated") {
+            return attributes.tired_concentrated(_url_base);
 
-        let min_acousticness = 0.0;
-        let max_acousticness = 0.0;
-        let target_acousticness = 0.0;
+        } else if (mood.current === "stressed" && mood.target === "happy") {
+            return attributes.stressed_happy(_url_base);
+        } else if (mood.current === "stressed" && mood.target === "energized") {
+            return attributes.stressed_energized(_url_base);
+        } else if (mood.current === "stressed" && mood.target === "relaxed") {
+            return attributes.stressed_relaxed(_url_base);
+        } else if (mood.current === "stressed" && mood.target === "concentrated") {
+            return attributes.stressed_concentrated(_url_base);
 
-        let min_danceability = 0.0;
-        let max_danceability = 0.0;
-        let target_danceability = 0.0;
-
-        let min_energy = 0.0;
-        let max_energy = 0.0;
-        let target_energy = 0.0;
-
-        let min_instrumentalness = 0.0;
-        let max_instrumentalness = 0.0;
-        let target_instrumentalness = 0.0;
-
-        let min_liveness = 0.0;
-        let max_liveness = 0.0;
-        let target_liveness = 0.0;
-
-        let min_loudness = 0.0;
-        let max_loudness = 0.0;
-        let target_loudness = 0.0;
-
-        let min_mode = 0;
-        let max_mode = 0;
-        let target_mode = 0;
-
-        let min_speechiness = 0.0;
-        let max_speechiness = 0.0;
-        let target_speechiness = 0.0;
-
-        let min_tempo = 0.0;
-        let max_tempo = 0.0;
-        let target_tempo = 0.0;
-
-        let min_valence = 0.0;
-        let max_valence = 0.0;
-        let target_valence = 0.0;
-
-        if (mood === "angry") {
-            target_energy = 1.0;
-            target_valence = 0.8;
-            target_tempo = 0.7;
-            return _url_base.concat(
-                "target_energy=", String(target_energy),
-                "&",
-                "target_valence=", String(target_valence),
-                "&",
-                "target_tempo=", String(target_tempo)
-            );
-        } else if (mood === "sad") {
-            target_valence = 0.9;
-            target_energy = 0.7;
-            target_tempo = 0.6;
-            return _url_base.concat(
-                "target_energy=", String(target_energy),
-                "&",
-                "target_valence=", String(target_valence),
-                "&",
-                "target_tempo=", String(target_tempo)
-            );
-        } else if (mood === "sleepy") {
-            target_energy = 1.0;
-            target_tempo = 0.8;
-            target_acousticness = 0.6;
-            return _url_base.concat(
-                "target_energy=", String(target_energy),
-                "&",
-                "target_acousticness=", String(target_acousticness),
-                "&",
-                "target_tempo=", String(target_tempo)
-            );
+        } else if (mood.current === "shocked" && mood.target === "happy") {
+            return attributes.shocked_happy(_url_base);
+        } else if (mood.current === "shocked" && mood.target === "energized") {
+            return attributes.shocked_energized(_url_base);
+        } else if (mood.current === "shocked" && mood.target === "relaxed") {
+            return attributes.shocked_relaxed(_url_base);
+        } else if (mood.current === "shocked" && mood.target === "concentrated") {
+            return attributes.shocked_concentrated(_url_base);
         }
 
         return _url_base;
     }
 
-    const getRecommendations = (url: string, mood: MoodTuple) => {
+    const getRecommendations = (url: string) => {
         let _tmp_url = url;
 
-        _tmp_url = createRecommendationURL(mood.current);
-        console.log("Fetch recommendations: transform", mood.current, "to", mood.target);
 
-        fetchRecommendation(_tmp_url, mood)
+        if (moodTransformation.current !== "" && moodTransformation.target !== "") {
+            _tmp_url = createRecommendationURL(moodTransformation);
+            console.log("Transform", moodTransformation.current, "to", moodTransformation.target, "- fetch recommendations");
+            // scroll down automatically
+            if (recommendationComponentRef.current) {
+                recommendationComponentRef.current.scrollIntoView({behavior: "smooth", block: "center"});
+            }
+        }
+
+        fetchRecommendation(_tmp_url, moodTransformation)
             .then((response) => {
                 setRecommendation(response);
                 // getAudioFeatures(response);
@@ -485,7 +526,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
     }
 
     return (
-        <div className="text-2xl font-extralight">
+        <div className="text-2xl font-extralight" ref={recommendationComponentRef}>
             <p className="mb-10">Listen to this song!*</p>
             <div className="flex flex-wrap justify-center">
                 <div className="flex-col">

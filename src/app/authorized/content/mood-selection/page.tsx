@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import MoodComponent from "@/app/authorized/content/components/mood-component";
 import RecommendationComponent from "@/app/authorized/content/components/recommendation-component";
 import PlayerComponent from "@/app/authorized/content/components/player-component";
+import SessionExpiredPopupComponent from "@/app/authorized/content/components/session-expired-popup-component";
 
 interface MoodTuple {
     current: string;
@@ -14,12 +15,15 @@ interface MoodTuple {
 const MoodSelectionPage: React.FC = () => {
     const [name, setName] = useState("unknown user");
     const [selectedMood, setSelectedMood] = useState<MoodTuple>({current: "", target: ""});
+    const [showPopup, setShowPopup] = useState(false);
 
-    const [cookies] = useCookies();
+    const [cookies, removeCookie] = useCookies();
 
     useEffect(() => {
         if (cookies.user === "user") {
             setName(cookies.user || "unknown user");
+        } else if (!cookies.user || cookies.user === "") {
+            handleSessionExpired();
         } else {
             setName(cookies.user);
         }
@@ -45,6 +49,17 @@ const MoodSelectionPage: React.FC = () => {
         else {
             setSelectedMood({...selectedMood, target: target});
         }
+    }
+
+    const handleSessionExpired = () => {
+        if (!showPopup) {
+            setShowPopup(true);
+            removeCookie('spotifyToken', { path: '/' });
+        }
+    };
+
+    const onPopupClose = () => {
+        setShowPopup(false);
     }
 
     return (

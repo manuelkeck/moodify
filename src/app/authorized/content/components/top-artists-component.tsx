@@ -45,7 +45,6 @@ function TopArtistComponent() {
     }
 
     useEffect(() => {
-        console.log("use effect called in top artists component");
         setSpotifyToken(cookies.spotifyToken || "");
 
         async function fetchTopArtists(): Promise<any> {
@@ -98,7 +97,7 @@ function TopArtistComponent() {
                 console.log("Fetching users top tracks: No cached data found in session storage. API will be requested.");
 
                 const topTracks = await fetch(
-                    "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10", {
+                    "https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=10", {
                         headers: {
                             Authorization: `Bearer ${spotifyToken}`
                         }
@@ -194,7 +193,7 @@ function TopArtistComponent() {
             </div>
             <div className="mt-32 mx-5">
                 <p className="text-xs">
-                    The overview of top tracks and top artists is based on the last 6 weeks.
+                    The overview of top tracks is based on the last 6 months and top artists is based on the last 6 weeks.
                 </p>
                 <div className="text-xs pt-10 flex items-center justify-center">
                     <p>Data provided by </p>
