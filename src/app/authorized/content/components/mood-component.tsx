@@ -43,7 +43,6 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
     const [appearanceMood8, setAppearanceMood8] = useState(defaultAppearance);      // energized
     const [appearanceMood9, setAppearanceMood9] = useState(defaultAppearance);      // healed
 
-    const arrow = "->";
     const [currentMood, setCurrentMood] = useState("");
     const [targetMood, setTargetMood] = useState("");
 

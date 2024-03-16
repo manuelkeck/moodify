@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import React from "react";
 import Link from "next/link";
+import ErrorBoundary from "@/app/authorized/content/components/ErrorBoundary";
 
 const inter = Inter({ subsets: ["latin"] });
 

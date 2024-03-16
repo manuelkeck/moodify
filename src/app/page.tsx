@@ -8,14 +8,19 @@ import TopArtistComponent from "@/app/authorized/content/components/top-artists-
 
 
 function Home() {
-    const [cookies] = useCookies();
-    const [hasSession, setHasSession] = useState(cookies.spotifyToken);
+    const [cookies, removeCookie] = useCookies();
+    const [hasSession, setHasSession] = useState(false);
     const [loginButton, setLoginButton] = useState(true);
     const [message, setMessage] = useState("You need to login with your Spotify Premium account.");
 
     useEffect(() => {
         if (cookies.spotifyToken) {
-            setHasSession(true);
+            if (cookies.spotifyToken !== "%7B%22path%22%3A%22%2F%22%7D") {
+                setHasSession(true);
+            } else {
+                removeCookie("spotifyToken", { path: "/" });
+                setHasSession(false);
+            }
         } else {
             setHasSession(false);
         }
@@ -65,8 +70,7 @@ function Home() {
 
                     <TopArtistComponent/>
                 </div>
-            )
-            }
+            )}
         </div>
     );
 }

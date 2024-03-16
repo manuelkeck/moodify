@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Evaluation {
+  id          Int         @id @default(autoincrement()) @unique
+  createdAt   DateTime    @default(now())
+  name        String
+  currentMood String
+  targetMood  String
+  recURL      String
+  success     Boolean
+}
+
+model Pets {
+  id          Int         @id @default(autoincrement())
+  name        String      @unique
+  owner       String
+}

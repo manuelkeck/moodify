@@ -2,7 +2,8 @@ import React, {useEffect, useRef, useState} from "react";
 import {useCookies} from "react-cookie";
 import SessionExpiredPopupComponent from "@/app/authorized/content/components/session-expired-popup-component";
 import Image from "next/image";
-import MoodTransformationAttributes from "@/app/authorized/content/components/mood-transformation-attributes";
+import MoodTransformationAttributes from "@/app/authorized/content/components/helper/mood-transformation-attributes";
+import EvaluationComponent from "@/app/authorized/content/components/evaluation";
 
 interface recommendationObject {
     id: string;
@@ -39,7 +40,9 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
     const [recommendation, setRecommendation] = useState<recommendationObject | null>(null);
     const [iterator, setIterator] = useState(0);
     const [recommendationURL, setRecommendationURL] = useState("");
+    const [currentRecommendationURL, setCurrentRecommendationURL] = useState("");
     const [moodTransformation, setMoodTransformation] = useState<MoodTuple>({current: "", target: ""});
+    const [releaseButtons, setReleaseButtons] = useState(false);
 
     const [cookies, removeCookie] = useCookies();
     const recommendationComponentRef = useRef<HTMLDivElement>(null);
@@ -57,6 +60,11 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
         // Check if both moods are selected
         if (selectedValue.current !== "" && selectedValue.target !== "") {
             setMoodTransformation(selectedValue);
+            setReleaseButtons(true);
+            console.log("both moods selected");
+        } else {
+            console.log("one mood deselected:", moodTransformation);
+            setReleaseButtons(false);
         }
         //setSelectedMood(selectedValue);
     }, [selectedValue]);
@@ -285,6 +293,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
 
             if (!response_recommendation.ok) {
                 handleSessionExpired();
+                console.log("handle session expired doesnt work..? recommendation-component");
                 new Error('Network response was not ok');
             }
 
@@ -402,8 +411,10 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
 
     const handleSessionExpired = () => {
         if (!showPopup) {
+            console.log("handle session expired event")
+            // removeCookie('spotifyToken', { path: '/' });
+
             setShowPopup(true);
-            removeCookie('spotifyToken', { path: '/' });
         }
     };
 
@@ -458,9 +469,9 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
     const getRecommendations = (url: string) => {
         let _tmp_url = url;
 
-
         if (moodTransformation.current !== "" && moodTransformation.target !== "") {
             _tmp_url = createRecommendationURL(moodTransformation);
+            setCurrentRecommendationURL(_tmp_url);
             console.log("Transform", moodTransformation.current, "to", moodTransformation.target, "- fetch recommendations");
             // scroll down automatically
             if (recommendationComponentRef.current) {
@@ -482,7 +493,6 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
     const handleReload = () => {
         if (iterator === 9) {
             console.log("Requesting new recommendations...");
-            // getRecommendations(recommendationURL, "");
             setIterator(0);
         } else {
             if (iterator < 10) {
@@ -524,7 +534,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                 console.error('Error while fetching data in recommendation:', error);
             });
     }
-
+    
     return (
         <div className="text-2xl font-extralight" ref={recommendationComponentRef}>
             <p className="mb-10">Listen to this song!*</p>
@@ -565,12 +575,21 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                             Reload
                         </button>
                     </div>
+
+                    {/* Questionnaire (recommendation good/not good, yes/no)*/}
+                    {releaseButtons ? (<EvaluationComponent
+                        name={cookies.user}
+                        currentMood={moodTransformation.current}
+                        targetMood={moodTransformation.target}
+                        recURL={currentRecommendationURL}
+                    />):(<></>)}
+
                 </div>
             </div>
             <div className="mt-32 mx-5">
                 <p className="text-xs font-normal">
-                    *The default recommendations and mood-based recommendations are based on users top 2 artists and
-                    top 3 titles of the last 6 weeks.
+                    *The default recommendations and mood-based recommendations are based on users top 2 artists of the
+                    last 6 weeks and top 3 titles of the last 6 months.
                 </p>
                 <div className="text-xs font-normal pt-10 flex items-center justify-center">
                     <p>Data provided by </p>

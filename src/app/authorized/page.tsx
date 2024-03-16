@@ -13,7 +13,7 @@ const spotify = new SpotifyWebApi();
 export default function AuthorizedPage() {
     const [spotifyToken, setSpotifyToken] = useState("");
     const [name, setName] = useState<string | undefined>("User");
-    const [cookies, setCookie] = useCookies(['spotifyToken', 'user']);
+    const [cookies, setCookie, removeCookie] = useCookies();
     const [topMessage, setTopMessage] = useState("Permission denied.");
     const [infoMessage, setInfoMessage] = useState("Request permissions: manuel.keck@student.reutlingen-university.de");
     const [continueButton, setContinueButton] = useState(false);
@@ -34,7 +34,12 @@ export default function AuthorizedPage() {
 
         if (name !== 'User') {
             console.log("User: ", name);
+
             // Cookies
+            if (cookies.spotifyToken) {
+                removeCookie(spotifyToken);
+                console.log("remove cookie because exists");
+            }
             setCookie('user', name, {path: '/', maxAge: 3600});
             setCookie('spotifyToken', spotifyToken, {path: '/', maxAge: 3600});
 
@@ -77,8 +82,7 @@ export default function AuthorizedPage() {
                     className="transition duration-150 w-28 text-center text-base ease-in-out mt-10 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
                     <Link href="/">Back</Link>
                 </div>
-            )
-            }
+            )}
         </div>
     );
 }

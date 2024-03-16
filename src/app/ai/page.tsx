@@ -1,8 +1,6 @@
 'use client';
 
 import { useChat } from 'ai/react';
-import SpeechRecognitionComponent from "@/app/ai/components/speech-recognition-component";
-import Image from "next/image";
 import React from "react";
 import { useRef, useEffect } from 'react';
 
