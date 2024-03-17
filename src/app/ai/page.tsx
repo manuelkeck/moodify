@@ -1,7 +1,6 @@
 'use client';
 
 import { useChat } from 'ai/react';
-import React from "react";
 import { useRef, useEffect } from 'react';
 
 function interpolateColor(startColor: string, endColor: string, step: number, steps: number): string {
@@ -63,21 +62,20 @@ export default function Chat() {
                                 </div>
                             ))}
                         </div>
-
-
                     </div>
+
                     <div className="flex items-center">
-                            <form onSubmit={handleSubmit} className="w-full">
-                                <input
-                                    className="w-full border border-gray-300 rounded-3xl m-1 shadow-xl p-2"
-                                    style={{color: 'black'}}
-                                    value={input}
-                                    onChange={handleInputChange}
-                                />
-                            </form>
-                        <div className="ml-auto">
-                            <button type="submit" className="mx-6">Send</button>
-                        </div>
+                        <form onSubmit={handleSubmit} className="w-full flex justify-between">
+                            <input
+                                className="w-full border border-gray-300 rounded-3xl m-1 shadow-xl p-2"
+                                style={{color: 'black'}}
+                                value={input}
+                                onChange={handleInputChange}
+                            />
+                            <div className="ml-auto flex justify-center">
+                                <button className="mx-3">Send</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

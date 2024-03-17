@@ -10,7 +10,7 @@ interface evaluationContext {
 const EvaluationComponent: React.FC<evaluationContext> = (props) => {
     const saveResponseToDatabase = async (success: boolean) => {
         const data = {
-            name: "no-name",
+            name: props.name,
             currentMood: props.currentMood,
             targetMood: props.targetMood,
             recURL: props.recURL,

@@ -24,6 +24,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
         // clear all
         // delete session storage
         // delete cookies
+
         sessionStorage.clear();
         console.error('Ein Fehler ist aufgetreten:', error, errorInfo);
     }
@@ -33,6 +34,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
             return (
                 <div>
                     <h1>Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.</h1>
+
                 </div>
             );
         }

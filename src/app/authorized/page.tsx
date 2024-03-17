@@ -36,12 +36,8 @@ export default function AuthorizedPage() {
             console.log("User: ", name);
 
             // Cookies
-            if (cookies.spotifyToken) {
-                removeCookie(spotifyToken);
-                console.log("remove cookie because exists");
-            }
             setCookie('user', name, {path: '/', maxAge: 3600});
-            setCookie('spotifyToken', spotifyToken, {path: '/', maxAge: 3600});
+            setCookie('spotifyToken', spotifyToken, {path: '/authorized', maxAge: 3600});
 
             let tmp_msg = "Logged in as ";
             let tmp_msg_concat = ""

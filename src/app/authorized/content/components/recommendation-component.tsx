@@ -61,9 +61,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
         if (selectedValue.current !== "" && selectedValue.target !== "") {
             setMoodTransformation(selectedValue);
             setReleaseButtons(true);
-            console.log("both moods selected");
         } else {
-            console.log("one mood deselected:", moodTransformation);
             setReleaseButtons(false);
         }
         //setSelectedMood(selectedValue);
@@ -201,76 +199,49 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
 
     async function fetchRecommendation(url: string, mood: MoodTuple): Promise<any> {
 
-        let _cachedDataObject = null;
-
         // Check if cached data is available
-        if (mood.current === "") {
-            _cachedDataObject = sessionStorage.getItem('cachedRecommendations');
+        let _cachedDataObject;
 
-        } else if (mood.current === "angry" && mood.target === "happy") {
-            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-        } else if (mood.current === "angry" && mood.target === "relaxed") {
-            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-        } else if (mood.current === "angry" && mood.target === "energized") {
-            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-        } else if (mood.current === "angry" && mood.target === "concentrated") {
-            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-
-        } else if (mood.current === "tired" && mood.target === "happy") {
-            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-        } else if (mood.current === "tired" && mood.target === "relaxed") {
-            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-        } else if (mood.current === "tired" && mood.target === "energized") {
-            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-        } else if (mood.current === "tired" && mood.target === "concentrated") {
-            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-
-        } else if (mood.current === "stressed" && mood.target === "happy") {
-            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-        } else if (mood.current === "stressed" && mood.target === "relaxed") {
-            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-        } else if (mood.current === "stressed" && mood.target === "energized") {
-            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-        } else if (mood.current === "stressed" && mood.target === "concentrated") {
-            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-
-        } else if (mood.current === "shocked" && mood.target === "happy") {
-            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-        } else if (mood.current === "shocked" && mood.target === "relaxed") {
-            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-        } else if (mood.current === "shocked" && mood.target === "energized") {
-            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-        } else if (mood.current === "shocked" && mood.target === "concentrated") {
-            _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
-
+        switch (`${mood.current}:${mood.target}`) {
+            case "":
+                _cachedDataObject = sessionStorage.getItem('cachedRecommendations');
+                break;
+            case "angry:happy":
+            case "angry:relaxed":
+            case "angry:energized":
+            case "angry:concentrated":
+            case "tired:happy":
+            case "tired:relaxed":
+            case "tired:energized":
+            case "tired:concentrated":
+            case "stressed:happy":
+            case "stressed:relaxed":
+            case "stressed:energized":
+            case "stressed:concentrated":
+            case "shocked:happy":
+            case "shocked:relaxed":
+            case "shocked:energized":
+            case "shocked:concentrated":
+                _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
+                break;
+            case "sad:happy":
+            case "sad:relaxed":
+            case "sad:energized":
+            case "sad:concentrated":
+            case "sad:pensive":
+                _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
+                break;
+            case "heartbroken:happy":
+            case "heartbroken:relaxed":
+            case "heartbroken:energized":
+            case "heartbroken:concentrated":
+            case "heartbroken:pensive":
+            case "heartbroken:healed":
+                _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
+                break;
+            default:
+                console.log("Get recommendation: no item in session storage found.");
         }
-
-        /*
-        } else if (mood.current === "sad" && mood.target === "happy") {
-            _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
-        } else if (mood.current === "sad" && mood.target === "relaxed") {
-            _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
-        } else if (mood.current === "sad" && mood.target === "energized") {
-            _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
-        } else if (mood.current === "sad" && mood.target === "concentrated") {
-            _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
-        } else if (mood.current === "sad" && mood.target === "pensive") {
-            _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
-
-        } else if (mood.current === "heartbroken" && mood.target === "happy") {
-            _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
-        } else if (mood.current === "heartbroken" && mood.target === "relaxed") {
-            _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
-        } else if (mood.current === "heartbroken" && mood.target === "energized") {
-            _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
-        } else if (mood.current === "heartbroken" && mood.target === "concentrated") {
-            _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
-        } else if (mood.current === "heartbroken" && mood.target === "pensive") {
-            _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
-        } else if (mood.current === "heartbroken" && mood.target === "healed") {
-            _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
-        }
-        */
 
         if (_cachedDataObject) {
             if (mood.current === "") {
@@ -280,7 +251,11 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             }
             return JSON.parse(_cachedDataObject);
         } else {
-            console.log("Transform", mood.current, "to", mood.target, "- Calling API...");
+            if (mood.current && mood.target) {
+                console.log("Transform", mood.current, "to", mood.target, "- Calling API...");
+            } else {
+                console.log("Default recommendation - Calling API...");
+            }
         }
 
         try {
@@ -293,58 +268,72 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
 
             if (!response_recommendation.ok) {
                 handleSessionExpired();
-                console.log("handle session expired doesnt work..? recommendation-component");
                 new Error('Network response was not ok');
             }
 
             let _data = await response_recommendation.json();
 
-            if (mood.current === "") {
-                sessionStorage.setItem('cachedRecommendations', JSON.stringify(_data));
-
-            } else if (mood.current === "angry" && mood.target === "happy") {
-                sessionStorage.setItem('cachedAngryHappyRecommendations', JSON.stringify(_data));
-            } else if (mood.current === "angry" && mood.target === "energized") {
-                sessionStorage.setItem('cachedAngryEnergizedRecommendations', JSON.stringify(_data));
-            } else if (mood.current === "angry" && mood.target === "relaxed") {
-                sessionStorage.setItem('cachedAngryRelaxedRecommendations', JSON.stringify(_data));
-            } else if (mood.current === "angry" && mood.target === "concentrated") {
-                sessionStorage.setItem('cachedAngryConcentratedRecommendations', JSON.stringify(_data));
-
-            } else if (mood.current === "tired" && mood.target === "happy") {
-                sessionStorage.setItem('cachedTiredHappyRecommendations', JSON.stringify(_data));
-            } else if (mood.current === "tired" && mood.target === "energized") {
-                sessionStorage.setItem('cachedTiredEnergizedRecommendations', JSON.stringify(_data));
-            } else if (mood.current === "tired" && mood.target === "relaxed") {
-                sessionStorage.setItem('cachedTiredRelaxedRecommendations', JSON.stringify(_data));
-            } else if (mood.current === "tired" && mood.target === "concentrated") {
-                sessionStorage.setItem('cachedTiredConcentratedRecommendations', JSON.stringify(_data));
-
-            } else if (mood.current === "stressed" && mood.target === "happy") {
-                sessionStorage.setItem('cachedStressedHappyRecommendations', JSON.stringify(_data));
-            } else if (mood.current === "stressed" && mood.target === "energized") {
-                sessionStorage.setItem('cachedStressedEnergizedRecommendations', JSON.stringify(_data));
-            } else if (mood.current === "stressed" && mood.target === "relaxed") {
-                sessionStorage.setItem('cachedStressedRelaxedRecommendations', JSON.stringify(_data));
-            } else if (mood.current === "stressed" && mood.target === "concentrated") {
-                sessionStorage.setItem('cachedStressedConcentratedRecommendations', JSON.stringify(_data));
-
-            } else if (mood.current === "shocked" && mood.target === "happy") {
-                sessionStorage.setItem('cachedShockedHappyRecommendations', JSON.stringify(_data));
-            } else if (mood.current === "shocked" && mood.target === "energized") {
-                sessionStorage.setItem('cachedShockedEnergizedRecommendations', JSON.stringify(_data));
-            } else if (mood.current === "shocked" && mood.target === "relaxed") {
-                sessionStorage.setItem('cachedShockedRelaxedRecommendations', JSON.stringify(_data));
-            } else if (mood.current === "shocked" && mood.target === "concentrated") {
-                sessionStorage.setItem('cachedShockedConcentratedRecommendations', JSON.stringify(_data));
-
-            } else if (mood.current === "sad" && mood.target === "happy") {
-                // sessionStorage.setItem('cachedSadRecommendations', JSON.stringify(_data));
-
-            } else if (mood.current === "heartbroken" && mood.target === "happy") {
-                // sessionStorage.setItem('cachedHeartRecommendations', JSON.stringify(_data));
-            } else {
-                console.log("Mood not found. Check recommendation-component.tsx");
+            if (!('error' in _data)) {
+                console.log("API called successfully. Set session storage");
+                switch (`${moodTransformation.current}:${moodTransformation.target}`) {
+                    case "":
+                        sessionStorage.setItem('cachedRecommendations', JSON.stringify(_data));
+                        break;
+                    case "angry:happy":
+                        sessionStorage.setItem('cachedAngryHappyRecommendations', JSON.stringify(_data));
+                        break;
+                    case "angry:energized":
+                        sessionStorage.setItem('cachedAngryEnergizedRecommendations', JSON.stringify(_data));
+                        break;
+                    case "angry:relaxed":
+                        sessionStorage.setItem('cachedAngryRelaxedRecommendations', JSON.stringify(_data));
+                        break;
+                    case "angry:concentrated":
+                        sessionStorage.setItem('cachedAngryConcentratedRecommendations', JSON.stringify(_data));
+                        break;
+                    case "tired:happy":
+                        sessionStorage.setItem('cachedTiredHappyRecommendations', JSON.stringify(_data));
+                        break;
+                    case "tired:energized":
+                        sessionStorage.setItem('cachedTiredEnergizedRecommendations', JSON.stringify(_data));
+                        break;
+                    case "tired:relaxed":
+                        sessionStorage.setItem('cachedTiredRelaxedRecommendations', JSON.stringify(_data));
+                        break;
+                    case "tired:concentrated":
+                        sessionStorage.setItem('cachedTiredConcentratedRecommendations', JSON.stringify(_data));
+                        break;
+                    case "stressed:happy":
+                        sessionStorage.setItem('cachedStressedHappyRecommendations', JSON.stringify(_data));
+                        break;
+                    case "stressed:energized":
+                        sessionStorage.setItem('cachedStressedEnergizedRecommendations', JSON.stringify(_data));
+                        break;
+                    case "stressed:relaxed":
+                        sessionStorage.setItem('cachedStressedRelaxedRecommendations', JSON.stringify(_data));
+                        break;
+                    case "stressed:concentrated":
+                        sessionStorage.setItem('cachedStressedConcentratedRecommendations', JSON.stringify(_data));
+                        break;
+                    case "shocked:happy":
+                        sessionStorage.setItem('cachedShockedHappyRecommendations', JSON.stringify(_data));
+                        break;
+                    case "shocked:energized":
+                        sessionStorage.setItem('cachedShockedEnergizedRecommendations', JSON.stringify(_data));
+                        break;
+                    case "shocked:relaxed":
+                        sessionStorage.setItem('cachedShockedRelaxedRecommendations', JSON.stringify(_data));
+                        break;
+                    case "shocked:concentrated":
+                        sessionStorage.setItem('cachedShockedConcentratedRecommendations', JSON.stringify(_data));
+                        break;
+                    case "sad:happy":
+                        // sessionStorage.setItem('cachedSadRecommendations', JSON.stringify(_data));
+                        break;
+                    case "heartbroken:happy":
+                        // sessionStorage.setItem('cachedHeartRecommendations', JSON.stringify(_data));
+                        break;
+                }
             }
 
             return _data;
@@ -429,7 +418,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
         if (mood.current === "angry" && mood.target === "happy") {
             return attributes.angry_happy(_url_base);
         } else if (mood.current === "angry" && mood.target === "energized") {
-            return attributes.angry__energized(_url_base);
+            return attributes.angry_energized(_url_base);
         } else if (mood.current === "angry" && mood.target === "relaxed") {
             return attributes.angry_relaxed(_url_base);
         } else if (mood.current === "angry" && mood.target === "concentrated") {
@@ -534,7 +523,9 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                 console.error('Error while fetching data in recommendation:', error);
             });
     }
-    
+
+    console.log(recommendation);
+
     return (
         <div className="text-2xl font-extralight" ref={recommendationComponentRef}>
             <p className="mb-10">Listen to this song!*</p>
@@ -544,7 +535,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                         <SessionExpiredPopupComponent onClose={onPopupClose}/>
                     )}
                     <div>
-                        {recommendation !== null ? (
+                        {recommendation !== null && (!('error' in recommendation)) ? (
                             <>
                                 <div className="bg-gray-900 py-10 px-3 rounded-lg max-w-md mx-auto flex flex-col items-center w-60">
                                     <a href={recommendation.tracks[iterator].external_urls.spotify} target="_blank"

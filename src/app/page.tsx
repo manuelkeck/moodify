@@ -5,6 +5,7 @@ import React, {useEffect, useState} from "react";
 import { login_url } from "../../spotify_api";
 import {useCookies} from "react-cookie";
 import TopArtistComponent from "@/app/authorized/content/components/top-artists-component";
+import Link from "next/link";
 
 
 function Home() {
@@ -15,15 +16,16 @@ function Home() {
 
     useEffect(() => {
         if (cookies.spotifyToken) {
-            if (cookies.spotifyToken !== "%7B%22path%22%3A%22%2F%22%7D") {
+            // console.log(cookies.spotifyToken);
+            if (cookies.spotifyToken.path !== "/" && cookies.spotifyToken.path !== "/authorized") {
                 setHasSession(true);
             } else {
-                removeCookie("spotifyToken", { path: "/" });
                 setHasSession(false);
             }
         } else {
             setHasSession(false);
         }
+        // console.log(hasSession);
     }, [cookies.spotifyToken]);
 
     useEffect(() => {
@@ -64,7 +66,8 @@ function Home() {
                     <div className="flex justify-center items-center">
                         <div
                             className="transition duration-150 w-28 text-center ease-in-out mt-10 bg-gray-700 hover:bg-gray-800 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
-                            <a href="/authorized/content/mood-selection">Continue</a>
+                            {/*<a href="/authorized/content/mood-selection">Continue</a>*/}
+                            <Link href="/authorized/content/mood-selection/">Continue</Link>
                         </div>
                     </div>
 

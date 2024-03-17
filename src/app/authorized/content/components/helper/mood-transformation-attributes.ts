@@ -53,116 +53,116 @@ class MoodTransformationAttributes {
     }
 
     angry_happy(url: string) {
-        let _attribute1: attribute = {attr: "target_energy", value: 1.0};
-        let _attribute2: attribute = {attr: "target_valence", value: 0.8};
-        let _attribute3: attribute = {attr: "target_tempo", value: 0.7};
+        let _attribute1: attribute = {attr: "target_energy", value: 0.8};
+        let _attribute2: attribute = {attr: "target_danceability", value: 0.8};
+        let _attribute3: attribute = {attr: "target_tempo", value: 120};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
-    }
+    } // iteration 1
 
-    angry__energized(url: string) {
-        let _attribute1: attribute = {attr: "target_energy", value: 1.0};
-        let _attribute2: attribute = {attr: "target_valence", value: 0.8};
-        let _attribute3: attribute = {attr: "target_tempo", value: 0.7};
+    angry_energized(url: string) {
+        let _attribute1: attribute = {attr: "target_energy", value: 0.8};
+        let _attribute2: attribute = {attr: "target_danceability", value: 0.8};
+        let _attribute3: attribute = {attr: "target_tempo", value: 140};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
-    }
+    } // iteration 1
 
     angry_relaxed(url: string) {
-        let _attribute1: attribute = {attr: "target_energy", value: 1.0};
-        let _attribute2: attribute = {attr: "target_valence", value: 0.8};
-        let _attribute3: attribute = {attr: "target_tempo", value: 0.7};
+        let _attribute1: attribute = {attr: "target_energy", value: 0.4};
+        let _attribute2: attribute = {attr: "target_danceability", value: 0.4};
+        let _attribute3: attribute = {attr: "target_tempo", value: 80};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
-    }
+    } // iteration 1
 
     angry_concentrated(url: string) {
-        let _attribute1: attribute = {attr: "target_energy", value: 1.0};
-        let _attribute2: attribute = {attr: "target_valence", value: 0.8};
-        let _attribute3: attribute = {attr: "target_tempo", value: 0.7};
+        let _attribute1: attribute = {attr: "target_energy", value: 0.2};
+        let _attribute2: attribute = {attr: "target_danceability", value: 0.2};
+        let _attribute3: attribute = {attr: "target_tempo", value: 120};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
-    }
+    } // iteration 1
 
     tired_happy(url: string) {
-        let _attribute1: attribute = {attr: "target_energy", value: 1.0};
-        let _attribute2: attribute = {attr: "target_acousticness", value: 0.6};
-        let _attribute3: attribute = {attr: "target_tempo", value: 0.8};
+        let _attribute1: attribute = {attr: "target_energy", value: 0.5};
+        let _attribute2: attribute = {attr: "target_danceability", value: 0.7};
+        let _attribute3: attribute = {attr: "target_tempo", value: 120};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
-    }
+    } // iteration 1
 
     tired_energized(url: string) {
-        let _attribute1: attribute = {attr: "target_energy", value: 1.0};
-        let _attribute2: attribute = {attr: "target_acousticness", value: 0.6};
-        let _attribute3: attribute = {attr: "target_tempo", value: 0.8};
+        let _attribute1: attribute = {attr: "target_energy", value: 0.9};
+        let _attribute2: attribute = {attr: "target_danceability", value: 0.9};
+        let _attribute3: attribute = {attr: "target_tempo", value: 140};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
-    }
+    } // iteration 1
 
     tired_relaxed(url: string) {
-        let _attribute1: attribute = {attr: "target_energy", value: 1.0};
-        let _attribute2: attribute = {attr: "target_acousticness", value: 0.6};
-        let _attribute3: attribute = {attr: "target_tempo", value: 0.8};
+        let _attribute1: attribute = {attr: "target_energy", value: 0.2};
+        let _attribute2: attribute = {attr: "target_danceability", value: 0.2};
+        let _attribute3: attribute = {attr: "target_tempo", value: 60};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
-    }
+    } // iteration 1
 
     tired_concentrated(url: string) {
-        let _attribute1: attribute = {attr: "target_energy", value: 1.0};
-        let _attribute2: attribute = {attr: "target_acousticness", value: 0.6};
-        let _attribute3: attribute = {attr: "target_tempo", value: 0.8};
+        let _attribute1: attribute = {attr: "target_energy", value: 0.4};
+        let _attribute2: attribute = {attr: "target_danceability", value: 0.4};
+        let _attribute3: attribute = {attr: "target_tempo", value: 100};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
-    }
+    } // iteration 1
 
     stressed_happy(url: string) {
-        let _attribute1: attribute = {attr: "target_energy", value: 1.0};
-        let _attribute2: attribute = {attr: "target_acousticness", value: 0.6};
-        let _attribute3: attribute = {attr: "target_tempo", value: 0.8};
+        let _attribute1: attribute = {attr: "target_energy", value: 0.5};
+        let _attribute2: attribute = {attr: "target_danceability", value: 0.5};
+        let _attribute3: attribute = {attr: "target_tempo", value: 120};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
-    }
+    } // iteration 1
 
     stressed_energized(url: string) {
-        let _attribute1: attribute = {attr: "target_energy", value: 1.0};
-        let _attribute2: attribute = {attr: "target_acousticness", value: 0.6};
-        let _attribute3: attribute = {attr: "target_tempo", value: 0.8};
+        let _attribute1: attribute = {attr: "target_energy", value: 0.9};
+        let _attribute2: attribute = {attr: "target_danceability", value: 0.9};
+        let _attribute3: attribute = {attr: "target_tempo", value: 100};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
-    }
+    } // iteration 1
 
     stressed_relaxed(url: string) {
-        let _attribute1: attribute = {attr: "target_energy", value: 1.0};
-        let _attribute2: attribute = {attr: "target_acousticness", value: 0.6};
-        let _attribute3: attribute = {attr: "target_tempo", value: 0.8};
+        let _attribute1: attribute = {attr: "target_energy", value: 0.1};
+        let _attribute2: attribute = {attr: "target_danceability", value: 0.1};
+        let _attribute3: attribute = {attr: "target_tempo", value: 100};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
-    }
+    } // iteration 1
 
     stressed_concentrated(url: string) {
-        let _attribute1: attribute = {attr: "target_energy", value: 1.0};
-        let _attribute2: attribute = {attr: "target_acousticness", value: 0.6};
-        let _attribute3: attribute = {attr: "target_tempo", value: 0.8};
+        let _attribute1: attribute = {attr: "target_energy", value: 0.2};
+        let _attribute2: attribute = {attr: "target_danceability", value: 0.2};
+        let _attribute3: attribute = {attr: "target_tempo", value: 100};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
-    }
+    } // iteration 1
 
     shocked_happy(url: string) {
-        let _attribute1: attribute = {attr: "target_energy", value: 1.0};
-        let _attribute2: attribute = {attr: "target_acousticness", value: 0.6};
-        let _attribute3: attribute = {attr: "target_tempo", value: 0.8};
+        let _attribute1: attribute = {attr: "target_energy", value: 0.4};
+        let _attribute2: attribute = {attr: "target_danceability", value: 0.5};
+        let _attribute3: attribute = {attr: "target_tempo", value: 90};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
-    }
+    } // iteration 1
 
     shocked_energized(url: string) {
-        let _attribute1: attribute = {attr: "target_energy", value: 1.0};
-        let _attribute2: attribute = {attr: "target_acousticness", value: 0.6};
-        let _attribute3: attribute = {attr: "target_tempo", value: 0.8};
+        let _attribute1: attribute = {attr: "target_energy", value: 0.9};
+        let _attribute2: attribute = {attr: "target_danceability", value: 0.9};
+        let _attribute3: attribute = {attr: "target_tempo", value: 160};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
-    }
+    } // iteration 1
 
     shocked_relaxed(url: string) {
-        let _attribute1: attribute = {attr: "target_energy", value: 1.0};
-        let _attribute2: attribute = {attr: "target_acousticness", value: 0.6};
-        let _attribute3: attribute = {attr: "target_tempo", value: 0.8};
+        let _attribute1: attribute = {attr: "target_energy", value: 0.2};
+        let _attribute2: attribute = {attr: "target_danceability", value: 0.3};
+        let _attribute3: attribute = {attr: "target_tempo", value: 80};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
-    }
+    } // iteration 1
 
     shocked_concentrated(url: string) {
-        let _attribute1: attribute = {attr: "target_energy", value: 1.0};
-        let _attribute2: attribute = {attr: "target_acousticness", value: 0.6};
-        let _attribute3: attribute = {attr: "target_tempo", value: 0.8};
+        let _attribute1: attribute = {attr: "target_energy", value: 0.5};
+        let _attribute2: attribute = {attr: "target_danceability", value: 0.2};
+        let _attribute3: attribute = {attr: "target_tempo", value: 120};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
-    }
+    } // iteration 1
 }
 
 export default MoodTransformationAttributes;

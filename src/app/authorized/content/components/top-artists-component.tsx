@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import SessionExpiredPopupComponent from "@/app/authorized/content/components/session-expired-popup-component";
 import Image from "next/image";
-import {auto} from "openai/_shims/registry";
+import {router} from "next/client";
 
 interface ArtistsItem {
     external_urls: {
@@ -14,6 +14,9 @@ interface ArtistsItem {
         width: number;
         height: number;
     }[];
+    error: {
+        status: number;
+    };
 }
 
 interface TracksItem {
@@ -31,17 +34,22 @@ interface TracksItem {
             height: number;
         }[];
     };
+    error: {
+        status: number;
+    };
 }
 
 function TopArtistComponent() {
     const [artistsDataObject, setArtistsDataObject] = useState<{ items: ArtistsItem[] } | null>(null);
     const [tracksDataObject, setTracksDataObject] = useState<{ items: TracksItem[] } | null>(null);
     const [spotifyToken, setSpotifyToken] = useState("");
-    const [cookies, removeCookie] = useCookies();
+    const [cookies, setCookie, removeCookie] = useCookies();
     const [showPopup, setShowPopup] = useState(false);
 
     const onPopupClose = () => {
         setShowPopup(false);
+        sessionStorage.clear();
+        window.location.reload();
     }
 
     useEffect(() => {
@@ -122,21 +130,32 @@ function TopArtistComponent() {
         const handleSessionExpired = () => {
             if (!showPopup) {
                 setShowPopup(true);
+                // setCookie('spotifyToken', {path: '/'});
                 removeCookie('spotifyToken', { path: '/' });
+                removeCookie('spotifyToken', { path: '/authorized' });
             }
         };
 
         if (spotifyToken) {
             fetchTopTracks()
                 .then((object) => {
-                    setTracksDataObject(object);
+                    if (!('error' in object)) {
+                        setTracksDataObject(object);
+                    } else {
+                        handleSessionExpired();
+                    }
+
                 })
                 .catch((error) => {
                     console.log("Error while fetching data:", error);
                 });
             fetchTopArtists()
                 .then((object) => {
-                    setArtistsDataObject(object);
+                    if (!('error' in object)) {
+                        setArtistsDataObject(object);
+                    } else {
+                        handleSessionExpired();
+                    }
                 })
                 .catch((error) => {
                     console.error('Error while fetching data:', error);
@@ -193,7 +212,8 @@ function TopArtistComponent() {
             </div>
             <div className="mt-32 mx-5">
                 <p className="text-xs">
-                    The overview of top tracks is based on the last 6 months and top artists is based on the last 6 weeks.
+                    The overview of top tracks is based on the last 6 months and top artists is based on the
+                    last 6 weeks.
                 </p>
                 <div className="text-xs pt-10 flex items-center justify-center">
                     <p>Data provided by </p>
