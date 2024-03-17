@@ -32,6 +32,7 @@
     "react-router-dom": "^6.22.1",
     "react-speech-recognition": "^3.10.0",
     "react-spotify-web-playback-sdk": "^3.0.2",
+    "react-toastify": "^10.0.5",
     "replicate": "^0.27.1",
     "spotify-web-api-js": "^1.5.2",
     "zod": "^3.22.4"

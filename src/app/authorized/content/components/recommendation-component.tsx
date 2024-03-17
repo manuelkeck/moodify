@@ -69,39 +69,42 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
 
     useEffect(() => {
         if (spotifyToken) {
-            Promise.all([fetchTracks(), fetchArtists()])
-                .then(([_tracksData, _artistsData]) => {
+            if (moodTransformation.current && moodTransformation.target) {
+                Promise.all([fetchTracks(), fetchArtists()])
+                    .then(([_tracksData, _artistsData]) => {
 
-                    // Create URL to request suitable recommendations
-                    let _base_url = "https://api.spotify.com/v1/recommendations?limit=10&";
-                    let _seed_tracks = "seed_tracks=";
-                    let _seed_artists = "seed_artists=";
+                        // Create URL to request suitable recommendations
+                        let _base_url = "https://api.spotify.com/v1/recommendations?limit=10&";
+                        let _seed_tracks = "seed_tracks=";
+                        let _seed_artists = "seed_artists=";
 
-                    _tracksData.forEach((id) => {
-                        if (_seed_tracks !== "seed_tracks=") {
-                            _seed_tracks = _seed_tracks.concat("%2C");
-                        }
-                        _seed_tracks = _seed_tracks.concat(id);
+                        _tracksData.forEach((id) => {
+                            if (_seed_tracks !== "seed_tracks=") {
+                                _seed_tracks = _seed_tracks.concat("%2C");
+                            }
+                            _seed_tracks = _seed_tracks.concat(id);
+                        });
+                        _artistsData.forEach((id) => {
+                            if (_seed_artists !== "seed_artists=") {
+                                _seed_artists = _seed_artists.concat("%2C");
+                            }
+                            _seed_artists = _seed_artists.concat(id);
+                        });
+
+                        let url = _base_url.concat(_seed_artists);
+                        url = url.concat("&");
+                        url = url.concat(_seed_tracks);
+
+                        // console.log("url: ", url);
+                        setRecommendationURL(url);
+                        getRecommendations(url);
+
+                    })
+                    .catch((error) => {
+                        console.error('Error while fetching data:', error);
                     });
-                    _artistsData.forEach((id) => {
-                        if (_seed_artists !== "seed_artists=") {
-                            _seed_artists = _seed_artists.concat("%2C");
-                        }
-                        _seed_artists = _seed_artists.concat(id);
-                    });
-
-                    let url = _base_url.concat(_seed_artists);
-                    url = url.concat("&");
-                    url = url.concat(_seed_tracks);
-
-                    // console.log("url: ", url);
-                    setRecommendationURL(url);
-                    getRecommendations(url);
-
-                })
-                .catch((error) => {
-                    console.error('Error while fetching data:', error);
-                });}
+            }
+        }
 
     }, [spotifyToken, moodTransformation]);
 
@@ -207,37 +210,58 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                 _cachedDataObject = sessionStorage.getItem('cachedRecommendations');
                 break;
             case "angry:happy":
+                _cachedDataObject = sessionStorage.getItem('cachedAngryHappyRecommendations');
+                break;
             case "angry:relaxed":
+                _cachedDataObject = sessionStorage.getItem('cachedAngryRelaxedRecommendations');
+                break;
             case "angry:energized":
+                _cachedDataObject = sessionStorage.getItem('cachedAngryEnergizedRecommendations');
+                break;
             case "angry:concentrated":
+                _cachedDataObject = sessionStorage.getItem('cachedAngryConcentratedRecommendations');
+                break;
             case "tired:happy":
+                _cachedDataObject = sessionStorage.getItem('cachedTiredHappyRecommendations');
+                break;
             case "tired:relaxed":
+                _cachedDataObject = sessionStorage.getItem('cachedTiredRelaxedRecommendations');
+                break;
             case "tired:energized":
+                _cachedDataObject = sessionStorage.getItem('cachedTiredEnergizedRecommendations');
+                break;
             case "tired:concentrated":
+                _cachedDataObject = sessionStorage.getItem('cachedTiredConcentratedRecommendations');
+                break;
             case "stressed:happy":
+                _cachedDataObject = sessionStorage.getItem('cachedStressedHappyRecommendations');
+                break;
             case "stressed:relaxed":
+                _cachedDataObject = sessionStorage.getItem('cachedStressedRelaxedRecommendations');
+                break;
             case "stressed:energized":
+                _cachedDataObject = sessionStorage.getItem('cachedStressedEnergizedRecommendations');
+                break;
             case "stressed:concentrated":
+                _cachedDataObject = sessionStorage.getItem('cachedStressedConcentratedRecommendations');
+                break;
             case "shocked:happy":
+                _cachedDataObject = sessionStorage.getItem('cachedShockedHappyRecommendations');
+                break;
             case "shocked:relaxed":
+                _cachedDataObject = sessionStorage.getItem('cachedShockedRelaxedRecommendations');
+                break;
             case "shocked:energized":
+                _cachedDataObject = sessionStorage.getItem('cachedShockedEnergizedRecommendations');
+                break;
             case "shocked:concentrated":
                 _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
                 break;
             case "sad:happy":
-            case "sad:relaxed":
-            case "sad:energized":
-            case "sad:concentrated":
-            case "sad:pensive":
-                _cachedDataObject = sessionStorage.getItem('cachedSadRecommendations');
+                // _cachedDataObject = sessionStorage.getItem('cachedSadHappyRecommendations');
                 break;
-            case "heartbroken:happy":
-            case "heartbroken:relaxed":
-            case "heartbroken:energized":
-            case "heartbroken:concentrated":
-            case "heartbroken:pensive":
             case "heartbroken:healed":
-                _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
+                // _cachedDataObject = sessionStorage.getItem('cachedSleepyRecommendations');
                 break;
             default:
                 console.log("Get recommendation: no item in session storage found.");
@@ -250,99 +274,99 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                 console.log("Transform", mood.current, "to", mood.target, "- Using cached data from session storage");
             }
             return JSON.parse(_cachedDataObject);
+
         } else {
             if (mood.current && mood.target) {
                 console.log("Transform", mood.current, "to", mood.target, "- Calling API...");
             } else {
                 console.log("Default recommendation - Calling API...");
             }
-        }
 
-        try {
-            const response_recommendation = await fetch(
-                url, {
-                    headers: {
-                        Authorization: `Bearer ${spotifyToken}`
-                    }
-                });
+            try {
+                const response_recommendation = await fetch(
+                    url, {
+                        headers: {
+                            Authorization: `Bearer ${spotifyToken}`
+                        }
+                    });
 
-            if (!response_recommendation.ok) {
-                handleSessionExpired();
-                new Error('Network response was not ok');
-            }
-
-            let _data = await response_recommendation.json();
-
-            if (!('error' in _data)) {
-                console.log("API called successfully. Set session storage");
-                switch (`${moodTransformation.current}:${moodTransformation.target}`) {
-                    case "":
-                        sessionStorage.setItem('cachedRecommendations', JSON.stringify(_data));
-                        break;
-                    case "angry:happy":
-                        sessionStorage.setItem('cachedAngryHappyRecommendations', JSON.stringify(_data));
-                        break;
-                    case "angry:energized":
-                        sessionStorage.setItem('cachedAngryEnergizedRecommendations', JSON.stringify(_data));
-                        break;
-                    case "angry:relaxed":
-                        sessionStorage.setItem('cachedAngryRelaxedRecommendations', JSON.stringify(_data));
-                        break;
-                    case "angry:concentrated":
-                        sessionStorage.setItem('cachedAngryConcentratedRecommendations', JSON.stringify(_data));
-                        break;
-                    case "tired:happy":
-                        sessionStorage.setItem('cachedTiredHappyRecommendations', JSON.stringify(_data));
-                        break;
-                    case "tired:energized":
-                        sessionStorage.setItem('cachedTiredEnergizedRecommendations', JSON.stringify(_data));
-                        break;
-                    case "tired:relaxed":
-                        sessionStorage.setItem('cachedTiredRelaxedRecommendations', JSON.stringify(_data));
-                        break;
-                    case "tired:concentrated":
-                        sessionStorage.setItem('cachedTiredConcentratedRecommendations', JSON.stringify(_data));
-                        break;
-                    case "stressed:happy":
-                        sessionStorage.setItem('cachedStressedHappyRecommendations', JSON.stringify(_data));
-                        break;
-                    case "stressed:energized":
-                        sessionStorage.setItem('cachedStressedEnergizedRecommendations', JSON.stringify(_data));
-                        break;
-                    case "stressed:relaxed":
-                        sessionStorage.setItem('cachedStressedRelaxedRecommendations', JSON.stringify(_data));
-                        break;
-                    case "stressed:concentrated":
-                        sessionStorage.setItem('cachedStressedConcentratedRecommendations', JSON.stringify(_data));
-                        break;
-                    case "shocked:happy":
-                        sessionStorage.setItem('cachedShockedHappyRecommendations', JSON.stringify(_data));
-                        break;
-                    case "shocked:energized":
-                        sessionStorage.setItem('cachedShockedEnergizedRecommendations', JSON.stringify(_data));
-                        break;
-                    case "shocked:relaxed":
-                        sessionStorage.setItem('cachedShockedRelaxedRecommendations', JSON.stringify(_data));
-                        break;
-                    case "shocked:concentrated":
-                        sessionStorage.setItem('cachedShockedConcentratedRecommendations', JSON.stringify(_data));
-                        break;
-                    case "sad:happy":
-                        // sessionStorage.setItem('cachedSadRecommendations', JSON.stringify(_data));
-                        break;
-                    case "heartbroken:happy":
-                        // sessionStorage.setItem('cachedHeartRecommendations', JSON.stringify(_data));
-                        break;
+                if (!response_recommendation.ok) {
+                    handleSessionExpired();
+                    new Error('Network response was not ok');
                 }
+
+                let _data = await response_recommendation.json();
+
+                if (!('error' in _data)) {
+                    console.log("API called successfully. Set session storage");
+                    switch (`${moodTransformation.current}:${moodTransformation.target}`) {
+                        case "":
+                            sessionStorage.setItem('cachedRecommendations', JSON.stringify(_data));
+                            break;
+                        case "angry:happy":
+                            sessionStorage.setItem('cachedAngryHappyRecommendations', JSON.stringify(_data));
+                            break;
+                        case "angry:energized":
+                            sessionStorage.setItem('cachedAngryEnergizedRecommendations', JSON.stringify(_data));
+                            break;
+                        case "angry:relaxed":
+                            sessionStorage.setItem('cachedAngryRelaxedRecommendations', JSON.stringify(_data));
+                            break;
+                        case "angry:concentrated":
+                            sessionStorage.setItem('cachedAngryConcentratedRecommendations', JSON.stringify(_data));
+                            break;
+                        case "tired:happy":
+                            sessionStorage.setItem('cachedTiredHappyRecommendations', JSON.stringify(_data));
+                            break;
+                        case "tired:energized":
+                            sessionStorage.setItem('cachedTiredEnergizedRecommendations', JSON.stringify(_data));
+                            break;
+                        case "tired:relaxed":
+                            sessionStorage.setItem('cachedTiredRelaxedRecommendations', JSON.stringify(_data));
+                            break;
+                        case "tired:concentrated":
+                            sessionStorage.setItem('cachedTiredConcentratedRecommendations', JSON.stringify(_data));
+                            break;
+                        case "stressed:happy":
+                            sessionStorage.setItem('cachedStressedHappyRecommendations', JSON.stringify(_data));
+                            break;
+                        case "stressed:energized":
+                            sessionStorage.setItem('cachedStressedEnergizedRecommendations', JSON.stringify(_data));
+                            break;
+                        case "stressed:relaxed":
+                            sessionStorage.setItem('cachedStressedRelaxedRecommendations', JSON.stringify(_data));
+                            break;
+                        case "stressed:concentrated":
+                            sessionStorage.setItem('cachedStressedConcentratedRecommendations', JSON.stringify(_data));
+                            break;
+                        case "shocked:happy":
+                            sessionStorage.setItem('cachedShockedHappyRecommendations', JSON.stringify(_data));
+                            break;
+                        case "shocked:energized":
+                            sessionStorage.setItem('cachedShockedEnergizedRecommendations', JSON.stringify(_data));
+                            break;
+                        case "shocked:relaxed":
+                            sessionStorage.setItem('cachedShockedRelaxedRecommendations', JSON.stringify(_data));
+                            break;
+                        case "shocked:concentrated":
+                            sessionStorage.setItem('cachedShockedConcentratedRecommendations', JSON.stringify(_data));
+                            break;
+                        case "sad:happy":
+                            // sessionStorage.setItem('cachedSadRecommendations', JSON.stringify(_data));
+                            break;
+                        case "heartbroken:happy":
+                            // sessionStorage.setItem('cachedHeartRecommendations', JSON.stringify(_data));
+                            break;
+                    }
+                }
+
+                return _data;
+
+            } catch (error) {
+                handleSessionExpired();
+                // console.error('Error fetching profile:', error);
+                throw error;
             }
-
-            return _data;
-
-        } catch (error) {
-            console.log("Error");
-            handleSessionExpired();
-            // console.error('Error fetching profile:', error);
-            throw error;
         }
     }
 
@@ -400,7 +424,6 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
 
     const handleSessionExpired = () => {
         if (!showPopup) {
-            console.log("handle session expired event")
             // removeCookie('spotifyToken', { path: '/' });
 
             setShowPopup(true);
@@ -411,8 +434,8 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
         setShowPopup(false);
     }
 
-    const createRecommendationURL = (mood: MoodTuple) => {
-        let _url_base = recommendationURL.concat("&");
+    const createRecommendationURL = (mood: MoodTuple, url: string) => {
+        let _url_base = url.concat("&");
         const attributes = new MoodTransformationAttributes();
         
         if (mood.current === "angry" && mood.target === "happy") {
@@ -456,10 +479,10 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
     }
 
     const getRecommendations = (url: string) => {
-        let _tmp_url = url;
+        let _tmp_url = "";
 
         if (moodTransformation.current !== "" && moodTransformation.target !== "") {
-            _tmp_url = createRecommendationURL(moodTransformation);
+            _tmp_url = createRecommendationURL(moodTransformation, url);
             setCurrentRecommendationURL(_tmp_url);
             console.log("Transform", moodTransformation.current, "to", moodTransformation.target, "- fetch recommendations");
             // scroll down automatically
@@ -524,8 +547,6 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             });
     }
 
-    console.log(recommendation);
-
     return (
         <div className="text-2xl font-extralight" ref={recommendationComponentRef}>
             <p className="mb-10">Listen to this song!*</p>
@@ -534,46 +555,56 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                     {showPopup && (
                         <SessionExpiredPopupComponent onClose={onPopupClose}/>
                     )}
-                    <div>
-                        {recommendation !== null && (!('error' in recommendation)) ? (
-                            <>
-                                <div className="bg-gray-900 py-10 px-3 rounded-lg max-w-md mx-auto flex flex-col items-center w-60">
-                                    <a href={recommendation.tracks[iterator].external_urls.spotify} target="_blank"
-                                       rel="noopener noreferrer" className="items-center">
-                                        <img src={recommendation.tracks[iterator].album.images[1].url}
-                                             alt="Album cover"
-                                             className="mx-auto"
-                                             width={(recommendation.tracks[iterator].album.images[1].width)*0.5}
-                                             height={recommendation.tracks[iterator].album.images[1].height}/>
-                                        <div className="flex-col">
-                                            <p className="pt-5">{recommendation.tracks[iterator].name}</p>
-                                            <div className="text-base">
-                                                {recommendation.tracks[iterator].artists.map(artist => artist.name).join(', ')}
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </>
-                        ) : (
-                            <p className="text-base">No recommendation found.</p>
-                        )}
-                    </div>
-                    <div>
-                        <button
-                            onClick={handleReload}
-                            className="text-base font-medium underline pt-5"
-                        >
-                            Reload
-                        </button>
-                    </div>
 
-                    {/* Questionnaire (recommendation good/not good, yes/no)*/}
-                    {releaseButtons ? (<EvaluationComponent
-                        name={cookies.user}
-                        currentMood={moodTransformation.current}
-                        targetMood={moodTransformation.target}
-                        recURL={currentRecommendationURL}
-                    />):(<></>)}
+                    { /* Questionnaire (recommendation good/not good, yes/no) */}
+                    {releaseButtons ? (
+                        <>
+                            <div>
+                                {recommendation !== null && (!('error' in recommendation)) ? (
+                                    <>
+                                        <div
+                                            className="bg-gray-900 py-10 px-3 rounded-lg max-w-md mx-auto flex flex-col items-center w-60">
+                                            <a href={recommendation.tracks[iterator].external_urls.spotify}
+                                               target="_blank"
+                                               rel="noopener noreferrer" className="items-center">
+                                                <img src={recommendation.tracks[iterator].album.images[1].url}
+                                                     alt="Album cover"
+                                                     className="mx-auto"
+                                                     width={(recommendation.tracks[iterator].album.images[1].width) * 0.5}
+                                                     height={recommendation.tracks[iterator].album.images[1].height}/>
+                                                <div className="flex-col">
+                                                    <p className="pt-5">{recommendation.tracks[iterator].name}</p>
+                                                    <div className="text-base">
+                                                        {recommendation.tracks[iterator].artists.map(artist => artist.name).join(', ')}
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <button
+                                                onClick={handleReload}
+                                                className="text-base font-medium underline pt-5"
+                                            >
+                                                Reload
+                                            </button>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <p className="text-base">An error occurred. Reload website.</p>
+                                )}
+                            </div>
+                            <EvaluationComponent
+                                name={cookies.user}
+                                currentMood={moodTransformation.current}
+                                targetMood={moodTransformation.target}
+                                recURL={currentRecommendationURL}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <p className="text-base">Select mood first to get recommendations.</p>
+                        </>
+                    )}
 
                 </div>
             </div>

@@ -38,10 +38,8 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                 </div>
             );
         }
-
         return this.props.children;
     }
 }
-
 
 export default ErrorBoundary;
