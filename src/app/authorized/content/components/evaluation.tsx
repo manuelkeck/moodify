@@ -91,29 +91,29 @@ const EvaluationComponent: React.FC<evaluationContext> = (props) => {
 
                     <div className="flex justify-center items-center">
                         <div
-                            className="flex justify-center items-center mx-auto transition duration-150 w-32 h-10 mr-3 ease-in-out bg-red-900 text-base hover:bg-red-800 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer"
+                            className="mx-auto transition duration-200 mr-4 ease-in-out bg-red-950 text-base active:bg-red-900 focus:outline-none text-white font-medium py-2 px-6 rounded-2xl cursor-pointer"
                             onClick={() => handleClick(false)}
                         >
-                            <div className="flex justify-center items-center">
+                            <div className="flex justify-center items-center p-2 pb-0.5">
                                 <Image src={moodCurrentImagePath} alt="Image of an emotion"
-                                       width={30}
-                                       height={30}/>
-                                <p className="pl-2">No</p>
+                                       width={35}
+                                       height={35}/>
                             </div>
+                            <p className="text-center text-gray-200">No</p>
                         </div>
                     </div>
 
                     <div className="flex justify-center items-center">
                         <div
-                            className="flex justify-center items-center mx-auto transition duration-150 w-32 h-10 ml-3 ease-in-out bg-green-700 text-base hover:bg-green-800 text-white font-medium rounded-2xl cursor-pointer"
-                                onClick={() => handleClick(true)}
-                            >
-                                <div className="flex justify-center items-center">
-                                    <Image src={moodTargetImagePath} alt="Image of an emotion"
-                                           width={30}
-                                           height={30}/>
-                                    <p className="pl-2">Yes</p>
-                                </div>
+                            className="mx-auto transition duration-150 ml-4 ease-in-out bg-green-950 text-base active:bg-green-800 text-white font-medium py-2 px-6 rounded-2xl cursor-pointer"
+                            onClick={() => handleClick(true)}
+                        >
+                            <div className="flex justify-center items-center p-2 pb-0.5">
+                                <Image src={moodTargetImagePath} alt="Image of an emotion"
+                                       width={35}
+                                       height={35}/>
+                            </div>
+                            <p className="text-center text-gray-200">Yes</p>
                         </div>
                     </div>
 

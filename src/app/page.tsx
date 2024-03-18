@@ -58,14 +58,14 @@ function Home() {
             <LoginComponent />
             {loginButton ? (
                 <div
-                    className="transition duration-150 ease-in-out mt-10 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
+                    className="transition duration-150 ease-in-out mt-10 bg-green-600 active:bg-green-700 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
                     <a href={login_url}>Login with Spotify</a>
                 </div>
             ) : (
                 <div className="flex-col">
                     <div className="flex justify-center items-center">
                         <div
-                            className="transition duration-150 w-28 text-center ease-in-out mt-10 bg-gray-700 hover:bg-gray-800 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
+                            className="transition duration-150 w-28 text-center ease-in-out mt-10 bg-gray-700 active:bg-gray-800 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
                             {/*<a href="/authorized/content/mood-selection">Continue</a>*/}
                             <Link href="/authorized/content/mood-selection/">Continue</Link>
                         </div>

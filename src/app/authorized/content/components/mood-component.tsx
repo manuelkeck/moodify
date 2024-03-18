@@ -19,9 +19,9 @@ interface moodCoding {
 const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurrentMoodClick }) => {
     const [selectedMood, setSelectedMood] = useState<number | null>(null);
     const [message, setMessage] = useState("How are you doing today?");
-    const [defaultAppearance] = useState("text-center border-2 border-gray-900 text-base bg-gray-900 shadow-lg px-2 py-3 m-1 rounded-lg cursor-pointer");
-    const [selectedAppearance] = useState("text-center border-2 border-gray-700 text-base bg-gray-800 shadow-lg px-2 py-3 m-1 rounded-lg cursor-pointer");
-    const [disabledAppearance] = useState("text-center border-2 border-gray-900 text-base bg-gray-900 opacity-50 shadow-lg px-2 py-3 m-1 rounded-lg cursor-not-allowed");
+    const [defaultAppearance ] = useState("text-center border-2 border-gray-900 text-base bg-gray-900 shadow-lg sm:px-3 pt-3 pb-2 m-1 rounded-lg cursor-pointer");
+    const [selectedAppearance] = useState("text-center border-2 border-gray-700 text-base bg-gray-800 shadow-lg sm:px-1 pt-3 pb-2 m-1 rounded-lg cursor-pointer");
+    const [disabledAppearance] = useState("text-center border-2 border-gray-900 text-base bg-gray-900 shadow-lg sm:px-1 pt-3 pb-2 m-1 rounded-lg cursor-not-allowed opacity-50");
 
     // Appearance of right div container do disable possibility of target mood selection
     const [targetSelectionActive, setTargetSelectionActive] = useState(false);
@@ -271,7 +271,7 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
             <p className="mb-10 text-base sm:text-xl">{message}</p>
 
             { /* Header */ }
-            <div className="grid grid-cols-3 items-center">
+            <div className="grid grid-cols-[2fr,1fr,2fr] sm:grid-cols-3 items-center">
 
                 <div className="col-span-1">
                     <div className="flex-col flex-wrap justify-center">
@@ -291,7 +291,7 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
             </div>
 
             { /* Mood selection */ }
-            <div className="grid grid-cols-3 items-center">
+            <div className="grid grid-cols-[2fr,1fr,2fr] sm:grid-cols-3 items-center">
 
                 { /* Select current mood */ }
                 <div className="col-span-1">
@@ -302,7 +302,7 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
                                     className={`${appearanceMood1}`}
                                     onClick={() => handleCurrentMoodClick(1, "angry")}
                                 >
-                                    <div className="flex justify-center px-4 items-center">
+                                    <div className="flex justify-center sm:px-4 items-center">
                                         <Image src="/face-with-symbols-on-mouth_1f92c.png" alt="Image of an emotion"
                                                width={25}
                                                height={25}/>
@@ -315,7 +315,7 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
                                     className={`${appearanceMood10}`}
                                     onClick={() => handleCurrentMoodClick(10, "stressed")}
                                 >
-                                    <div className="flex justify-center px-4 items-center">
+                                    <div className="flex justify-center sm:px-4 items-center">
                                         <Image src="/anxious-face-with-sweat_1f630.png" alt="Image of an emotion"
                                                width={25}
                                                height={25}/>
@@ -329,7 +329,7 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
                                     className={`${disabledAppearance}`}
                                     // onClick={() => handleCurrentMoodClick(2, "sad")}
                                 >
-                                    <div className="flex justify-center px-4 items-center">
+                                    <div className="flex justify-center sm:px-4 items-center">
                                         <Image src="/disappointed-face_1f61e.png" alt="Image of an emotion"
                                                width={25}
                                                height={25}/>
@@ -344,7 +344,7 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
                                     className={`${appearanceMood3}`}
                                     onClick={() => handleCurrentMoodClick(3, "tired")}
                                 >
-                                    <div className="flex justify-center px-4 items-center">
+                                    <div className="flex justify-center sm:px-4 items-center">
                                         <Image src="/yawning-face_1f971.png" alt="Image of an emotion"
                                                width={25}
                                                height={25}/>
@@ -357,7 +357,7 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
                                     className={`${appearanceMood11}`}
                                     onClick={() => handleCurrentMoodClick(11, "shocked")}
                                 >
-                                    <div className="flex justify-center px-4 items-center">
+                                    <div className="flex justify-center sm:px-4 items-center">
                                         <Image src="/dizzy-face_1f635.png" alt="Image of an emotion"
                                                width={25}
                                                height={25}/>
@@ -371,12 +371,12 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
                                     className={`${disabledAppearance}`}
                                     // onClick={() => handleCurrentMoodClick(0, "heartbroken")}
                                 >
-                                    <div className="flex justify-center px-4 items-center">
+                                    <div className="flex justify-center sm:px-4 items-center">
                                         <Image src="/broken-heart_1f494.png" alt="Image of an emotion"
                                                width={25}
                                                height={25}/>
                                     </div>
-                                    <p className="pt-2 text-xs">Heartbroken</p>
+                                    <p className="pt-2 p-0 text-xs">Heartbroken</p>
                                 </div>
                             </div>
 
@@ -402,95 +402,95 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
 
                 { /* Select target mood */}
                 {targetSelectionActive ? (
-                    <div>
-                        <div className="col-span-1">
-                            <div className="flex-col flex-wrap justify-center">
-                                <div className="grid grid-cols-2 items-center">
+                    <div className="col-span-1">
+                        <div className="flex-col flex-wrap justify-center">
+                            <div className="grid grid-cols-2 items-center">
+
                                 <div className="col-span-1">
-                                        <div className="flex-1">
-                                            <div
-                                                className={`${appearanceMood7}`}
-                                                onClick={() => handleTargetMoodClick(7, "happy")}
-                                            >
-                                                <div className="flex justify-center px-4 items-center">
-                                                    <Image src="/beaming-face-with-smiling-eyes_1f601.png" alt="Image of an emotion"
-                                                           width={25}
-                                                           height={25}/>
-                                                </div>
-                                                <p className="pt-2 text-xs">Happy</p>
+                                    <div className="flex-1">
+                                        <div
+                                            className={`${appearanceMood7}`}
+                                            onClick={() => handleTargetMoodClick(7, "happy")}
+                                        >
+                                            <div className="flex justify-center sm:px-4 items-center">
+                                                <Image src="/beaming-face-with-smiling-eyes_1f601.png" alt="Image of an emotion"
+                                                       width={25}
+                                                       height={25}/>
                                             </div>
-                                        </div>
-                                        <div className="flex-1">
-                                            <div
-                                                className={`${appearanceMood8}`}
-                                                onClick={() => handleTargetMoodClick(8, "energized")}
-                                            >
-                                            <div className="flex justify-center px-4 items-center">
-                                                    <Image src="/star-struck_1f929.png" alt="Image of an emotion"
-                                                           width={25}
-                                                           height={25}
-                                                           className="opacity-85"/>
-                                                </div>
-                                                <p className="pt-2 text-xs">Energized</p>
-                                            </div>
-                                        </div>
-                                        <div className="flex-1">
-                                            <div
-                                                className={`${appearanceMood4}`}
-                                                onClick={() => handleTargetMoodClick(4, "relaxed")}
-                                            >
-                                                <div className="flex justify-center px-4 items-center">
-                                                    <Image src="/relieved-face_1f60c.png" alt="Image of an emotion"
-                                                           width={25}
-                                                           height={25}/>
-                                                </div>
-                                                <p className="pt-2 text-xs">Relaxed</p>
-                                            </div>
+                                            <p className="pt-2 text-xs">Happy</p>
                                         </div>
                                     </div>
-
-                                    <div className="col-span-1">
-                                        <div className="flex-1">
-                                            <div
-                                                className={`${appearanceMood5}`}
-                                                onClick={appearanceMood5 !== disabledAppearance ? () => handleTargetMoodClick(5, "pensive") : undefined}
-                                            >
-                                                <div className="flex justify-center px-4 items-center">
-                                                    <Image src="/pensive-face_1f614.png" alt="Image of an emotion"
-                                                           width={25}
-                                                           height={25}/>
-                                                </div>
-                                                <p className="pt-2 text-xs">Pensive</p>
+                                    <div className="flex-1">
+                                        <div
+                                            className={`${appearanceMood8}`}
+                                            onClick={() => handleTargetMoodClick(8, "energized")}
+                                        >
+                                            <div className="flex justify-center items-center">
+                                                <Image src="/star-struck_1f929.png" alt="Image of an emotion"
+                                                       width={25}
+                                                       height={25}
+                                                       className="opacity-85"/>
                                             </div>
+                                            <p className="pt-2 text-xs">Energized</p>
                                         </div>
-                                        <div className="flex-1">
-                                            <div
-                                                className={`${appearanceMood6}`}
-                                                onClick={() => handleTargetMoodClick(6, "concentrated")}
-                                            >
-                                                <div className="flex justify-center px-4 items-center">
-                                                    <Image src="/technologist-medium-skin-tone_1f9d1-1f3fd-200d-1f4bb.png" alt="Image of an emotion"
-                                                           width={25}
-                                                           height={25}/>
-                                                </div>
-                                                <p className="pt-2 text-xs">Concentrated</p>
+                                    </div>
+                                    <div className="flex-1">
+                                        <div
+                                            className={`${appearanceMood4}`}
+                                            onClick={() => handleTargetMoodClick(4, "relaxed")}
+                                        >
+                                            <div className="flex justify-center sm:px-4 items-center">
+                                                <Image src="/relieved-face_1f60c.png" alt="Image of an emotion"
+                                                       width={25}
+                                                       height={25}/>
                                             </div>
-                                        </div>
-                                        <div className="flex-1">
-                                            <div
-                                                className={`${appearanceMood9}`}
-                                                onClick={appearanceMood9 !== disabledAppearance ? () => handleTargetMoodClick(9, "healed") : undefined}
-                                            >
-                                                <div className="flex justify-center px-4 items-center">
-                                                    <Image src="/mending-heart_2764-fe0f-200d-1fa79.png" alt="Image of an emotion"
-                                                           width={25}
-                                                           height={25}/>
-                                                </div>
-                                                <p className="pt-2 text-xs">Healed</p>
-                                            </div>
+                                            <p className="pt-2 text-xs">Relaxed</p>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div className="col-span-1">
+                                    <div className="flex-1">
+                                        <div
+                                            className={`${appearanceMood5}`}
+                                            onClick={appearanceMood5 !== disabledAppearance ? () => handleTargetMoodClick(5, "pensive") : undefined}
+                                        >
+                                            <div className="flex justify-center sm:px-4 items-center">
+                                                <Image src="/pensive-face_1f614.png" alt="Image of an emotion"
+                                                       width={25}
+                                                       height={25}/>
+                                            </div>
+                                            <p className="pt-2 text-xs">Pensive</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex-1">
+                                        <div
+                                            className={`${appearanceMood6}`}
+                                            onClick={() => handleTargetMoodClick(6, "concentrated")}
+                                        >
+                                            <div className="flex justify-center sm:px-4 items-center">
+                                                <Image src="/technologist-medium-skin-tone_1f9d1-1f3fd-200d-1f4bb.png" alt="Image of an emotion"
+                                                       width={25}
+                                                       height={25}/>
+                                            </div>
+                                            <p className="pt-2 text-xs">Focused</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex-1">
+                                        <div
+                                            className={`${appearanceMood9}`}
+                                            onClick={appearanceMood9 !== disabledAppearance ? () => handleTargetMoodClick(9, "healed") : undefined}
+                                        >
+                                            <div className="flex justify-center sm:px-4 items-center">
+                                                <Image src="/mending-heart_2764-fe0f-200d-1fa79.png" alt="Image of an emotion"
+                                                       width={25}
+                                                       height={25}/>
+                                            </div>
+                                            <p className="pt-2 text-xs">Healed</p>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -498,11 +498,12 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
                     <div className="col-span-1">
                         <div className="flex-col flex-wrap justify-center">
                             <div className="grid grid-cols-2 items-center">
+
                                 <div className="col-span-1">
                                     <div className="flex-1">
                                         <div
                                             className={`${disabledAppearance}`}>
-                                            <div className="flex justify-center px-4 items-center">
+                                            <div className="flex justify-center sm:px-4 items-center">
                                                 <Image src="/beaming-face-with-smiling-eyes_1f601.png" alt="Image of an emotion"
                                                        width={25}
                                                        height={25}
@@ -514,7 +515,7 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
                                     <div className="flex-1">
                                         <div
                                             className={`${disabledAppearance}`}>
-                                            <div className="flex justify-center px-4 items-center">
+                                            <div className="flex justify-center items-center">
                                                 <Image src="/star-struck_1f929.png" alt="Image of an emotion"
                                                        width={25}
                                                        height={25}
@@ -526,7 +527,7 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
                                     <div className="flex-1">
                                         <div
                                             className={`${disabledAppearance}`}>
-                                            <div className="flex justify-center px-4 items-center">
+                                            <div className="flex justify-center sm:px-4 items-center">
                                                 <Image src="/relieved-face_1f60c.png" alt="Image of an emotion"
                                                        width={25}
                                                        height={25}
@@ -541,7 +542,7 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
                                     <div className="flex-1">
                                         <div
                                             className={`${disabledAppearance}`}>
-                                            <div className="flex justify-center px-4 items-center">
+                                            <div className="flex justify-center sm:px-4 items-center">
                                                 <Image src="/pensive-face_1f614.png" alt="Image of an emotion"
                                                        width={25}
                                                        height={25}/>
@@ -552,18 +553,18 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
                                     <div className="flex-1">
                                         <div
                                             className={`${disabledAppearance}`}>
-                                            <div className="flex justify-center px-4 items-center">
+                                            <div className="flex justify-center sm:px-4 items-center">
                                                 <Image src="/technologist-medium-skin-tone_1f9d1-1f3fd-200d-1f4bb.png" alt="Image of an emotion"
                                                        width={25}
                                                        height={25}/>
                                             </div>
-                                            <p className="pt-2 text-xs">Concentrated</p>
+                                            <p className="pt-2 text-xs">Focused</p>
                                         </div>
                                     </div>
                                     <div className="flex-1">
                                         <div
                                             className={`${disabledAppearance}`}>
-                                            <div className="flex justify-center px-4 items-center">
+                                            <div className="flex justify-center sm:px-4 items-center">
                                                 <Image src="/mending-heart_2764-fe0f-200d-1fa79.png" alt="Image of an emotion"
                                                        width={25}
                                                        height={25}/>
@@ -572,10 +573,12 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 )}
+
             </div>
         </div>
     );
