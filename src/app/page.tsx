@@ -6,6 +6,7 @@ import { login_url } from "../../spotify_api";
 import {useCookies} from "react-cookie";
 import TopArtistComponent from "@/app/authorized/content/components/top-artists-component";
 import Link from "next/link";
+import ContinueComponent from "@/app/continue-component";
 
 
 function Home() {
@@ -41,7 +42,7 @@ function Home() {
     function LoginComponent() {
         return (
             <div className="text-center">
-                <p className="text-2xl font-extralight">
+                <p className="sm:text-2xl text-base font-extralight">
                     {message}
                 </p>
                 <div className="mt-8 lg:mt-24 flex-col justify-center items-center">
@@ -63,15 +64,8 @@ function Home() {
                 </div>
             ) : (
                 <div className="flex-col">
-                    <div className="flex justify-center items-center">
-                        <div
-                            className="transition duration-150 w-28 text-center ease-in-out mt-10 bg-gray-700 active:bg-gray-800 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
-                            {/*<a href="/authorized/content/mood-selection">Continue</a>*/}
-                            <Link href="/authorized/content/mood-selection/">Continue</Link>
-                        </div>
-                    </div>
-
-                    <TopArtistComponent/>
+                    <ContinueComponent />
+                    <TopArtistComponent />
                 </div>
             )}
         </div>

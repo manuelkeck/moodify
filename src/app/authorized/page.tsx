@@ -7,6 +7,7 @@ import {useCookies} from "react-cookie";
 import TopArtistComponent from "@/app/authorized/content/components/top-artists-component";
 import Link from "next/link";
 import Script from "next/script";
+import ContinueComponent from "@/app/continue-component";
 
 const spotify = new SpotifyWebApi();
 
@@ -59,18 +60,13 @@ export default function AuthorizedPage() {
             <div className="lg:text-4xl mb-4">
                 <p>{topMessage}</p>
             </div>
-            <div>
+            <div className="lg:text-2xl text-base">
                 <p>{infoMessage}</p>
             </div>
             {continueButton ? (
                 <div className="text-center">
-                    <div
-                        className="mx-auto transition duration-150 w-28 ease-in-out mt-10 bg-gray-700 text-base active:bg-gray-800 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
-                        <Link href="authorized/content/mood-selection/">Continue</Link>
-                    </div>
-                    <div>
-                        <TopArtistComponent />
-                    </div>
+                    <ContinueComponent />
+                    <TopArtistComponent />
                 </div>
 
             ) : (

@@ -549,7 +549,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
 
     return (
         <div className="text-2xl font-extralight" ref={recommendationComponentRef}>
-            <p className="mb-10">Listen to this song!*</p>
+
             <div className="flex flex-wrap justify-center">
                 <div className="flex-col">
                     {showPopup && (
@@ -559,6 +559,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                     { /* Questionnaire (recommendation good/not good, yes/no) */}
                     {releaseButtons ? (
                         <>
+                            <p className="mb-10">Listen to this song!*</p>
                             <div>
                                 {recommendation !== null && (!('error' in recommendation)) ? (
                                     <>
