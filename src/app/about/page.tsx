@@ -1,7 +1,7 @@
 function Page() {
     return (
         <div className="p-4 flex-col justify-center lg:w-2/3">
-            <p className="text-2xl font-extralight">About</p>
+            <p className="text-2xl font-light">About</p>
             <br/>
             <p>
                 <a target="_blank" href="https://icons8.com/icon/99266/arrow">Arrow</a> icon by <a

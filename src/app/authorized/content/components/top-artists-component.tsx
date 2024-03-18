@@ -168,7 +168,7 @@ function TopArtistComponent() {
             {showPopup && (
                 <SessionExpiredPopupComponent onClose={onPopupClose}/>
             )}
-            <p className="mt-20 mb-5 sm:text-2xl text-base font-extralight">Check out your top 10 tracks!</p>
+            <p className="mt-20 mb-5 sm:text-2xl text-base font-light">Check out your top 10 tracks!</p>
             <div className="flex flex-wrap justify-center">
                 {tracksDataObject !== null && tracksDataObject.items.map((item, index) => (
                     <div key={index}
@@ -193,7 +193,7 @@ function TopArtistComponent() {
                     </div>
                 ))}
             </div>
-            <p className="mt-20 mb-5 sm:text-2xl text-base font-extralight">Check out your top 10 artists!</p>
+            <p className="mt-20 mb-5 sm:text-2xl text-base font-light">Check out your top 10 artists!</p>
             <div className="flex flex-wrap justify-center">
                 {artistsDataObject !== null && artistsDataObject.items.map((item, index) => (
                     <div key={index}

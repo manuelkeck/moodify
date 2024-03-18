@@ -548,7 +548,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
     }
 
     return (
-        <div className="text-2xl font-extralight" ref={recommendationComponentRef}>
+        <div className="text-2xl font-light" ref={recommendationComponentRef}>
 
             <div className="flex flex-wrap justify-center">
                 <div className="flex-col">

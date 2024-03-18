@@ -67,7 +67,7 @@ const MoodSelectionPage: React.FC = () => {
             <div className="text-center items-center justify-center w-full">
                 <div className="flex-col justify-center text-center items-center text-white">
                     <div className="">
-                        <div className="flex justify-center items-center text-2xl font-extralight">
+                        <div className="flex justify-center items-center text-2xl font-light">
                             <div>
                                 <p className="lg:text-4xl">Hi {name}!</p>
                                 <div className="mb-20">
