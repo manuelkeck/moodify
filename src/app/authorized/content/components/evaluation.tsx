@@ -50,10 +50,17 @@ const EvaluationComponent: React.FC<evaluationContext> = (props) => {
             body: JSON.stringify(data),
         });
         // console.log(newEvaluation);
+    }
 
+    const showAlert = () => {
         toast.success('💾 Response submitted!', {
             position: "top-center",
         });
+    }
+
+    const handleClick = (success: boolean) => {
+        showAlert();
+        saveResponseToDatabase(success);
     }
 
     return (
@@ -85,7 +92,7 @@ const EvaluationComponent: React.FC<evaluationContext> = (props) => {
                     <div className="flex justify-center items-center">
                         <div
                             className="flex justify-center items-center mx-auto transition duration-150 w-32 h-10 mr-3 ease-in-out bg-red-900 text-base hover:bg-red-800 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer"
-                            onClick={() => saveResponseToDatabase(false)}
+                            onClick={() => handleClick(false)}
                         >
                             <div className="flex justify-center items-center">
                                 <Image src={moodCurrentImagePath} alt="Image of an emotion"
@@ -99,7 +106,7 @@ const EvaluationComponent: React.FC<evaluationContext> = (props) => {
                     <div className="flex justify-center items-center">
                         <div
                             className="flex justify-center items-center mx-auto transition duration-150 w-32 h-10 ml-3 ease-in-out bg-green-700 text-base hover:bg-green-800 text-white font-medium rounded-2xl cursor-pointer"
-                                onClick={() => saveResponseToDatabase(true)}
+                                onClick={() => handleClick(true)}
                             >
                                 <div className="flex justify-center items-center">
                                     <Image src={moodTargetImagePath} alt="Image of an emotion"
