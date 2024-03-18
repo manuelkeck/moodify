@@ -218,8 +218,8 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             case "angry:energized":
                 _cachedDataObject = sessionStorage.getItem('cachedAngryEnergizedRecommendations');
                 break;
-            case "angry:concentrated":
-                _cachedDataObject = sessionStorage.getItem('cachedAngryConcentratedRecommendations');
+            case "angry:focused":
+                _cachedDataObject = sessionStorage.getItem('cachedAngryFocusedRecommendations');
                 break;
             case "tired:happy":
                 _cachedDataObject = sessionStorage.getItem('cachedTiredHappyRecommendations');
@@ -230,8 +230,8 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             case "tired:energized":
                 _cachedDataObject = sessionStorage.getItem('cachedTiredEnergizedRecommendations');
                 break;
-            case "tired:concentrated":
-                _cachedDataObject = sessionStorage.getItem('cachedTiredConcentratedRecommendations');
+            case "tired:focused":
+                _cachedDataObject = sessionStorage.getItem('cachedTiredFocusedRecommendations');
                 break;
             case "stressed:happy":
                 _cachedDataObject = sessionStorage.getItem('cachedStressedHappyRecommendations');
@@ -242,8 +242,8 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             case "stressed:energized":
                 _cachedDataObject = sessionStorage.getItem('cachedStressedEnergizedRecommendations');
                 break;
-            case "stressed:concentrated":
-                _cachedDataObject = sessionStorage.getItem('cachedStressedConcentratedRecommendations');
+            case "stressed:focused":
+                _cachedDataObject = sessionStorage.getItem('cachedStressedFocusedRecommendations');
                 break;
             case "shocked:happy":
                 _cachedDataObject = sessionStorage.getItem('cachedShockedHappyRecommendations');
@@ -254,7 +254,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             case "shocked:energized":
                 _cachedDataObject = sessionStorage.getItem('cachedShockedEnergizedRecommendations');
                 break;
-            case "shocked:concentrated":
+            case "shocked:focused":
                 _cachedDataObject = sessionStorage.getItem('cachedAngryRecommendations');
                 break;
             case "sad:happy":
@@ -312,8 +312,8 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                         case "angry:relaxed":
                             sessionStorage.setItem('cachedAngryRelaxedRecommendations', JSON.stringify(_data));
                             break;
-                        case "angry:concentrated":
-                            sessionStorage.setItem('cachedAngryConcentratedRecommendations', JSON.stringify(_data));
+                        case "angry:focused":
+                            sessionStorage.setItem('cachedAngryFocusedRecommendations', JSON.stringify(_data));
                             break;
                         case "tired:happy":
                             sessionStorage.setItem('cachedTiredHappyRecommendations', JSON.stringify(_data));
@@ -324,8 +324,8 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                         case "tired:relaxed":
                             sessionStorage.setItem('cachedTiredRelaxedRecommendations', JSON.stringify(_data));
                             break;
-                        case "tired:concentrated":
-                            sessionStorage.setItem('cachedTiredConcentratedRecommendations', JSON.stringify(_data));
+                        case "tired:focused":
+                            sessionStorage.setItem('cachedTiredFocusedRecommendations', JSON.stringify(_data));
                             break;
                         case "stressed:happy":
                             sessionStorage.setItem('cachedStressedHappyRecommendations', JSON.stringify(_data));
@@ -336,8 +336,8 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                         case "stressed:relaxed":
                             sessionStorage.setItem('cachedStressedRelaxedRecommendations', JSON.stringify(_data));
                             break;
-                        case "stressed:concentrated":
-                            sessionStorage.setItem('cachedStressedConcentratedRecommendations', JSON.stringify(_data));
+                        case "stressed:focused":
+                            sessionStorage.setItem('cachedStressedFocusedRecommendations', JSON.stringify(_data));
                             break;
                         case "shocked:happy":
                             sessionStorage.setItem('cachedShockedHappyRecommendations', JSON.stringify(_data));
@@ -348,8 +348,8 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                         case "shocked:relaxed":
                             sessionStorage.setItem('cachedShockedRelaxedRecommendations', JSON.stringify(_data));
                             break;
-                        case "shocked:concentrated":
-                            sessionStorage.setItem('cachedShockedConcentratedRecommendations', JSON.stringify(_data));
+                        case "shocked:focused":
+                            sessionStorage.setItem('cachedShockedFocusedRecommendations', JSON.stringify(_data));
                             break;
                         case "sad:happy":
                             // sessionStorage.setItem('cachedSadRecommendations', JSON.stringify(_data));
@@ -444,8 +444,8 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             return attributes.angry_energized(_url_base);
         } else if (mood.current === "angry" && mood.target === "relaxed") {
             return attributes.angry_relaxed(_url_base);
-        } else if (mood.current === "angry" && mood.target === "concentrated") {
-            return attributes.angry_concentrated(_url_base);
+        } else if (mood.current === "angry" && mood.target === "focused") {
+            return attributes.angry_focused(_url_base);
 
         } else if (mood.current === "tired" && mood.target === "happy") {
             return attributes.tired_happy(_url_base);
@@ -453,8 +453,8 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             return attributes.tired_energized(_url_base);
         } else if (mood.current === "tired" && mood.target === "relaxed") {
             return attributes.tired_relaxed(_url_base);
-        } else if (mood.current === "tired" && mood.target === "concentrated") {
-            return attributes.tired_concentrated(_url_base);
+        } else if (mood.current === "tired" && mood.target === "focused") {
+            return attributes.tired_focused(_url_base);
 
         } else if (mood.current === "stressed" && mood.target === "happy") {
             return attributes.stressed_happy(_url_base);
@@ -462,8 +462,8 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             return attributes.stressed_energized(_url_base);
         } else if (mood.current === "stressed" && mood.target === "relaxed") {
             return attributes.stressed_relaxed(_url_base);
-        } else if (mood.current === "stressed" && mood.target === "concentrated") {
-            return attributes.stressed_concentrated(_url_base);
+        } else if (mood.current === "stressed" && mood.target === "focused") {
+            return attributes.stressed_focused(_url_base);
 
         } else if (mood.current === "shocked" && mood.target === "happy") {
             return attributes.shocked_happy(_url_base);
@@ -471,8 +471,8 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             return attributes.shocked_energized(_url_base);
         } else if (mood.current === "shocked" && mood.target === "relaxed") {
             return attributes.shocked_relaxed(_url_base);
-        } else if (mood.current === "shocked" && mood.target === "concentrated") {
-            return attributes.shocked_concentrated(_url_base);
+        } else if (mood.current === "shocked" && mood.target === "focused") {
+            return attributes.shocked_focused(_url_base);
         }
 
         return _url_base;

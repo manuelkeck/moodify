@@ -73,7 +73,7 @@ class MoodTransformationAttributes {
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
     } // iteration 1
 
-    angry_concentrated(url: string) {
+    angry_focused(url: string) {
         let _attribute1: attribute = {attr: "target_energy", value: 0.2};
         let _attribute2: attribute = {attr: "target_danceability", value: 0.2};
         let _attribute3: attribute = {attr: "target_tempo", value: 120};
@@ -101,7 +101,7 @@ class MoodTransformationAttributes {
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
     } // iteration 1
 
-    tired_concentrated(url: string) {
+    tired_focused(url: string) {
         let _attribute1: attribute = {attr: "target_energy", value: 0.4};
         let _attribute2: attribute = {attr: "target_danceability", value: 0.4};
         let _attribute3: attribute = {attr: "target_tempo", value: 100};
@@ -129,7 +129,7 @@ class MoodTransformationAttributes {
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
     } // iteration 1
 
-    stressed_concentrated(url: string) {
+    stressed_focused(url: string) {
         let _attribute1: attribute = {attr: "target_energy", value: 0.2};
         let _attribute2: attribute = {attr: "target_danceability", value: 0.2};
         let _attribute3: attribute = {attr: "target_tempo", value: 100};
@@ -157,7 +157,7 @@ class MoodTransformationAttributes {
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
     } // iteration 1
 
-    shocked_concentrated(url: string) {
+    shocked_focused(url: string) {
         let _attribute1: attribute = {attr: "target_energy", value: 0.5};
         let _attribute2: attribute = {attr: "target_danceability", value: 0.2};
         let _attribute3: attribute = {attr: "target_tempo", value: 120};

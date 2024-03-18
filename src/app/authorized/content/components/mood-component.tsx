@@ -10,7 +10,7 @@ interface MoodComponentProps {
 interface moodCoding {
     relaxed: true;
     pensive: true;
-    concentrated: true;
+    focused: true;
     happy: true;
     energized: true;
     healed: true;
@@ -38,7 +38,7 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
     // Appearance target moods
     const [appearanceMood4, setAppearanceMood4] = useState(defaultAppearance);      // relaxed
     const [appearanceMood5, setAppearanceMood5] = useState(defaultAppearance);      // pensive
-    const [appearanceMood6, setAppearanceMood6] = useState(defaultAppearance);      // concentrated
+    const [appearanceMood6, setAppearanceMood6] = useState(defaultAppearance);      // focused
     const [appearanceMood7, setAppearanceMood7] = useState(defaultAppearance);      // happy
     const [appearanceMood8, setAppearanceMood8] = useState(defaultAppearance);      // energized
     const [appearanceMood9, setAppearanceMood9] = useState(defaultAppearance);      // healed
@@ -78,7 +78,7 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
             switch (targetMood) {
                 case "relaxed": { setAppearanceMood4(defaultAppearance); break; }
                 case "pensive": { setAppearanceMood5(defaultAppearance); break; }
-                case "concentrated": { setAppearanceMood6(defaultAppearance); break;}
+                case "focused": { setAppearanceMood6(defaultAppearance); break;}
                 case "happy": { setAppearanceMood7(defaultAppearance); break;}
                 case "energized": { setAppearanceMood8(defaultAppearance); break;}
                 case "healed": { setAppearanceMood8(defaultAppearance); break;}
@@ -219,12 +219,12 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
                 setTargetMood("");
             }
         }
-        // concentrated
+        // focused
         if (index === 6) {
             if (appearanceMood6 === defaultAppearance) {
                 setAppearanceMood6(selectedAppearance);
                 checkPreselection();
-                setTargetMood("concentrated");
+                setTargetMood("focused");
             } else {
                 setAppearanceMood6(defaultAppearance);
                 setTargetMood("");
@@ -466,7 +466,7 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
                                     <div className="flex-1">
                                         <div
                                             className={`${appearanceMood6}`}
-                                            onClick={() => handleTargetMoodClick(6, "concentrated")}
+                                            onClick={() => handleTargetMoodClick(6, "focused")}
                                         >
                                             <div className="flex justify-center sm:px-4 items-center">
                                                 <Image src="/technologist-medium-skin-tone_1f9d1-1f3fd-200d-1f4bb.png" alt="Image of an emotion"

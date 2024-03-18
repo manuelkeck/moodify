@@ -28,7 +28,7 @@ const EvaluationComponent: React.FC<evaluationContext> = (props) => {
             case("happy"): setMoodTargetImagePath("/beaming-face-with-smiling-eyes_1f601.png"); break;
             case("energized"): setMoodTargetImagePath("/star-struck_1f929.png"); break;
             case("relaxed"): setMoodTargetImagePath("/relieved-face_1f60c.png"); break;
-            case("concentrated"): setMoodTargetImagePath("/technologist-medium-skin-tone_1f9d1-1f3fd-200d-1f4bb.png"); break;
+            case("focused"): setMoodTargetImagePath("/technologist-medium-skin-tone_1f9d1-1f3fd-200d-1f4bb.png"); break;
             case("pensive"): setMoodTargetImagePath("/pensive-face_1f614.png"); break;
             case("healed"): setMoodTargetImagePath("/mending-heart_2764-fe0f-200d-1fa79.png"); break;
             default: setMoodTargetImagePath("/dotted-line-face_1fae5.png");
