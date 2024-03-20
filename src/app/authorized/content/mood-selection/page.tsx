@@ -4,7 +4,6 @@ import { useCookies } from "react-cookie";
 import React, { useEffect, useState } from "react";
 import MoodComponent from "@/app/authorized/content/components/mood-component";
 import RecommendationComponent from "@/app/authorized/content/components/recommendation-component";
-import PlayerComponent from "@/app/authorized/content/components/player-component";
 import ErrorBoundary from "@/app/authorized/content/components/ErrorBoundary";
 
 interface MoodTuple {

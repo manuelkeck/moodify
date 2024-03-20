@@ -4,7 +4,13 @@ export const redirect_url = "https://changeyourmood.vercel.app/authorized";
 const CLIENT_ID = "46bf5602e0f949babda734101dc3a3f0";
 const scopes = [
     "user-read-recently-played",
-    "user-top-read"
+    "user-top-read",
+    "streaming",
+    "user-read-email",
+    "user-read-private",
+    "user-modify-playback-state",
+    "user-read-playback-state",
+    "user-library-modify"
 ]
 export const login_url = `${auth_endpoint}?
 client_id=${CLIENT_ID}

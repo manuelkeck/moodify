@@ -4,11 +4,13 @@ import SessionExpiredPopupComponent from "@/app/authorized/content/components/se
 import Image from "next/image";
 import MoodTransformationAttributes from "@/app/authorized/content/components/helper/mood-transformation-attributes";
 import EvaluationComponent from "@/app/authorized/content/components/evaluation";
+import Player from "@/app/authorized/content/components/spotify-player/player";
 
 interface recommendationObject {
-    id: string;
+    // id: string;
     tracks: {
         name: string;
+        id: string;
         artists: {
             name: [];
         }[];
@@ -22,6 +24,7 @@ interface recommendationObject {
         external_urls: {
             spotify: string;
         };
+        uri: string;
     }[];
 }
 
@@ -38,7 +41,6 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
     const [spotifyToken, setSpotifyToken] = useState("");
     const [showPopup, setShowPopup] = useState(false);
     const [recommendation, setRecommendation] = useState<recommendationObject | null>(null);
-    const [iterator, setIterator] = useState(0);
     const [recommendationURL, setRecommendationURL] = useState("");
     const [currentRecommendationURL, setCurrentRecommendationURL] = useState("");
     const [moodTransformation, setMoodTransformation] = useState<MoodTuple>({current: "", target: ""});
@@ -46,6 +48,9 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
 
     const [cookies, removeCookie] = useCookies();
     const recommendationComponentRef = useRef<HTMLDivElement>(null);
+
+    const [player, setPlayer] = useState(undefined);
+    const [deviceID, setDeviceID] = useState(null);
 
     useEffect(() => {
         if (cookies.spotifyToken) {
@@ -494,24 +499,13 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
         fetchRecommendation(_tmp_url, moodTransformation)
             .then((response) => {
                 setRecommendation(response);
+                // console.log(response);
                 // getAudioFeatures(response);
                 // console.log("Request successful:", response, "mood:", mood);
             })
             .catch((error) => {
                 console.error('Error while fetching data in recommendation:', error);
             });
-    }
-
-    const handleReload = () => {
-        if (iterator === 9) {
-            console.log("Requesting new recommendations...");
-            setIterator(0);
-        } else {
-            if (iterator < 10) {
-                let calculated = iterator + 1;
-                setIterator(calculated);
-            }
-        }
     }
 
     const getAudioFeatures = (recommendedTracks: any) => {
@@ -551,7 +545,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
         <div className="text-2xl font-light" ref={recommendationComponentRef}>
 
             <div className="flex flex-wrap justify-center">
-                <div className="flex-col">
+                <div className="flex-col m-5 sm:w-96 w-full">
                     {showPopup && (
                         <SessionExpiredPopupComponent onClose={onPopupClose}/>
                     )}
@@ -562,34 +556,10 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                             <p className="mb-10">Listen to this song!*</p>
                             <div>
                                 {recommendation !== null && (!('error' in recommendation)) ? (
-                                    <>
-                                        <div
-                                            className="bg-gray-900 py-10 px-3 rounded-lg max-w-md mx-auto flex flex-col items-center w-60">
-                                            <a href={recommendation.tracks[iterator].external_urls.spotify}
-                                               target="_blank"
-                                               rel="noopener noreferrer" className="items-center">
-                                                <img src={recommendation.tracks[iterator].album.images[1].url}
-                                                     alt="Album cover"
-                                                     className="mx-auto"
-                                                     width={(recommendation.tracks[iterator].album.images[1].width) * 0.5}
-                                                     height={recommendation.tracks[iterator].album.images[1].height}/>
-                                                <div className="flex-col">
-                                                    <p className="pt-5">{recommendation.tracks[iterator].name}</p>
-                                                    <div className="text-base">
-                                                        {recommendation.tracks[iterator].artists.map(artist => artist.name).join(', ')}
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <button
-                                                onClick={handleReload}
-                                                className="text-base font-medium underline pt-5"
-                                            >
-                                                Reload
-                                            </button>
-                                        </div>
-                                    </>
+                                    <div className="sm:bg-gradient-radial from-black via-black to-gray-800 rounded-2xl sm:p-10">
+                                        <Player playlist={recommendation} accessToken={cookies.spotifyToken}
+                                                trackURI={recommendation.tracks[0].uri} deviceID={deviceID}/>
+                                    </div>
                                 ) : (
                                     <p className="text-base">An error occurred. Reload website.</p>
                                 )}
