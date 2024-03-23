@@ -3,48 +3,20 @@
 
 import React, {useEffect, useState} from "react";
 
-export default function Player({ playlist, trackURI, accessToken, deviceID }) {
-    const SpotifyWebApi = require('spotify-web-api-node');
+export default function Player({ playlist, accessToken }) {
     const SpotifyPlayer = require('react-spotify-web-playback');
-    const spotifyApi = new SpotifyWebApi();
-    const iterator = 0;
     const [play, setPlay] = useState(false)
+    const [tmpPlaylist, setTmpPlaylist] = useState([]);
 
-    spotifyApi.setAccessToken(accessToken);
+    useEffect(() => {
+        const _playlist = [];
+        for (let key in playlist.tracks) {
+            _playlist.push(playlist.tracks[key].uri);
+        }
+        setTmpPlaylist(_playlist);
+    }, [playlist]);
 
-    // console.log(deviceID);
-
-    // useEffect(() => {setPlay(true)}, [trackURI]);
-
-    const skipForwardsEvent = () => {
-        spotifyApi.skipToNext()
-            .then(function() {
-                console.log('Skip to next');
-            }, function(err) {
-                //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
-                console.log('Something went wrong!', err);
-            });
-    }
-
-    const playEvent = () => {
-        spotifyApi.play()
-            .then(function() {
-                console.log('Playback started');
-            }, function(err) {
-                //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
-                console.log('Something went wrong!', err);
-            });
-    }
-
-    const pauseEvent = () => {
-        spotifyApi.pause()
-            .then(function() {
-                console.log('Playback paused');
-            }, function(err) {
-                //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
-                console.log('Something went wrong!', err);
-            });
-    }
+    useEffect(() => {setPlay(true)}, [tmpPlaylist]);
 
     return (
         <div>
@@ -68,10 +40,10 @@ export default function Player({ playlist, trackURI, accessToken, deviceID }) {
             {/*</div>*/}
             <SpotifyPlayer
                 token={accessToken}
-                autoPlay={true}
+                play={play}
                 showSaveIcon={true}
                 name={"Moodify Webplayer"}
-                uris={trackURI}
+                uris={tmpPlaylist}
                 layout={'compact'}
                 styles={{
                     activeColor: '#fff',

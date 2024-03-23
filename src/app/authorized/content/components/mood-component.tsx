@@ -19,9 +19,9 @@ interface moodCoding {
 const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurrentMoodClick }) => {
     const [selectedMood, setSelectedMood] = useState<number | null>(null);
     const [message, setMessage] = useState("How are you doing today?");
-    const [defaultAppearance ] = useState("text-center border-2 border-gray-900 text-base bg-gray-900 shadow-lg sm:px-3 pt-3 pb-2 m-1 rounded-lg cursor-pointer");
-    const [selectedAppearance] = useState("text-center border-2 border-gray-700 text-base bg-gray-800 shadow-lg sm:px-1 pt-3 pb-2 m-1 rounded-lg cursor-pointer");
-    const [disabledAppearance] = useState("text-center border-2 border-gray-900 text-base bg-gray-900 shadow-lg sm:px-1 pt-3 pb-2 m-1 rounded-lg cursor-not-allowed opacity-50");
+    const [defaultAppearance ] = useState("text-center border-2 border-gray-900 text-base bg-gray-900 shadow-lg sm:px-3 pt-3 pb-2 mx-1 my-2 rounded-lg cursor-pointer");
+    const [selectedAppearance] = useState("text-center border-2 border-gray-700 text-base bg-gray-800 shadow-lg sm:px-1 pt-3 pb-2 mx-1 my-2 rounded-lg cursor-pointer");
+    const [disabledAppearance] = useState("text-center border-2 border-gray-900 text-base bg-gray-900 shadow-lg sm:px-1 pt-3 pb-2 mx-1 my-2 rounded-lg cursor-not-allowed opacity-50");
 
     // Appearance of right div container do disable possibility of target mood selection
     const [targetSelectionActive, setTargetSelectionActive] = useState(false);

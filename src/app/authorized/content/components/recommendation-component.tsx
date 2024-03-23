@@ -7,7 +7,6 @@ import EvaluationComponent from "@/app/authorized/content/components/evaluation"
 import Player from "@/app/authorized/content/components/spotify-player/player";
 
 interface recommendationObject {
-    // id: string;
     tracks: {
         name: string;
         id: string;
@@ -41,16 +40,12 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
     const [spotifyToken, setSpotifyToken] = useState("");
     const [showPopup, setShowPopup] = useState(false);
     const [recommendation, setRecommendation] = useState<recommendationObject | null>(null);
-    const [recommendationURL, setRecommendationURL] = useState("");
     const [currentRecommendationURL, setCurrentRecommendationURL] = useState("");
     const [moodTransformation, setMoodTransformation] = useState<MoodTuple>({current: "", target: ""});
     const [releaseButtons, setReleaseButtons] = useState(false);
 
-    const [cookies, removeCookie] = useCookies();
+    const [cookies] = useCookies();
     const recommendationComponentRef = useRef<HTMLDivElement>(null);
-
-    const [player, setPlayer] = useState(undefined);
-    const [deviceID, setDeviceID] = useState(null);
 
     useEffect(() => {
         if (cookies.spotifyToken) {
@@ -79,7 +74,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                     .then(([_tracksData, _artistsData]) => {
 
                         // Create URL to request suitable recommendations
-                        let _base_url = "https://api.spotify.com/v1/recommendations?limit=10&";
+                        let _base_url = "https://api.spotify.com/v1/recommendations?limit=20&";
                         let _seed_tracks = "seed_tracks=";
                         let _seed_artists = "seed_artists=";
 
@@ -100,8 +95,6 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                         url = url.concat("&");
                         url = url.concat(_seed_tracks);
 
-                        // console.log("url: ", url);
-                        setRecommendationURL(url);
                         getRecommendations(url);
 
                     })
@@ -557,8 +550,9 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                             <div>
                                 {recommendation !== null && (!('error' in recommendation)) ? (
                                     <div className="sm:bg-gradient-radial from-black via-black to-gray-800 rounded-2xl sm:p-10">
-                                        <Player playlist={recommendation} accessToken={cookies.spotifyToken}
-                                                trackURI={recommendation.tracks[0].uri} deviceID={deviceID}/>
+                                        <Player playlist={recommendation}
+                                                accessToken={cookies.spotifyToken}
+                                        />
                                     </div>
                                 ) : (
                                     <p className="text-base">An error occurred. Reload website.</p>
