@@ -5,7 +5,7 @@ function Page() {
         <div className="p-6 flex-col justify-center lg:w-2/3 text-justify">
             <p className="text-2xl font-light">About</p>
             <br/>
-            <p className="text-xs">🚀 Current version: v1.65.1 - Published at 23rd March 2024</p>
+            <p className="text-xs">🚀 Current version: v1.65.2 - Published at 24th March 2024</p>
             <br/>
             <p className="font-bold mt-10">
                 General
@@ -62,6 +62,8 @@ function Page() {
                 page is used from <a target="_blank" href="https://icons8.com"><u>Icons8</u></a>. The emoticons to
                 visualize the corresponding mood are used from <a target="_blank"
                                                                   href="https://emojipedia.org/de/apple"><u>Emojipedia</u></a>.
+                The Spotify web player is taken from an existing GitHub Repository that can be found <a target="_blank"
+                                                                                                        href="https://github.com/spotify/spotify-web-playback-sdk-example"><u>here</u></a>.
             </p>
             <br/>
             <p className="font-bold mt-10">
