@@ -59,7 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
                   <footer className="bg-black text-center text-gray-500 py-4 px-6">
                       <p className="text-white py-5">🚀 v1.65.1</p>
-                      <p>&copy; Copyright 2024 Manuel Keck</p>
+                      <p>&copy; 2024 Manuel Keck. All rights reserved.</p>
                   </footer>
 
               </div>
