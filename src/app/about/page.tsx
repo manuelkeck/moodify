@@ -22,7 +22,7 @@ function Page() {
                 stored in a database and can be evaluated, once a meaningful amount of responses could be collected.
                 Over the time, the attributes for mood-based recommendations will be adjusted to provide more precise
                 recommendations. The submitted response contains a timestamp, the selected current mood, the target mood,
-                as well as the recommendation URL sent to Spotify's recommendation endpoint and the given answer, if
+                as well as the recommendation URL sent to Spotify&lsquo;s recommendation endpoint and the given answer, if
                 the recommendation helps transforming the mood (yes or no). Based on that information the adjustments
                 will be performed.
             </p>
