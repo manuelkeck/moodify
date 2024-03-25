@@ -60,8 +60,8 @@ class MoodTransformationAttributes {
     } // iteration 1
 
     angry_energized(url: string) {
-        let _attribute1: attribute = {attr: "target_energy", value: 0.8};
-        let _attribute2: attribute = {attr: "target_danceability", value: 0.8};
+        let _attribute1: attribute = {attr: "target_energy", value: 1.0};
+        let _attribute2: attribute = {attr: "target_danceability", value: 1.0};
         let _attribute3: attribute = {attr: "target_tempo", value: 140};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
     } // iteration 1
@@ -89,7 +89,7 @@ class MoodTransformationAttributes {
 
     tired_energized(url: string) {
         let _attribute1: attribute = {attr: "target_energy", value: 0.9};
-        let _attribute2: attribute = {attr: "target_danceability", value: 0.9};
+        let _attribute2: attribute = {attr: "target_bounciness", value: 0.9};
         let _attribute3: attribute = {attr: "target_tempo", value: 140};
         return this.createResponse([_attribute1, _attribute2, _attribute3], url);
     } // iteration 1

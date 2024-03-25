@@ -546,7 +546,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                     { /* Questionnaire (recommendation good/not good, yes/no) */}
                     {releaseButtons ? (
                         <>
-                            <p className="mb-10">Listen to this song!*</p>
+                            <p className="mb-10">Listen to this song!</p>
                             <div>
                                 {recommendation !== null && (!('error' in recommendation)) ? (
                                     <div className="sm:bg-gradient-radial from-black via-black to-gray-800 rounded-2xl sm:p-10">
@@ -575,8 +575,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             </div>
             <div className="mt-32 mx-5">
                 <p className="text-xs font-normal">
-                    *The default recommendations and mood-based recommendations are based on users top 2 artists of the
-                    last 6 weeks and top 3 titles of the last 6 months.
+                    {/**The recommendations are based on users top 2 artists and top 3 titles derived from the data of the last six weeks, with additional.*/}
                 </p>
                 <div className="text-xs font-normal pt-10 flex items-center justify-center">
                     <p>Data provided by </p>

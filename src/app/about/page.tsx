@@ -12,7 +12,6 @@ function Page() {
             </p>
             <br/>
             <p>
-                This website is developed for research purposes.
                 The main objective of this website is to validate attributes to reach a mood transformation based on
                 the selected moods. The data, including top artists, top tracks and recommendations are provided by
                 Spotify Web API. The documentation can be found <a target="_blank"

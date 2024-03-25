@@ -212,8 +212,7 @@ function TopArtistComponent() {
             </div>
             <div className="mt-32 mx-5">
                 <p className="text-xs">
-                    The overview of top tracks is based on the last 6 months and top artists is based on the
-                    last 6 weeks.
+                    The overview of the top tracks and artists is derived from the data of the last six weeks.
                 </p>
                 <div className="text-xs pt-10 flex items-center justify-center">
                     <p>Data provided by </p>
