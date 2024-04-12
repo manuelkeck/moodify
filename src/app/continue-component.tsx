@@ -4,7 +4,7 @@ import Image from "next/image";
 
 function ContinueComponent () {
     return (
-        <div className="flex text-base font-light text-center justify-center my-10">
+        <div className="flex text-base font-extralight text-center justify-center my-10">
 
             <div className="rounded-2xl m-3 p-3 sm:w-1/3 w-1/2 h-32">
                 <div className="animate-border text-base">

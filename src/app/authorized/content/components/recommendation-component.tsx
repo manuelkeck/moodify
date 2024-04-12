@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useDebugValue, useEffect, useRef, useState} from "react";
 import {useCookies} from "react-cookie";
 import SessionExpiredPopupComponent from "@/app/authorized/content/components/session-expired-popup-component";
 import Image from "next/image";
@@ -79,16 +79,20 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                         let _seed_artists = "seed_artists=";
 
                         _tracksData.forEach((id) => {
-                            if (_seed_tracks !== "seed_tracks=") {
-                                _seed_tracks = _seed_tracks.concat("%2C");
+                            if (id !== undefined) {
+                                if (_seed_tracks !== "seed_tracks=") {
+                                    _seed_tracks = _seed_tracks.concat("%2C");
+                                }
+                                _seed_tracks = _seed_tracks.concat(id);
                             }
-                            _seed_tracks = _seed_tracks.concat(id);
                         });
                         _artistsData.forEach((id) => {
-                            if (_seed_artists !== "seed_artists=") {
-                                _seed_artists = _seed_artists.concat("%2C");
+                            if (id !== undefined) {
+                                if (_seed_artists !== "seed_artists=") {
+                                    _seed_artists = _seed_artists.concat("%2C");
+                                }
+                                _seed_artists = _seed_artists.concat(id);
                             }
-                            _seed_artists = _seed_artists.concat(id);
                         });
 
                         let url = _base_url.concat(_seed_artists);
@@ -107,6 +111,9 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
     }, [spotifyToken, moodTransformation]);
 
     async function fetchTracks(): Promise<[any, any, any]> {
+        let track_one
+        let track_two
+        let track_three
 
         // Check if cached data is available
         const cachedDataObject = sessionStorage.getItem('cachedTopTracks');
@@ -114,9 +121,24 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             console.log("Fetching users top tracks for recommendation: Using cached data from session storage");
 
             const parsedData = JSON.parse(cachedDataObject);
-            const track_one = parsedData.items[0].id;
-            const track_two = parsedData.items[1].id;
-            const track_three = parsedData.items[2].id;
+
+            if (parsedData.length === 3) {
+                track_one = parsedData.items[0].id;
+                track_two = parsedData.items[1].id;
+                track_three = parsedData.items[2].id;
+            } else if (parsedData.length === 0) {
+                track_one = undefined;
+                track_two = undefined;
+                track_three = undefined;
+            } else if (parsedData.length === 1) {
+                track_one = parsedData.items[0].id;
+                track_two = undefined;
+                track_three = undefined;
+            } else if (parsedData.length === 2) {
+                track_one = parsedData.items[0].id;
+                track_two = parsedData.items[1].id;
+                track_three = undefined;
+            }
 
             return [track_one, track_two, track_three];
         }
@@ -139,10 +161,23 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             let _data = await topTracks.json();
             sessionStorage.setItem('cachedTopTracks', JSON.stringify(_data));
 
-            // const parsedData = JSON.parse(_data);
-            const track_one = _data.items[0].id;
-            const track_two = _data.items[1].id;
-            const track_three = _data.items[2].id;
+           if (_data.length === 3) {
+                track_one = _data.items[0].id;
+                track_two = _data.items[1].id;
+                track_three = _data.items[2].id;
+            } else if (_data.length === 0) {
+                track_one = undefined;
+                track_two = undefined;
+                track_three = undefined;
+            } else if (_data.length === 1) {
+                track_one = _data.items[0].id;
+                track_two = undefined;
+                track_three = undefined;
+            } else if (_data.length === 2) {
+                track_one = _data.items[0].id;
+                track_two = _data.items[1].id;
+                track_three = undefined;
+            }
 
             return [track_one, track_two, track_three];
 
@@ -154,6 +189,8 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
     }
 
     async function fetchArtists(): Promise<[any, any]> {
+        let artist_one
+        let artist_two
 
         // Check if cached data is available
         const cachedDataObject = sessionStorage.getItem('cachedTopArtists');
@@ -161,8 +198,17 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             console.log("Fetching users top artists for recommendation: Using cached data from session storage");
 
             const parsedData = JSON.parse(cachedDataObject);
-            const artist_one = parsedData.items[0].id;
-            const artist_two = parsedData.items[1].id;
+
+            if (parsedData.total === 2) {
+                artist_one = parsedData.items[0].id;
+                artist_two = parsedData.items[1].id;
+            } else if (parsedData.total === 0) {
+                artist_one = undefined;
+                artist_two = undefined;
+            } else if (parsedData.total === 1) {
+                artist_one = parsedData.items[0].id;
+                artist_two = undefined;
+            }
 
             return [artist_one, artist_two];
         }
@@ -185,9 +231,16 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             let _data = await topArtists.json();
             sessionStorage.setItem('cachedTopArtists', JSON.stringify(_data));
 
-            // const parsedData = JSON.parse(_data);
-            const artist_one = _data.items[0].id;
-            const artist_two = _data.items[1].id;
+            if (_data.total === 2) {
+                artist_one = _data.items[0].id;
+                artist_two = _data.items[1].id;
+            } else if (_data.total === 0) {
+                artist_one = undefined;
+                artist_two = undefined;
+            } else if (_data.total === 1) {
+                artist_one = _data.items[0].id;
+                artist_two = undefined;
+            }
 
             return [artist_one, artist_two];
 
@@ -535,7 +588,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
     }
 
     return (
-        <div className="text-2xl font-light" ref={recommendationComponentRef}>
+        <div className="text-2xl font-extralight" ref={recommendationComponentRef}>
 
             <div className="flex flex-wrap justify-center">
                 <div className="flex-col m-5 sm:w-96 w-full">

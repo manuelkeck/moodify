@@ -42,7 +42,7 @@ function Home() {
     function LoginComponent() {
         return (
             <div className="text-center">
-                <p className="sm:text-2xl text-base font-light">
+                <p className="sm:text-2xl text-base font-extralight">
                     {message}
                 </p>
                 <div className="mt-8 lg:mt-24 flex-col justify-center items-center">

@@ -168,7 +168,7 @@ function TopArtistComponent() {
             {showPopup && (
                 <SessionExpiredPopupComponent onClose={onPopupClose}/>
             )}
-            <p className="mt-20 mb-5 sm:text-2xl text-base font-light">Check out your top 10 tracks!</p>
+            <p className="mt-20 mb-5 sm:text-2xl text-base font-extralight">Check out your top 10 tracks!</p>
             <div className="flex flex-wrap justify-center">
                 {tracksDataObject !== null && tracksDataObject.items.map((item, index) => (
                     <div key={index}
@@ -193,13 +193,13 @@ function TopArtistComponent() {
                     </div>
                 ))}
             </div>
-            <p className="mt-20 mb-5 sm:text-2xl text-base font-light">Check out your top 10 artists!</p>
+            <p className="mt-20 mb-5 sm:text-2xl text-base font-extralight">Check out your top 10 artists!</p>
             <div className="flex flex-wrap justify-center">
                 {artistsDataObject !== null && artistsDataObject.items.map((item, index) => (
                     <div key={index}
                          className="inline-block text-center m-2 lg:m-5 bg-gray-900 shadow-lg lg:p-6 p-2 rounded-lg sm:w-1/3 w-2/5 lg:w-60">
                         <a href={item.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-                            <p className="mt-3 mb-5 text-xl font-light text-slate-300">{item.name}</p>
+                            <p className="mt-3 mb-5 text-xl font-extralight text-slate-300">{item.name}</p>
                             <div className="flex justify-center items-center">
                                 <img src={item.images[1].url} alt="Artist cover"
                                      width={item.images[1].width}

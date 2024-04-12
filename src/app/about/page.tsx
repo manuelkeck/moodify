@@ -2,12 +2,12 @@ import React from "react";
 
 function Page() {
     return (
-        <div className="p-6 flex-col justify-center lg:w-2/3 text-justify">
-            <p className="text-2xl font-light">About</p>
+        <div className="p-6 flex-col justify-center lg:w-2/3 text-justify font-extralight">
+            <p className="text-2xl">About</p>
             <br/>
-            <p className="text-xs">🚀 Current version: v1.65.2 - Published at 24th March 2024</p>
+            <p className="text-xs">🚀 Current version: v1.65.4 - Published at 12th April 2024</p>
             <br/>
-            <p className="font-bold mt-10">
+            <p className="font-normal mt-10">
                 General
             </p>
             <br/>
@@ -26,7 +26,7 @@ function Page() {
                 will be performed.
             </p>
             <br/>
-            <p className="font-bold mt-10">
+            <p className="font-normal mt-10">
                 Privacy
             </p>
             <br/>
@@ -37,7 +37,7 @@ function Page() {
                 Spotify account settings.
             </p>
             <br/>
-            <p className="font-bold mt-10">
+            <p className="font-normal mt-10">
                 Security
             </p>
             <br/>
@@ -52,7 +52,7 @@ function Page() {
                 <u>here</u></a>.
             </p>
             <br/>
-            <p className="font-bold mt-10">
+            <p className="font-normal mt-10">
                 Used assets
             </p>
             <br/>
@@ -65,7 +65,7 @@ function Page() {
                                                                                                         href="https://github.com/spotify/spotify-web-playback-sdk-example"><u>here</u></a>.
             </p>
             <br/>
-            <p className="font-bold mt-10">
+            <p className="font-normal mt-10">
                 Contact
             </p>
             <br/>
