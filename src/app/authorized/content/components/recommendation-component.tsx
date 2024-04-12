@@ -122,19 +122,21 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
 
             const parsedData = JSON.parse(cachedDataObject);
 
-            if (parsedData.length === 3) {
+            console.log(parsedData)
+
+            if (parsedData.total >= 3) {
                 track_one = parsedData.items[0].id;
                 track_two = parsedData.items[1].id;
                 track_three = parsedData.items[2].id;
-            } else if (parsedData.length === 0) {
+            } else if (parsedData.total === 0) {
                 track_one = undefined;
                 track_two = undefined;
                 track_three = undefined;
-            } else if (parsedData.length === 1) {
+            } else if (parsedData.total === 1) {
                 track_one = parsedData.items[0].id;
                 track_two = undefined;
                 track_three = undefined;
-            } else if (parsedData.length === 2) {
+            } else if (parsedData.total === 2) {
                 track_one = parsedData.items[0].id;
                 track_two = parsedData.items[1].id;
                 track_three = undefined;
@@ -161,19 +163,19 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             let _data = await topTracks.json();
             sessionStorage.setItem('cachedTopTracks', JSON.stringify(_data));
 
-           if (_data.length === 3) {
+           if (_data.total >= 3) {
                 track_one = _data.items[0].id;
                 track_two = _data.items[1].id;
                 track_three = _data.items[2].id;
-            } else if (_data.length === 0) {
+            } else if (_data.total === 0) {
                 track_one = undefined;
                 track_two = undefined;
                 track_three = undefined;
-            } else if (_data.length === 1) {
+            } else if (_data.total === 1) {
                 track_one = _data.items[0].id;
                 track_two = undefined;
                 track_three = undefined;
-            } else if (_data.length === 2) {
+            } else if (_data.total === 2) {
                 track_one = _data.items[0].id;
                 track_two = _data.items[1].id;
                 track_three = undefined;
@@ -199,7 +201,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
 
             const parsedData = JSON.parse(cachedDataObject);
 
-            if (parsedData.total === 2) {
+            if (parsedData.total >= 2) {
                 artist_one = parsedData.items[0].id;
                 artist_two = parsedData.items[1].id;
             } else if (parsedData.total === 0) {
@@ -231,7 +233,7 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
             let _data = await topArtists.json();
             sessionStorage.setItem('cachedTopArtists', JSON.stringify(_data));
 
-            if (_data.total === 2) {
+            if (_data.total >= 2) {
                 artist_one = _data.items[0].id;
                 artist_two = _data.items[1].id;
             } else if (_data.total === 0) {
