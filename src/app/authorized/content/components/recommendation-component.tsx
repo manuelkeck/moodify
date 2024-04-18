@@ -5,6 +5,7 @@ import Image from "next/image";
 import MoodTransformationAttributes from "@/app/authorized/content/components/helper/mood-transformation-attributes";
 import EvaluationComponent from "@/app/authorized/content/components/evaluation";
 import Player from "@/app/authorized/content/components/spotify-player/player";
+import CarModePlayer from "@/app/authorized/content/components/spotify-player/car-mode-player";
 
 interface recommendationObject {
     tracks: {
@@ -34,9 +35,10 @@ interface MoodTuple {
 
 interface selectedMoodProps {
     selectedValue: MoodTuple;
+    carMode: boolean;
 }
 
-const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) => {
+const RecommendationComponent: React.FC<selectedMoodProps> = ({ selectedValue, carMode }) => {
     const [spotifyToken, setSpotifyToken] = useState("");
     const [showPopup, setShowPopup] = useState(false);
     const [recommendation, setRecommendation] = useState<recommendationObject | null>(null);
@@ -592,8 +594,8 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
     return (
         <div className="text-2xl font-extralight" ref={recommendationComponentRef}>
 
-            <div className="flex flex-wrap justify-center">
-                <div className="flex-col m-5 sm:w-96 w-full">
+            <div className={`flex flex-wrap justify-center`}>
+                <div className={`flex-col m-5 w-ful ${carMode ? "w-1/4" : "sm:w-96"}`}>
                     {showPopup && (
                         <SessionExpiredPopupComponent onClose={onPopupClose}/>
                     )}
@@ -604,10 +606,20 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({selectedValue}) =
                             <p className="mb-10">Listen to this song!</p>
                             <div>
                                 {recommendation !== null && (!('error' in recommendation)) ? (
-                                    <div className="sm:bg-gradient-radial from-black via-black to-gray-800 rounded-2xl sm:p-10">
-                                        <Player playlist={recommendation}
+                                    <div>
+                                        {carMode ? (
+                                            <CarModePlayer
+                                                playlist={recommendation}
                                                 accessToken={cookies.spotifyToken}
-                                        />
+                                            />
+                                        ) : (
+                                            <div className="sm:bg-gradient-radial from-black via-black to-gray-800 rounded-2xl sm:p-10">
+                                                <Player
+                                                    playlist={recommendation}
+                                                    accessToken={cookies.spotifyToken}
+                                                />
+                                            </div>
+                                        )}
                                     </div>
                                 ) : (
                                     <p className="text-base">An error occurred. Reload website.</p>

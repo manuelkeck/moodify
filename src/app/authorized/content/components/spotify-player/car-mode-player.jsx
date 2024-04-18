@@ -4,7 +4,7 @@
 import React, {useEffect, useState} from "react";
 import SpotifyPlayer from "react-spotify-web-playback";
 
-export default function Player({ playlist, accessToken }) {
+export default function CarModePlayer({ playlist, accessToken }) {
     const SpotifyPlayer = require('react-spotify-web-playback');
     const [play, setPlay] = useState(false)
     const [tmpPlaylist, setTmpPlaylist] = useState([]);
@@ -54,8 +54,7 @@ export default function Player({ playlist, accessToken }) {
                     sliderColor: '#1cb954',
                     trackArtistColor: '#ccc',
                     trackNameColor: '#fff',
-                    sliderHandleColor: '#fff',
-                    height: 100
+                    sliderHandleColor: '#fff'
                 }}
             />
         </div>

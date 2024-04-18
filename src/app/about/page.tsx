@@ -5,7 +5,7 @@ function Page() {
         <div className="p-6 flex-col justify-center lg:w-2/3 text-justify font-extralight">
             <p className="text-2xl">About</p>
             <br/>
-            <p className="text-xs">🚀 Current version: v1.65.5 - Published at 12th April 2024</p>
+            <p className="text-xs">🚀 Current version: v1.66.0 - Published at 18th April 2024</p>
             <br/>
             <p className="font-normal mt-10">
                 General

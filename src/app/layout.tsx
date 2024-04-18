@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import React from "react";
 import Link from "next/link";
 import ErrorBoundary from "@/app/authorized/content/components/ErrorBoundary";
+import {useCookies} from "react-cookie";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                   Moodify
                               </a>
                               <div className="">
-                                  <ul className="flex gap-2 mt-2 mb-2 lg:flex-row lg:items-center">
+                                  <ul className="flex gap-2 lg:flex-row lg:items-center">
                                       <li className="block p-1 font-sans font-normal text-blue-gray-900">
                                           <Link href="/" className="flex items-center">
                                               Home
@@ -58,12 +58,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </main>
 
                   <footer className="bg-black text-center text-gray-500 py-4 px-6">
-                      <p className="text-white py-5 text-xs">🚀 v1.65.5</p>
+                      <p className="text-white py-5 text-xs">🚀 v1.66.0</p>
                       <p>&copy; 2024 Manuel Keck. All rights reserved.</p>
                   </footer>
 
               </div>
           </body>
-      </html>
+        </html>
     );
 }
