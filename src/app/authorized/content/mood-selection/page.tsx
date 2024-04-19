@@ -31,6 +31,8 @@ const MoodSelectionPage: React.FC = () => {
 
         if (cookies.user === "Manuel Keck") {
             setCarToggle(true);
+        } else if (cookies.user === "Wilhelm Maybach") {
+            setCarToggle(true);
         }
 
     }, [cookies.spotifyToken, cookies.user]);
