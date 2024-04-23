@@ -44,11 +44,11 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
     useEffect(() => {
         if (carMode) {
             // Settings for car mode
-            setEmojisWidth(80);
-            setEmojisHeight(80);
-            setDefaultAppearance("text-center border-2 border-gray-900 text-3xl bg-gray-900 shadow-lg sm:px-5 pt-5 pb-2 mx-4 my-8 rounded-3xl cursor-pointer")
-            setSelectedAppearance("text-center border-2 border-gray-700 text-3xl bg-gray-800 shadow-lg sm:px-3 pt-5 pb-2 mx-4 my-8 rounded-3xl cursor-pointer")
-            setDisabledAppearance("text-center border-2 border-gray-900 text-3xl bg-gray-900 shadow-lg sm:px-3 pt-5 pb-2 mx-4 my-8 rounded-3xl cursor-not-allowed opacity-50")
+            setEmojisWidth(60);
+            setEmojisHeight(60);
+            setDefaultAppearance("text-center border-2 border-gray-900 text-2xl bg-gray-900 shadow-lg sm:px-5 pt-4 pb-2 mx-2 my-4 rounded-3xl cursor-pointer")
+            setSelectedAppearance("text-center border-2 border-gray-700 text-2xl bg-gray-800 shadow-lg sm:px-3 pt-4 pb-2 mx-2 my-4 rounded-3xl cursor-pointer")
+            setDisabledAppearance("text-center border-2 border-gray-900 text-2xl bg-gray-900 shadow-lg sm:px-3 pt-4 pb-2 mx-2 my-4 rounded-3xl cursor-not-allowed opacity-50")
         } else if (!carMode) {
             // Settings for desktop mode
             setEmojisWidth(25);
@@ -300,7 +300,7 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
                 <div className="col-span-1">
                     <div className="flex-col flex-wrap justify-center">
                         { carMode ? (
-                            <p className="text-2xl pb-5">Current mood</p>
+                            <p className="text-2xl">Current mood</p>
                         ) : (
                             <p className="text-sm pb-5">Current mood</p>
                         )}
@@ -315,7 +315,7 @@ const MoodComponent: React.FC<MoodComponentProps> = ({ onTargetMoodClick, onCurr
                     <div className="flex-col flex-wrap justify-center">
                         <div className="flex-col flex-wrap justify-center">
                             {carMode ? (
-                                <p className="text-2xl pb-5">Target mood</p>
+                                <p className="text-2xl">Target mood</p>
                             ) : (
                                 <p className="text-sm pb-5">Target mood</p>
                             )}
