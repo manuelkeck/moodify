@@ -5,7 +5,7 @@ function Index() {
         <div className="p-6 flex-col justify-center lg:w-2/3 text-justify font-extralight">
                 <p className="text-2xl">About</p>
                 <br/>
-                <p className="text-xs">🚀 Current version: v2.0.0 - Published at 21th May 2024</p>
+                <p className="text-xs">🚀 Current version: v2.0.0 - Published at 4th June 2024</p>
                 <br/>
                 <p className="font-normal mt-10">
                     General
