@@ -3,14 +3,14 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL")
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Evaluation {
-  id          Int         @id @default(autoincrement()) @unique
-  createdAt   DateTime    @default(now())
+  id          Int      @id @unique @default(autoincrement())
+  createdAt   DateTime @default(now())
   name        String
   currentMood String
   targetMood  String
@@ -19,7 +19,14 @@ model Evaluation {
 }
 
 model Pets {
-  id          Int         @id @default(autoincrement())
-  name        String      @unique
-  owner       String
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  owner String
+}
+
+model Moods {
+  auth0Sub    String   @id @unique
+  prevMood    String
+  currentMood String
+  lastUpdate  DateTime
 }
