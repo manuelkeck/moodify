@@ -27,11 +27,11 @@ interface recommendationObject {
 }
 
 interface componentProps {
-    mood: string;
+    energy_state: string;
     carMode: boolean;
 }
 
-const RecommendationComponent: React.FC<componentProps> = ({ mood, carMode}) => {
+const RecommendationComponent: React.FC<componentProps> = ({ energy_state, carMode}) => {
     const [showPopup, setShowPopup] = useState(false);
     const [recommendation, setRecommendation] = useState<recommendationObject | null>(null);
     const [releasePlayer, setReleasePlayer] = useState(false);
@@ -56,7 +56,7 @@ const RecommendationComponent: React.FC<componentProps> = ({ mood, carMode}) => 
         if (recommendation !== null) {
             updatePlaylist().then(r => "")
         }
-    }, [mood]);
+    }, [energy_state]);
 
     async function getRecommendations(type: string, url: string) {
         let _url = ""
@@ -118,17 +118,32 @@ const RecommendationComponent: React.FC<componentProps> = ({ mood, carMode}) => 
 
         // Get data for currently playing track
         const audioFeaturesObject = await fetchTrackAudioFeatures(currentSongID)
-        let currentEnergy = audioFeaturesObject.energy
+        let currentEnergy = parseFloat(audioFeaturesObject.energy.toFixed(1));
         let previousEnergy = currentEnergy
 
         // Adjust energy level of recommendations and fetch new recommendations
         if (currentEnergy > 0.9) {
             currentEnergy = 1.0
         } else {
-            switch (mood) {
-                case "calm": currentEnergy = currentEnergy + 0.2; break;
-                case "relaxed": currentEnergy = currentEnergy + 0.1; break;
-                case "excited": currentEnergy = currentEnergy - 0.2; break;
+                /*
+                                     "optimal energy"
+                                            ^
+                                           / \
+                                          /   \
+               "too little energy" ------------------- "pent-up energy"
+                                        /       \
+                                       /         \
+                                      /           \
+                                     /             \
+                                    /               \
+                            "no energy"         "blocked energy"
+            */
+            switch (energy_state) {
+                case "no energy": currentEnergy = Math.min(currentEnergy + 0.5, 1.0); break;
+                case "too little energy": currentEnergy = Math.min(currentEnergy + 0.2, 1.0); break;
+                // case "optimal energy": -> keep energy level of tracks
+                case "pent-up energy": currentEnergy = Math.max(currentEnergy - 0.2, 0.0); break;
+                case "blocked energy": currentEnergy = Math.max(currentEnergy - 0.5, 0.0); break;
             }
         }
 

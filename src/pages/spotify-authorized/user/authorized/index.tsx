@@ -68,7 +68,7 @@ const Authorized: React.FC = () => {
                 )}
                 {currentMood !== "" ? (
                     <>
-                        <RecommendationComponent mood={currentMood} carMode={false}/>
+                        <RecommendationComponent energy_state={currentMood} carMode={false}/>
                     </>
                 ) : (
                     <div>Loading Player ...</div>
