@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Link from "next/link";
 import React from "react";
 import {useAuth0} from "@auth0/auth0-react";
+import {MOODIFY_VERSION} from "../../../env-config";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -62,7 +63,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </main>
 
                 <footer className="bg-black text-center text-gray-500 py-4 px-6">
-                    <p className="text-white py-5 text-xs">🚀 v2.0.0</p>
+                    <p className="text-white py-5 text-xs">🚀 {MOODIFY_VERSION}</p>
                     <p>&copy; 2024 Manuel Keck. All rights reserved.</p>
                 </footer>
 

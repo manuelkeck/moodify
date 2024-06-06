@@ -1,11 +1,12 @@
 import React from "react";
+import {MOODIFY_RELEASE_DATE, MOODIFY_VERSION} from "../../../env-config";
 
 function Index() {
     return (
         <div className="p-6 flex-col justify-center lg:w-2/3 text-justify font-extralight">
                 <p className="text-2xl">About</p>
                 <br/>
-                <p className="text-xs">🚀 Current version: v2.0.0 - Published at 4th June 2024</p>
+                <p className="text-xs">🚀 Current version: {MOODIFY_VERSION} - Published at {MOODIFY_RELEASE_DATE}</p>
                 <br/>
                 <p className="font-normal mt-10">
                     General

@@ -1,6 +1,7 @@
+import {ENV_URL} from "./env-config";
+
 export const auth_endpoint = "https://accounts.spotify.com/authorize";
-// export const redirect_url = "http://localhost:3000/spotify-authorized";
-export const redirect_url = "https://changeyourmood.vercel.app/spotify-authorized";
+export const redirect_url = ENV_URL + "/spotify-authorized";
 const CLIENT_ID = "46bf5602e0f949babda734101dc3a3f0";
 const scopes = [
     "user-read-recently-played",

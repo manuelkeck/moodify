@@ -1,3 +1,7 @@
+import {ENV_URL} from "../../../env-config";
+
+const tmp_url = ENV_URL + "/api/mood"
+
 export async function sendMoodToDB(auth0Sub, currentMood) {
     const data = {
         auth0Sub: auth0Sub,
@@ -6,8 +10,8 @@ export async function sendMoodToDB(auth0Sub, currentMood) {
         lastUpdate: new Date()
     }
 
-    // await fetch('http://localhost:3000/api/mood', {
-    await fetch('https://changeyourmood.vercel.app/api/mood', {
+
+    await fetch(tmp_url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -18,8 +22,7 @@ export async function sendMoodToDB(auth0Sub, currentMood) {
 
 export default async function getCurrentMood(auth0Sub) {
     const response =
-        // await fetch('http://localhost:3000/api/mood', {
-        await fetch('https://changeyourmood.vercel.app/api/mood', {
+        await fetch(tmp_url, {
         method: 'GET',
         headers: {
             'X-Auth0-Sub': auth0Sub
