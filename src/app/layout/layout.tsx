@@ -58,7 +58,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     </nav>
                 </div>
 
-                <main className="flex-grow bg-black text-white py-8 flex items-center justify-center scroll-smooth">
+                <main className="flex-grow bg-black text-white pt-8 flex items-center justify-center scroll-smooth">
                     {children}
                 </main>
 

@@ -1,5 +1,3 @@
-//'use client';
-
 import { useCookies } from "react-cookie";
 import React, { useEffect, useState } from "react";
 import MoodComponent from "@/components/guest/mood-component";

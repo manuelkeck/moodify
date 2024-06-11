@@ -6,6 +6,7 @@ import MoodTransformationAttributes from "@/app/helper/mood-transformation-attri
 import EvaluationComponent from "@/components/guest/evaluation-component";
 import Player from "@/app/spotify-player/player";
 import CarModePlayer from "@/app/spotify-player/car-mode-player";
+import WebPlayback from "@/app/spotify-player/webplayer";
 
 interface recommendationObject {
     tracks: {
@@ -533,6 +534,10 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({ selectedValue, c
                                                     playlist={recommendation}
                                                     accessToken={cookies.spotifyToken}
                                                 />
+                                                {/*<WebPlayback
+                                                    recommendations={recommendation}
+                                                    token={cookies.spotifyToken}
+                                                />*/}
                                             </div>
                                         )}
                                     </div>

@@ -3,7 +3,6 @@ import {useCookies} from "react-cookie";
 import SessionExpiredPopupComponent from "@/components/guest/session-expired-popup-component";
 import Image from "next/image";
 import Player from "@/app/spotify-player/player";
-import CarModePlayer from "@/app/spotify-player/car-mode-player";
 
 interface recommendationObject {
     tracks: {
@@ -122,29 +121,25 @@ const RecommendationComponent: React.FC<componentProps> = ({ energy_state, carMo
         let previousEnergy = currentEnergy
 
         // Adjust energy level of recommendations and fetch new recommendations
-        if (currentEnergy > 0.9) {
-            currentEnergy = 1.0
-        } else {
-                /*
-                                     "optimal energy"
-                                            ^
-                                           / \
-                                          /   \
-               "too little energy" ------------------- "pent-up energy"
-                                        /       \
-                                       /         \
-                                      /           \
-                                     /             \
-                                    /               \
-                            "no energy"         "blocked energy"
-            */
-            switch (energy_state) {
-                case "no energy": currentEnergy = Math.min(currentEnergy + 0.5, 1.0); break;
-                case "too little energy": currentEnergy = Math.min(currentEnergy + 0.2, 1.0); break;
-                // case "optimal energy": -> keep energy level of tracks
-                case "pent-up energy": currentEnergy = Math.max(currentEnergy - 0.2, 0.0); break;
-                case "blocked energy": currentEnergy = Math.max(currentEnergy - 0.5, 0.0); break;
-            }
+        /*
+                                 "optimal energy"
+                                        ^
+                                       / \
+                                      /   \
+           "too little energy" ------------------- "pent-up energy"
+                                    /       \
+                                   /         \
+                                  /           \
+                                 /             \
+                                /               \
+                        "no energy"         "blocked energy"
+        */
+        switch (energy_state) {
+            case "no energy": currentEnergy = Math.min(currentEnergy + 0.5, 1.0); break;
+            case "too little energy": currentEnergy = Math.min(currentEnergy + 0.2, 1.0); break;
+            // case "optimal energy": -> keep energy level of tracks
+            case "pent-up energy": currentEnergy = Math.max(currentEnergy - 0.2, 0.0); break;
+            case "blocked energy": currentEnergy = Math.max(currentEnergy - 0.5, 0.0); break;
         }
 
         console.log("Previous energy level of song recommendations:", previousEnergy)

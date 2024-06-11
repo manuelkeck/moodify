@@ -23,11 +23,11 @@ export async function sendMoodToDB(auth0Sub, currentMood) {
 export default async function getCurrentMood(auth0Sub) {
     const response =
         await fetch(tmp_url, {
-        method: 'GET',
-        headers: {
-            'X-Auth0-Sub': auth0Sub
-        }
-    })
+            method: 'GET',
+            headers: {
+                'X-Auth0-Sub': auth0Sub
+            }
+        })
     if (response.status === 404) {
         return false;
     }
