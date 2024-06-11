@@ -39,7 +39,7 @@ const CurrentMoodComponent: React.FC<CurrentMoodComponentProps> = ({ userName, u
                 fetchMood().then(r => "");
             }
         };
-        const intervalId = setInterval(incrementCounterAndFetchMood, 50000);
+        const intervalId = setInterval(incrementCounterAndFetchMood, 10000);
         fetchMood().then(r => "");
         return () => clearInterval(intervalId);
     }, []);

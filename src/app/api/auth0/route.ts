@@ -13,9 +13,11 @@ export async function POST(req: NextRequest) {
 
     if (!checkData) {
         const createNewAuth0Entry = await prisma.moods.create({ data: JSONBody })
+        console.log("POST request successful: new user entry created")
         return NextResponse.json({message: 'POST request successful: new user entry created'});
     } else {
         console.log("POST request denied: entry already exists");
+        console.log("POST request denied: user entry already exists")
         return NextResponse.json({message: 'POST request denied: user entry already exists'});
     }
 }

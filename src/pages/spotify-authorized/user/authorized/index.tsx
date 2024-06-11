@@ -46,7 +46,6 @@ const Authorized: React.FC = () => {
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(data),
                 })
-                console.log("new auth0 db entry:", newEntry)
             }
         }
 
