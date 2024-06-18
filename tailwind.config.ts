@@ -22,6 +22,13 @@ const config: Config = {
           '50%': {backgroundPosition: '100% 50%'},
         },
       },
+      dropShadow: {
+        '5px': '0 0 5px rgba(0, 0, 255, 1)',
+        '10px': '0 0 10px rgba(0, 0, 255, 1)',
+        '15px': '0 0 15px rgba(0, 0, 255, 1)',
+        '5px-white': '0 0 5px rgba(255, 255, 255, 1)',
+        //'10px-white': '0 0 10px rgba(255, 255, 255, 1)',
+      },
     },
   },
   plugins: [],

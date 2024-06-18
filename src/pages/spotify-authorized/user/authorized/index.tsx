@@ -15,6 +15,7 @@ const Authorized: React.FC = () => {
     const [currentMood, setCurrentMood] = useState("")
     const [userAvailable, setUserAvailable] = useState(true)
     const [showQR, setShowQR] = useState(false)
+    const [currentEnergyLevel, setCurrentEnergyLevel] = useState(0)
 
     useEffect(() => {
         const redirectIfUnauthorized = async () => {
@@ -61,7 +62,13 @@ const Authorized: React.FC = () => {
 
 
     if (isLoading) {
-        return <div>Loading ...</div>;
+        return (
+            <>
+                <div>
+                    Loading ...
+                </div>
+            </>
+        )
     }
 
     return (
@@ -82,31 +89,38 @@ const Authorized: React.FC = () => {
                 />
             </div>
             <div className="text-center">
-                {user !== undefined && (
-                    <CurrentMoodComponent
-                        userName={user.name as string}
-                        userSub={user.sub as string}
-                        currentMood={currentMood}
-                        setCurrentMood={setCurrentMood}
-                        setUserAvailable={setUserAvailable}
-                    />
-                )}
-                {currentMood !== "" && !showQR ? (
-                    <>
-                        <RecommendationComponent energy_state={currentMood} carMode={false}/>
-                    </>
+                {user !== undefined ? (
+                    <div className="flex flex-col lg:flex-row justify-center items-start lg:space-x-32 space-y-8 lg:space-y-0">
+                        <RecommendationComponent
+                            energy_state={currentMood}
+                            carMode={false}
+                            setCurrentEnergyLevel={setCurrentEnergyLevel}
+                        />
+                        <CurrentMoodComponent
+                            userName={user.name as string}
+                            userSub={user.sub as string}
+                            currentMood={currentMood}
+                            setCurrentMood={setCurrentMood}
+                            setUserAvailable={setUserAvailable}
+                            currentEnergyLevel={currentEnergyLevel}
+                        />
+                    </div>
+
                 ) : (
-                    <div>Loading Player ...</div>
+                    <div>
+                        Loading Player ...
+                    </div>
                 )}
 
                 {!userAvailable ? (
-                    <div className="mt-5 bg-gradient-radial from-black via-black to-gray-800 rounded-2xl sm:p-10 text-xs">
+                    <div
+                        className="mt-5 bg-gradient-radial from-black via-black to-gray-800 rounded-2xl sm:p-10 text-xs">
                         <p>MoodiSense iOS and watchOS are needed.</p>
                         <p>Download these apps and enter your auth0 key in App settings.</p>
                         <p className="pb-5">After downloading the apps, logout and login again on this site.</p>
                         <Link className="underline" href={"/"}>Go back to Homepage</Link>
                     </div>
-                ):(<></>)}
+                ) : (<></>)}
 
                 <LogoutButton/>
 

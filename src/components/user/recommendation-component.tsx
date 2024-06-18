@@ -28,9 +28,10 @@ interface recommendationObject {
 interface componentProps {
     energy_state: string;
     carMode: boolean;
+    setCurrentEnergyLevel: (level: number) => void
 }
 
-const RecommendationComponent: React.FC<componentProps> = ({ energy_state, carMode}) => {
+const RecommendationComponent: React.FC<componentProps> = ({ energy_state, carMode, setCurrentEnergyLevel }) => {
     const [showPopup, setShowPopup] = useState(false);
     const [recommendation, setRecommendation] = useState<recommendationObject | null>(null);
     const [releasePlayer, setReleasePlayer] = useState(false);
@@ -61,8 +62,10 @@ const RecommendationComponent: React.FC<componentProps> = ({ energy_state, carMo
         let _url = ""
 
         if (type === "init") {
+            console.log("init")
             _url = await getRecommendationsURL()
         } else if (type === "update" ) {
+            console.log("update")
             _url = url
         }
 
@@ -117,8 +120,9 @@ const RecommendationComponent: React.FC<componentProps> = ({ energy_state, carMo
 
         // Get data for currently playing track
         const audioFeaturesObject = await fetchTrackAudioFeatures(currentSongID)
-        let currentEnergy = parseFloat(audioFeaturesObject.energy.toFixed(1));
+        let currentEnergy = parseFloat(audioFeaturesObject.energy.toFixed(1))
         let previousEnergy = currentEnergy
+        setCurrentEnergyLevel(currentEnergy)
 
         // Adjust energy level of recommendations and fetch new recommendations
         /*
@@ -201,7 +205,7 @@ const RecommendationComponent: React.FC<componentProps> = ({ energy_state, carMo
             return await response_recommendation.json();
 
         } catch (error) {
-            handleSessionExpired();
+            // handleSessionExpired();
             throw error;
         }
     }
@@ -216,14 +220,14 @@ const RecommendationComponent: React.FC<componentProps> = ({ energy_state, carMo
                 });
 
             if (!currentSong.ok) {
-                handleSessionExpired();
+                // handleSessionExpired();
                 new Error('Network response was not ok');
             }
 
             return await currentSong.json();
 
         } catch (error) {
-            handleSessionExpired();
+            // handleSessionExpired();
             throw error;
         }
     }
@@ -241,14 +245,14 @@ const RecommendationComponent: React.FC<componentProps> = ({ energy_state, carMo
                 });
 
             if (!audioAnalysis.ok) {
-                handleSessionExpired();
+                // handleSessionExpired();
                 new Error('Network response was not ok');
             }
 
             return await audioAnalysis.json();
 
         } catch (error) {
-            handleSessionExpired();
+            // handleSessionExpired();
             // console.error('Error fetching profile:', error);
             throw error;
         }
@@ -267,14 +271,14 @@ const RecommendationComponent: React.FC<componentProps> = ({ energy_state, carMo
                 });
 
             if (!audioFeatures.ok) {
-                handleSessionExpired();
+                // handleSessionExpired();
                 new Error('Network response was not ok');
             }
 
             return await audioFeatures.json();
 
         } catch (error) {
-            handleSessionExpired();
+            // handleSessionExpired();
             // console.error('Error fetching profile:', error);
             throw error;
         }
@@ -329,24 +333,19 @@ const RecommendationComponent: React.FC<componentProps> = ({ energy_state, carMo
 
             <div className="flex flex-wrap justify-center">
                 {/*<div className={`m-5 w-ful ${carMode ? "w-1/4 flex-row" : "sm:w-96 flex-col"}`}>*/}
-                <div className="w-full sm:w-96 flex-col">
+                <div className="w-full flex-col">
                     {showPopup && (
                         <SessionExpiredPopupComponent onClose={onPopupClose}/>
                     )}
 
                     {releasePlayer ? (
                         <>
-                            <div className="">
+                            <div className="w-96 justify-center bg-gradient-radial from-black via-black to-gray-800 rounded-2xl p-6 mb-2">
                                 {recommendation !== null && (!('error' in recommendation)) ? (
-                                    <div className="">
-                                        <div
-                                            className="sm:bg-gradient-radial from-black via-black to-gray-800 rounded-2xl">
-                                            <Player
-                                                playlist={recommendation}
-                                                accessToken={cookies.sp_auth0}
-                                            />
-                                        </div>
-                                    </div>
+                                    <Player
+                                        playlist={recommendation}
+                                        accessToken={cookies.sp_auth0}
+                                    />
                                 ) : (
                                     <p className="text-base">An error occurred. Reload website.</p>
                                 )}
@@ -369,7 +368,7 @@ const RecommendationComponent: React.FC<componentProps> = ({ energy_state, carMo
                 <p className="text-xs font-normal">
                     {/**The recommendations are based on users top 2 artists and top 3 titles derived from the data of the last six weeks, with additional.*/}
                 </p>
-                <div className="text-xs font-normal flex items-center justify-center">
+                <div className="text-xs font-normal flex items-center justify-center mb-10">
                     <p>Data provided by </p>
                     <Image src="/Spotify_Logo_RGB_White.png" width={70} height={10} alt="Spotify logo"
                            className="ml-1"></Image>

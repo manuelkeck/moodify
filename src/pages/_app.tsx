@@ -5,7 +5,7 @@ import React from "react";
 import {Auth0Provider} from "@auth0/auth0-react";
 import {ENV_URL} from "../../env-config";
 
-export default function App({Component, pageProps }: AppProps) {
+export default function App({Component, pageProps}: AppProps) {
 
     return (
         <Auth0Provider
