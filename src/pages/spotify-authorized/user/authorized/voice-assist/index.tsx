@@ -1,5 +1,3 @@
-'use client'
-
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import Link from "next/link";
@@ -57,7 +55,7 @@ const VoiceAssist = () => {
                                 const songURI = response.tracks.items[0].uri;
                                 setSongURI(songURI);
                             } else {
-                                console.log("Error while fetching song URI from Spotify")
+                                console.log("Error while fetching song URI from Spotify: ", response)
                             }
 
                         })
@@ -141,7 +139,7 @@ const VoiceAssist = () => {
                 <div className="absolute" style={{bottom: '3%', left: '27%'}}>
                     <div
                         className="relative w-72 h-20 bg-white bg-opacity-65 rounded-2xl flex flex-col">
-                        <p className="mt-2 mx-2 text-xs font-bold">Driver:</p>
+                        <p className="mt-2 mx-2 text-xs font-bold">{cookies.user}:</p>
                         <p className="mx-2">{text}</p>
                     </div>
                 </div>
@@ -159,25 +157,29 @@ const VoiceAssist = () => {
                         <li className="py-2 opacity-65">Management der Assistenz Systeme</li>
                         <li className="py-2 opacity-65">Steuerung von Anrufen</li>
                         <li className="py-2 opacity-65">SMS Nachrichten vorlesen oder diktieren</li>
-                        <li className="py-2 opacity-65">Befehl</li>
-                        <li className="py-2 opacity-65">Befehl</li>
-                        <li className="py-2 opacity-65">Befehl</li>
-                        <li className="py-2 opacity-65">Befehl</li>
-                        <li className="py-2 opacity-65">Befehl</li>
-                        <li className="py-2 opacity-65">Befehl</li>
-
-                        <li className="py-2"></li>
-                        <li className="py-2 opacity-65">Von: https://www.kunzmann.de/de/services/lexikon/mbux/</li>
+                        <li className="py-2 opacity-65">Aussage über Stimmung</li>
+                        <li className="py-2 opacity-65">Aktuelle Situation</li>
+                        <li className="py-2 opacity-65">Reiseziel</li>
+                        <li className="py-2 opacity-65">Grund der Fahrt</li>
                     </ul>
                 </div>
 
                 {cookies.sp_auth0 !== "" && cookies.sp_auth0 !== undefined && songURI !== "" && showPlayer? (
-                    <div
-                        className="absolute top-1/2 right-7 w-96 justify-center bg-gradient-radial from-black/70 via-black/70 to-stone-500/70 rounded-2xl p-6 mb-2 transform -translate-y-1/2">
-                        <WebPlayback
-                            songURI={songURI}
-                            token={cookies.sp_auth0}
-                        />
+                    <div>
+                        <div className="absolute top-1/2 right-7 w-96 justify-center transform -translate-y-1/2">
+                            <div
+                                className="w-96 justify-center bg-gradient-radial from-black/70 via-black/70 to-stone-500/70 rounded-2xl p-6 mb-2">
+                                <WebPlayback
+                                    songURI={songURI}
+                                    token={cookies.sp_auth0}
+                                />
+                            </div>
+                            <p className="w-60 opacity-65 text-center mx-auto">
+                                Spotify Premium account from
+                                <span className="font-bold text-cyan-400"> {cookies.user} </span>
+                                logged in.
+                            </p>
+                        </div>
                     </div>
                 ) : (<></>)}
 
@@ -186,10 +188,10 @@ const VoiceAssist = () => {
             <div className="flex justify-center">
                 <div
                     className="transition duration-150 w-40 text-center text-base ease-in-out mt-10 bg-stone-600 hover:bg-stone-700 text-white font-medium py-2 px-4 rounded-2xl cursor-pointer">
-                <Link href="/spotify-authorized/user/authorized">Go Back</Link>
+                    <Link href="/spotify-authorized/user/authorized">Go Back</Link>
+                </div>
             </div>
         </div>
-    </div>
     )
 }
 
