@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
+require('dotenv').config();
 
 export async function POST(request: Request) {
     const openai = new OpenAI({
