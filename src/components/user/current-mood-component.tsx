@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import getCurrentMood from "@/app/helper/mood-handler";
+import Parabolic from "../../../public/parabolicCurve.svg"
 
 interface CurrentMoodComponentProps {
     userName: string
@@ -25,6 +26,7 @@ interface ParabolaProps {
 
 const CurrentMoodComponent: React.FC<CurrentMoodComponentProps> = ({ userName, userSub, currentMood, setCurrentMood, setUserAvailable, currentEnergyLevel }) => {
     const [counter, setCounter] = useState(1);
+    const [timer, setTimer] = useState(5000)
     const points = {
         'no energy':            { top: '90%', left: '20%'   },
         'too little energy':    { top: '40%', left: '31.5%' },
@@ -64,21 +66,7 @@ const CurrentMoodComponent: React.FC<CurrentMoodComponentProps> = ({ userName, u
             {/*<h2>Current Mood: {currentMood}</h2>*/}
             <p className="mb-16 mt-2">Current Energy Level</p>
             <div className="relative w-96 h-96 mx-auto">
-                <svg className="absolute w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <filter id="blurFilter" x="-10" y="-10" width="120" height="120">
-                            <feGaussianBlur in="SourceGraphic" stdDeviation="0.7"/>
-                        </filter>
-                    </defs>
-                    <path
-                        d="M20,90 Q50,-70 80,90"
-                        stroke="#2563eb"
-                        strokeWidth="1"
-                        fill="none"
-                        filter="url(#blurFilter)"
-                        className=""
-                    />
-                </svg>
+                <Parabolic />
                 {Object.entries(points).map(([label, position], index) => (
                     <div
                         key={label}

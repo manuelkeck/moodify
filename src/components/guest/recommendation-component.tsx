@@ -6,7 +6,6 @@ import MoodTransformationAttributes from "@/app/helper/mood-transformation-attri
 import EvaluationComponent from "@/components/guest/evaluation-component";
 import Player from "@/app/spotify-player/player";
 import CarModePlayer from "@/app/spotify-player/car-mode-player";
-import WebPlayback from "@/app/spotify-player/webplayer";
 
 interface recommendationObject {
     tracks: {
@@ -124,8 +123,6 @@ const RecommendationComponent: React.FC<selectedMoodProps> = ({ selectedValue, c
             console.log("Fetching users top tracks for recommendation: Using cached data from session storage");
 
             const parsedData = JSON.parse(cachedDataObject);
-
-            console.log(parsedData)
 
             if (parsedData.total >= 3) {
                 track_one = parsedData.items[0].id;

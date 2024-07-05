@@ -8,7 +8,7 @@ const LogoutButton = () => {
     return (
         <>
             <button
-                className="transition duration-150 ease-in-out mt-10 bg-stone-600 active:bg-stone-700 text-white py-2 px-6 rounded-2xl cursor-pointer"
+                className="transition w-40 duration-150 ease-in-out mt-3 bg-stone-600 active:bg-stone-700 text-white py-2 px-6 rounded-2xl cursor-pointer"
                 onClick={() => logout({logoutParams: {returnTo: ENV_URL}})}
             >
                 Logout

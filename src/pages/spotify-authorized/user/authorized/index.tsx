@@ -8,6 +8,7 @@ import {Bounce, toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 import Link from "next/link";
 import QRCode from "qrcode.react";
+import VoiceAssistButton from "@/components/user/voice-assist-button";
 
 const Authorized: React.FC = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
@@ -15,6 +16,7 @@ const Authorized: React.FC = () => {
     const [currentMood, setCurrentMood] = useState("")
     const [userAvailable, setUserAvailable] = useState(true)
     const [showQR, setShowQR] = useState(false)
+    const [showVoiceAssist, setShowVoiceAssist] = useState(false)
     const [currentEnergyLevel, setCurrentEnergyLevel] = useState(0)
 
     useEffect(() => {
@@ -42,6 +44,9 @@ const Authorized: React.FC = () => {
                     "currentMood": "optimal energy",
                     "lastUpdate": new Date()
                 }
+                if (user.sub as string === "auth0|664c6a628885a45ede5c7198") {
+                    setShowVoiceAssist(true)
+                } else (setShowVoiceAssist(false))
                 const newEntry = await fetch('/api/auth0', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
@@ -58,8 +63,6 @@ const Authorized: React.FC = () => {
             position: "top-center",
         });
     }, []);
-
-
 
     if (isLoading) {
         return (
@@ -122,6 +125,9 @@ const Authorized: React.FC = () => {
                     </div>
                 ) : (<></>)}
 
+                {showVoiceAssist ? (
+                    <VoiceAssistButton/>
+                ):(<></>)}
                 <LogoutButton/>
 
                 <p className="font-light text-xs text-gray-500 mt-10">Auth0 key: {user?.sub}</p>
