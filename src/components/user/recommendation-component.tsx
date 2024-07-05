@@ -62,10 +62,8 @@ const RecommendationComponent: React.FC<componentProps> = ({ energy_state, carMo
         let _url = ""
 
         if (type === "init") {
-            console.log("init")
             _url = await getRecommendationsURL()
         } else if (type === "update" ) {
-            console.log("update")
             _url = url
         }
 
