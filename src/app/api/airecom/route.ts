@@ -47,12 +47,11 @@ export async function POST(request: Request) {
         });
 
         if (!response.choices || response.choices.length === 0) {
-            throw new Error("Unexpected response structure from OpenAI");
+            throw new Error("Unexpected response structure from OpenAI")
         }
 
-        // @ts-ignore
-        const completion = response.choices[0].message.content.trim();
-        const { song, artist } = JSON.parse(completion);
+        const completion = response?.choices?.[0]?.message?.content?.trim() ?? '';
+        const { song, artist } = JSON.parse(completion)
 
         const songRecommendation: ChatContent = {
             song: song,
@@ -63,6 +62,6 @@ export async function POST(request: Request) {
 
     } catch (error) {
         console.error("Error processing request:", error);
-        return NextResponse.json({ error: "Error processing request" }, { status: 500 });
+        return NextResponse.json({ error: "Error processing request" }, { status: 500 })
     }
 }
