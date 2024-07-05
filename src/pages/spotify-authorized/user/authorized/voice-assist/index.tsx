@@ -31,7 +31,6 @@ const VoiceAssist = () => {
 
         // get recommendation first
         recognition.onresult = async function(event) {
-            console.log("event:", event)
             const transcript = event.results[0][0].transcript;
             setText(transcript)
             const response = await fetch('/api/airecom', {

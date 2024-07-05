@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
-require('dotenv').config();
+
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+});
 
 export async function POST(request: Request) {
-    const openai = new OpenAI({
-        apiKey: process.env.OPENAI_API_KEY,
-    });
-
     interface ChatContent {
         song: string;
         artist: string;
