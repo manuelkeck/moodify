@@ -15,12 +15,25 @@ const ContinueComponent = () => {
                     <div className="flex">
                         <Link href="/spotify-authorized/user">
                             <div
-                                className="relative text-base px-2 py-3 mr-2 ml-2 mt-3 w-40 h-28 animate-border rounded-3xl bg-white bg-gradient-to-r from-red-500 via-purple-500 to-blue-500 bg-[length:400%_400%] flex items-center justify-center">
+                                className="relative text-base px-2 py-3 mr-2 ml-2 mt-3 w-40 h-28 rounded-3xl border-2 border-gray-600 bg-gray-700 flex items-center justify-center">
                                 <span
                                     className="absolute w-14 rounded top-0 left-0 bg-red-600 text-white text-xs font-bold px-1 py-0.5 -rotate-[25deg] origin-top-left translate-x-[-20%] translate-y-[70%] bg-clip-border">
                                     beta
                                 </span>
-                                Apple Watch Mood Recognition
+                                Use Moodify with MoodiSense
+                            </div>
+                        </Link>
+                    </div>
+
+                    <div className="flex">
+                        <Link href="/spotify-authorized/voice-assistant">
+                            <div
+                                className="relative text-base px-2 py-3 mr-2 ml-2 mt-3 w-40 h-28 animate-border rounded-3xl bg-white bg-gradient-to-r from-red-500 via-purple-500 to-blue-500 bg-[length:400%_400%] flex items-center justify-center">
+                                <span
+                                    className="absolute w-14 rounded top-0.5 left-0.5 bg-red-600 text-white text-xs font-bold px-1 py-0.5 -rotate-[25deg] origin-top-left translate-x-[-20%] translate-y-[70%] bg-clip-border">
+                                    beta
+                                </span>
+                                Use Moodify as In-Car Voice Assistant
                             </div>
                         </Link>
                     </div>
@@ -28,7 +41,7 @@ const ContinueComponent = () => {
                     <div className="flex">
                         <Link href="/spotify-authorized/guest/content/mood-selection">
                             <div
-                                className="text-base px-2 py-3 mr-2 ml-2 mt-3 w-40 h-28 rounded-3xl bg-gray-700 flex items-center justify-center">
+                                className="text-base px-2 py-3 mr-2 ml-2 mt-3 w-40 h-28 rounded-3xl border-2 border-gray-600 bg-gray-700 flex items-center justify-center">
                                 Use Moodify without Peripherie
                             </div>
                         </Link>

@@ -63,20 +63,20 @@ function Index() {
                     Used assets
                 </p>
                 <br/>
-                <p> The <a target="_blank" href="https://icons8.com/icon/99266/arrow"><u>Arrow</u></a> icon on the mood
-                    selection
-                    page is used from <a target="_blank" href="https://icons8.com"><u>Icons8</u></a>. The emoticons to
-                    visualize the corresponding mood are used from <a target="_blank"
-                                                                      href="https://emojipedia.org/de/apple"><u>Emojipedia</u></a>.
-                    The Spotify web player is taken from an existing GitHub Repository that can be found <a
-                        target="_blank"
-                        href="https://github.com/spotify/spotify-web-playback-sdk-example"><u>here</u></a>.
-                </p>
-                <br/>
-                <p className="font-normal mt-10">
-                    Contact
-                </p>
-                <br/>
+            <p> The <a target="_blank" href="https://icons8.com/icon/99266/arrow"><u>Arrow</u></a> icon on the mood
+                selection page is used from <a target="_blank" href="https://icons8.com"><u>Icons8</u></a>.
+
+                The <a target="_blank" href="https://icons8.com/icon/7796/enlarge"><u>Enlarge</u></a> icon on the voice assistant
+                page is used from <a target="_blank" href="https://icons8.com"><u>Icons8</u></a>.
+
+                The emoticons to visualize the corresponding mood are used from <a target="_blank" href="https://emojipedia.org/de/apple"><u>Emojipedia</u></a>.
+                The Spotify web player is taken from an existing GitHub Repository that can be found <a target="_blank" href="https://github.com/spotify/spotify-web-playback-sdk-example"><u>here</u></a>.
+            </p>
+            <br/>
+            <p className="font-normal mt-10">
+                Contact
+            </p>
+            <br/>
                 <p>
                     Manuel Keck<br/>
                     <a href="mailto:manuel.keck@student.reutlingen-university.de"><u>manuel.keck@student.reutlingen-university.de</u></a>

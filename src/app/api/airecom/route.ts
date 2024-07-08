@@ -19,29 +19,30 @@ export async function POST(request: Request) {
             messages: [
                 {
                     "role": "system",
-                    "content": `
-                    You will be provided with a sentence. 
-                    The sentence is recorded within a vehicle cabin.
-                    The primary statement of the sentence is related to car features like climate control, entertainment control, or route guidance.
-                    The driver could say anything to the car.
-                    Imagine, you are the voice assistant of this car. 
-                    Your tasks are to:
-                    - detect the request of the driver
-                    - search for one random, suitable, situation-based music recommendation, based on the provided sentence
-                    - provide a song in any case
-                    Return a song title with the artist in the following JSON syntax:
-                    {
-                        "song": "<song title>",
-                        "artist": "<artist>"
-                    }
-                    `
+                    "content":
+                        `
+                            You will be provided with a sentence. 
+                            The sentence is recorded within a vehicle cabin.
+                            The primary statement of the sentence is related to car features like climate control, entertainment control, or route guidance.
+                            The driver could say anything to the car.
+                            Imagine, you are the voice assistant of this car. 
+                            Your tasks are to:
+                            - detect the request of the driver
+                            - search for one random, suitable, situation-based music recommendation, based on the provided sentence
+                            - provide a song in any case
+                            Return a song title with the artist in the following JSON syntax:
+                            {
+                                "song": "<song title>",
+                                "artist": "<artist>"
+                            }
+                        `
                 },
                 {
                     "role": "user",
                     "content": text
                 }
             ],
-            temperature: 0.7,
+            temperature: 1.0,
             max_tokens: 32,
             top_p: 1,
         });
