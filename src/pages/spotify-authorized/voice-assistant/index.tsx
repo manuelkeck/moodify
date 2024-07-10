@@ -40,6 +40,11 @@ const VoiceAssist = () => {
                 resolve();
             };
             window.speechSynthesis.speak(utterance);
+
+            document.addEventListener('click', function handleClick() {
+                window.speechSynthesis.speak(utterance);
+                document.removeEventListener('click', handleClick); // Remove the event listener after the first use
+            });
         });
     }
 
@@ -91,6 +96,9 @@ const VoiceAssist = () => {
                         });
                 })
         }
+        recognition.onend = function() {
+            setRecording(false);
+        };
         recognition.start()
     }
 
@@ -251,7 +259,7 @@ const VoiceAssist = () => {
             </div>
             <div
                 className="lg:opacity-0 opacity-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-300 flex flex-col items-center justify-center text-center"
-                style={{ pointerEvents: 'none' }}>
+                style={{pointerEvents: 'none'}}>
 
                 <p>Screen resolution of at least </p>
                 <p>1024x762 px needed</p>
