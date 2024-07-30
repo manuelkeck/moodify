@@ -5,11 +5,11 @@ export const redirect_url = ENV_URL + "/spotify-authorized";
 const CLIENT_ID = "46bf5602e0f949babda734101dc3a3f0";
 //const CLIENT_ID = "0be2f7e7c2d04a7e86544f910e9fe93a";
 const scopes = [
-    "user-read-recently-played",
+    //"user-read-recently-played",
     "user-top-read",
     "streaming",
     "user-read-email",
-    "user-read-private",
+    //"user-read-private",
     "user-modify-playback-state",
     "user-read-playback-state",
     "user-library-modify"
