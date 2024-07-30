@@ -14,7 +14,7 @@ export default function AuthorizedPage() {
     const [cookies, setCookie, removeCookie] = useCookies();
     const [topMessage, setTopMessage] = useState("Permission denied.");
     const [infoMessage, setInfoMessage] = useState("Please request for permission: manuel.keck@student.reutlingen-university.de");
-    const [continueButton, setContinueButton] = useState(false);
+    const [continueButton, setContinueButton] = useState(true);
 
     useEffect(() => {
         const _spotify_token = get_token_from_url().access_token;
