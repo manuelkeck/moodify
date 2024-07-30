@@ -12,8 +12,10 @@ export default function AuthorizedPage() {
     const [spotifyToken, setSpotifyToken] = useState("");
     const [name, setName] = useState<string | undefined>("User");
     const [cookies, setCookie, removeCookie] = useCookies();
-    const [topMessage, setTopMessage] = useState("Permission denied.");
-    const [infoMessage, setInfoMessage] = useState("Please request for permission: manuel.keck@student.reutlingen-university.de");
+    // const [topMessage, setTopMessage] = useState("Permission denied.");
+    const [topMessage, setTopMessage] = useState("Loading ...");
+    // const [infoMessage, setInfoMessage] = useState("Please request for permission: manuel.keck@student.reutlingen-university.de");
+    const [infoMessage, setInfoMessage] = useState("Loading ...");
     const [continueButton, setContinueButton] = useState(true);
 
     useEffect(() => {
@@ -47,7 +49,7 @@ export default function AuthorizedPage() {
             setInfoMessage("Spotify authorized successfully.");
             setContinueButton(true);
         } else {
-            console.log("No valid user detected. Permissions needed to use this spotify account.");
+            // console.log("No valid user detected. Permissions needed to use this spotify account.");
         }
 
     }, [spotifyToken, name]);
