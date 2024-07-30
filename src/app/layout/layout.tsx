@@ -5,6 +5,7 @@ import Link from "next/link";
 import React from "react";
 import {useAuth0} from "@auth0/auth0-react";
 import {MOODIFY_VERSION} from "../../../env-config";
+import WarningMessage from "@/components/warning-message";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                             <Link href="/" className="mr-4 block cursor-pointer font-sans text-white">
                                 Moodify
                             </Link>
+                            <WarningMessage />
                             <div className="">
                                 <ul className="flex gap-2 lg:flex-row lg:items-center">
                                     <li className="block p-1 font-sans font-normal text-blue-gray-900">
