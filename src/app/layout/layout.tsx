@@ -26,7 +26,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                             <Link href="/" className="mr-4 block cursor-pointer font-sans text-white">
                                 Moodify
                             </Link>
-                            <WarningMessage />
+                            {/*<WarningMessage />*/}
                             <div className="">
                                 <ul className="flex gap-2 lg:flex-row lg:items-center">
                                     <li className="block p-1 font-sans font-normal text-blue-gray-900">
