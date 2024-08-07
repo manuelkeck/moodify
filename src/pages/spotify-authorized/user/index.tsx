@@ -9,7 +9,7 @@ const Auth0LoginPage = () => {
 
             <div
                 className="font-normal text-xs flex flex-col items-center justify-center bg-black text-white underline mt-10">
-                <Link href="/">Go back and use Moodify as Guest</Link>
+                <Link href="/">Go back to Moodify</Link>
             </div>
         </div>
     );
