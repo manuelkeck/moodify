@@ -20,23 +20,21 @@ const SDSComponent = () => {
     const [language, setLanguage] = useState('en');
 
     useEffect(() => {
-        const browserLanguage = navigator.language || navigator.languages[0];
-
-        if (browserLanguage.startsWith('de')) {
-            setLanguage('de');
-        }
-    }, []);
-
-    useEffect(() => {
         if (songURI !== "") {
             setShowPlayer(true)
         }
     }, [songURI]);
 
     useEffect(() => {
+        const browserLanguage = navigator.language || navigator.languages[0];
+
+        if (browserLanguage.startsWith('de')) {
+            setLanguage('de');
+        }
+
         if (!releaseRecord) {
             let initText = ""
-            if (language === 'de') {
+            if (browserLanguage.startsWith('de')) {
                 initText = "Hallo! Ich bin dein persönlicher Sprachassistent. " +
                     "Drücke die Sprachsteuerungstaste am Lenkrad, um mit mir zu sprechen. " +
                     "Ich helfe dir gerne, die passende Musik für deine Fahrt zu finden."
