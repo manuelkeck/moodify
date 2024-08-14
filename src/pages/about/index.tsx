@@ -1,5 +1,5 @@
 import React from "react";
-import {MOODIFY_RELEASE_DATE, MOODIFY_VERSION} from "../../../env-config";
+import {MOODIFY_RELEASE_DATE, MOODIFY_VERSION, SHOW_CV} from "../../../env-config";
 
 function Index() {
     return (
@@ -74,10 +74,12 @@ function Index() {
                         <a href="mailto:keckmanuel@web.de"><u>keckmanuel@web.de</u></a>
                     </p>
                 </div>
-                <a href="/CV-Manuel-Keck.pdf" download className="flex flex-col items-center justify-center">
-                    <img src="/cv.png" alt="Download PDF" className="w-20 h-20 rounded mb-2"/>
-                    <p className="text-xs underline">Download CV</p>
-                </a>
+                { SHOW_CV ? (
+                    <a href="/CV-Manuel-Keck.pdf" download className="flex flex-col items-center justify-center">
+                        <img src="/cv.png" alt="Download PDF" className="w-20 h-20 rounded mb-2"/>
+                        <p className="text-xs underline">Download CV</p>
+                    </a>
+                ):(<></>)}
             </div>
         </div>
     )
