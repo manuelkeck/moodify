@@ -42,7 +42,7 @@ const ContinueComponent = () => {
                         <Link href="/spotify-authorized/guest/content/mood-selection">
                             <div
                                 className="text-base px-2 py-3 mr-2 ml-2 mt-3 w-40 h-28 rounded-3xl border-2 border-gray-600 bg-gray-700 flex items-center justify-center">
-                                Use Moodify without Peripherie
+                                Moodify your mood
                             </div>
                         </Link>
                     </div>
