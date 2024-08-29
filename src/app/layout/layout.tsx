@@ -66,7 +66,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
                 <footer className="bg-black text-center text-gray-500 py-4 px-6">
                     <p className="text-white py-5 text-xs">🚀 {MOODIFY_VERSION}</p>
-                    <p>&copy; 2024 Manuel Keck. All rights reserved.</p>
+                    <p>&copy; 2024 Manuel Keck. Some rights reserved.</p>
                 </footer>
 
             </div>
