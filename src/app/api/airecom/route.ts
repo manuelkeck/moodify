@@ -16,7 +16,8 @@ export async function POST(request: Request) {
 
         const response = await openai.chat.completions.create({
             //model: "gpt-3.5-turbo",
-            model: "gpt-4o-mini",
+            //model: "gpt-4o-mini",
+            model: "o1-preview",
             messages: [
                 {
                     "role": "system",
@@ -30,6 +31,7 @@ export async function POST(request: Request) {
                             Your tasks are to:
                             - detect the request of the driver
                             - search for one random, suitable, situation-based music recommendation, based on the provided sentence
+                            - the song should transform possible negative moods into a positive mood 
                             - provide a song in any case
                             Return a song title with the artist in the following JSON syntax:
                             {
