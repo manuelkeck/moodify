@@ -22,7 +22,8 @@ export async function POST(request: Request) {
                         Your tasks are to:
                         - respond to the driver as a voice assistant
                         - return a ${language} car-voice-assistant-like answer and imply that you will do whatever the driver wants and refer to 
-                          the given song that will be played now because the song is suitable. 
+                          the given song that will be played now because the song is suitable.
+                        - do not greet the driver at the beginning of the paraphrase 
                     `
             },
             {
