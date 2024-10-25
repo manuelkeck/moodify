@@ -64,6 +64,15 @@ function Index() {
                                                                                                         href="https://github.com/spotify/spotify-web-playback-sdk-example"><u>here</u></a>.
             </p>
             <br/>
+            <p className="font-normal mt-10">GitHub repositories</p>
+            <br/>
+            <p> Moodify: <a target="_blank"
+                            href="https://github.com/manuelkeck/moodify"><u>https://github.com/manuelkeck/moodify</u></a>
+            </p>
+            <p> MoodiSense: <a target="_blank"
+                            href="https://github.com/manuelkeck/moodisense"><u>https://github.com/manuelkeck/moodisense</u></a>
+            </p>
+            <br/>
 
             <div className="flex justify-between items-center mt-10">
                 <div>
@@ -74,12 +83,12 @@ function Index() {
                         <a href="mailto:keckmanuel@web.de"><u>keckmanuel@web.de</u></a>
                     </p>
                 </div>
-                { SHOW_CV ? (
+                {SHOW_CV ? (
                     <a href="/CV-Manuel-Keck.pdf" download className="flex flex-col items-center justify-center">
                         <img src="/cv.png" alt="Download PDF" className="w-20 h-20 rounded mb-2"/>
                         <p className="text-xs underline">Download CV</p>
                     </a>
-                ):(<></>)}
+                ) : (<></>)}
             </div>
         </div>
     )
