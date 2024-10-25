@@ -1,4 +1,4 @@
-
+# Moodify
 
 This project is an interactive web application that explores ways to
 adaptive and context-sensitive music recommendations based on situational
