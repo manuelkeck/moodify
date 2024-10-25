@@ -28,7 +28,7 @@ const SDSComponent = () => {
     }, [songURI]);
 
     useEffect(() => {
-        toast.info('Make sure your speaker is on.', {
+        toast.info('🔊 Ensure your speaker is on.', {
             position: "top-center",
         });
     }, []);
@@ -104,6 +104,12 @@ const SDSComponent = () => {
         });
     }
 
+    function noSpeechSignalRecognized() {
+        toast.info('🎙️ Voice input not recognised.', {
+            position: "top-center",
+        });
+    }
+
     function record() {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         const recognition = new SpeechRecognition();
@@ -124,8 +130,9 @@ const SDSComponent = () => {
             timeoutId = setTimeout(() => {
                 recognition.stop();
                 setRecording(false);
-                setReleaseRecord(true)
+                setReleaseRecord(true);
                 // setInfoText("Keine Eingabe erkannt. Bitte versuchen Sie es erneut.");
+                noSpeechSignalRecognized();
             }, 5000);
         };
 
