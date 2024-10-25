@@ -3,6 +3,8 @@ import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import WebPlayback from "@/app/spotify-player/webplayer";
 import {useCookies} from "react-cookie";
+import {Bounce, toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 
 interface songResponse {
     song: string,
@@ -24,6 +26,12 @@ const SDSComponent = () => {
             setShowPlayer(true)
         }
     }, [songURI]);
+
+    useEffect(() => {
+        toast.info('Make sure your speaker is on.', {
+            position: "top-center",
+        });
+    }, []);
 
     useEffect(() => {
         const browserLanguage = navigator.language || navigator.languages[0];
@@ -256,6 +264,21 @@ const SDSComponent = () => {
 
     return (
         <div className="relative">
+            <div className="text-base">
+                <ToastContainer
+                    position="top-center"
+                    autoClose={10000}
+                    hideProgressBar={false}
+                    newestOnTop={true}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss={false}
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                    transition={Bounce}
+                />
+            </div>
             <div className="lg:opacity-100 opacity-0">
                 <div className="relative w-full">
                     <Image
@@ -268,7 +291,7 @@ const SDSComponent = () => {
                         quality={100}
                     />
 
-                    { releaseRecord ? (
+                    {releaseRecord ? (
                         !recording ? (
                             <div>
                                 <div className="absolute animate-ping" style={{top: '47%', left: '38.6%'}}>
@@ -283,7 +306,7 @@ const SDSComponent = () => {
                                     <div className="w-20 h-20 cursor-pointer" onClick={record}></div>
                                 </div>
                             </div>
-                        ):(
+                        ) : (
                             <div>
                                 {/*<div className="absolute" style={{top: '48%', left: '39%'}}>
                                     <div className="w-10 h-10 bg-blue-900 opacity-65 rounded-full"></div>
@@ -302,7 +325,7 @@ const SDSComponent = () => {
                                 </div>
                             </div>
                         )
-                    ):(<></>)}
+                    ) : (<></>)}
 
                     <div className="absolute" style={{bottom: '3%', left: '27%'}}>
                         <div className="relative w-80 h-20 bg-white bg-opacity-65 rounded-2xl flex flex-col">
