@@ -43,7 +43,8 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-
+After login with Spotify, you get redirected to the origin domain.
+To avoid this, open file 'env-config.tsx' (moodify root) and switch the comment prefix ('//') from first to second line to enable localhost as redirect domain.
 
 ## Learn More
 
