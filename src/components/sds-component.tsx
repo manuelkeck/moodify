@@ -312,7 +312,7 @@ const SDSComponent = () => {
                     </div>
                     {language === 'de' ? (
                         <div
-                            className="absolute top-1/2 left-2 h-96 w-96 overflow-y-scroll p-4 text-xs transform -translate-y-1/2">
+                            className="absolute top-1/2 left-2 h-96 w-72 overflow-y-scroll p-4 text-xs transform -translate-y-1/2 custom-scrollbar">
                             <ul>
                                 <li className="py-2 opacity-65 font-bold">Beispielhafte Sprachbefehle:</li>
                                 <li className="py-2 opacity-65">Wettervorhersage</li>
@@ -334,7 +334,7 @@ const SDSComponent = () => {
                         </div>
                     ) : (
                         <div
-                            className="absolute top-1/2 left-2 h-96 w-96 overflow-y-scroll p-4 text-xs transform -translate-y-1/2">
+                            className="absolute top-1/2 left-2 h-96 w-96 overflow-y-scroll p-4 text-xs transform -translate-y-1/2 custom-scrollbar">
                             <ul>
                                 <li className="py-2 opacity-65 font-bold">Example Voice Commands:</li>
                                 <li className="py-2 opacity-65">Weather Forecast</li>
