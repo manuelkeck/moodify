@@ -28,6 +28,7 @@ export default function WebPlayer({ songURI, token }) {
                 name={"Moodify Voice Assist"}
                 uris={songURI}
                 layout={'compact'}
+                initialVolume={20}
                 styles={{
                     activeColor: '#fff',
                     bgColor: '#000000',

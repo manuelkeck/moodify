@@ -46,7 +46,7 @@ export async function POST(request: Request) {
                     "content": text
                 }
             ],
-            temperature: 1.2,
+            temperature: 1.4,
             max_tokens: 32,
             top_p: 1,
         });
