@@ -13,7 +13,7 @@ with your Spotify premium account.\
 Second, with an unpublished iOS and watchOS app, you can get adaptive music recommendations based on your vital data.
 The repo can be found here: [https://github.com/manuelkeck/moodisense](https://github.com/manuelkeck/moodisense).
 Last, with a voice assistant in automotive context, you can speak just anything you want to get context-based 
-music recommendations decoded by a LLM (gpt-40-mini from OpenAI).
+music recommendations decoded by a LLM (gpt-4o-mini from OpenAI).
 
 ## Getting Started
 
