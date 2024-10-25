@@ -30,7 +30,7 @@ export async function POST(request: Request) {
                             Imagine, you are the voice assistant of this car. 
                             Your tasks are to:
                             - detect the request of the driver
-                            - search for one random, suitable, situation-based music recommendation, based on the provided sentence
+                            - search for one suitable music recommendation, based on the provided sentence
                             - vary the song recommendation by considering different music genres, eras (80s, 90s, 2000s, etc.), and regions (Latin, European, African, etc.)
                             - the song should transform possible negative moods into a positive mood or enhance an already positive mood
                             - provide a song in any case
