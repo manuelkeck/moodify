@@ -5,7 +5,7 @@ adaptive and context-sensitive music recommendations based on situational
 or affective factors.
 The website was developed to support the theoretical results of a master thesis.
 
-The website can be found here: [https://changeyourmood.vercel.app](https://changeyourmood.vercel.app)
+The website can be found here: [https://changeyourmood.vercel.app](https://changeyourmood.vercel.app).
 
 To sum up, there are three options to get adaptive or context-sensitive music recommendations.
 First, you can select a 'current mood' and a 'target mood' if you start 'Moodify your Mood' after login
@@ -23,7 +23,7 @@ node -v
 # and
 npm -v
 ```
-If the commands cannot be found, download and install Node.js from here: [https://nodejs.org/en](https://nodejs.org/en)
+If the commands cannot be found, download and install Node.js from here: [https://nodejs.org/en](https://nodejs.org/en).
 
 Second, clone or download this repo.
 
