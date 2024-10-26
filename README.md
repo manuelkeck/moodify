@@ -11,7 +11,7 @@ To sum up, there are three options to get adaptive or context-sensitive music re
 First, you can select a 'current mood' and a 'target mood' if you start 'Moodify your Mood' after login
 with your Spotify premium account.\
 Second, with an unpublished iOS and watchOS app, you can get adaptive music recommendations based on your vital data.
-The repo can be found here: [https://github.com/manuelkeck/moodisense](https://github.com/manuelkeck/moodisense).
+The repo can be found here: [https://github.com/manuelkeck/moodisense](https://github.com/manuelkeck/moodisense).\
 Last, with a voice assistant in automotive context, you can speak just anything you want to get context-based 
 music recommendations decoded by a LLM (gpt-4o-mini from OpenAI).
 
